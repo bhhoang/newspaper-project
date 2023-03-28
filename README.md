@@ -1,13 +1,14 @@
 # newspaper-project
 
 ## Table of content
-    <details open="open">
-        <summary="Table of Contents"></summary>
+
+<details open="open">
+    <summary="Table of Contents"></summary>
         <ol>
             <li><a href="#Introduction">Introduction</a></li>
             <li><a href="#Member List">Group Member</a></li>
         </ol>
-    </details>
+</details>
 
 ## I - Introduction
 
