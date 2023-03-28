@@ -5,7 +5,7 @@
     <summary="Table of Contents"></summary>
     <ol>
         <li><a href="#Introduction">Introduction</a></li>
-        </li><a href="#Member List">Group Member</a></li>
+        <li><a href="#Member List">Group Member</a></li>
     </ol>
 
 ## I - Introduction
