@@ -6,10 +6,10 @@ if TYPE_CHECKING:
 
 
 class Author:
-    def __init__(self, username: str, password, display_name: str):
+    def __init__(self, username: str, password, real_name: str):
         self.__username = username
         self.__password = password
-        self.__display_name = display_name
+        self.__name = real_name
         self.__email = ""
         self.__bio = ""
         self.__expertise = ""
