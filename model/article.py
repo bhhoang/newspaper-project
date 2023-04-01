@@ -1,56 +1,53 @@
-from __future__ import annotations
-from typing import TYPE_CHECKING
 import re
 
 
-if TYPE_CHECKING:
-    from author import Author
-
-
 class Article:
-    def __init__(self, date: str, category: str, views: int, title: str, overview: str, author: Author, content: str):
+    def __init__(self, date: str, category: str, views: int, title: str, overview: str, author_id: int, content: str, ID: int):
         self.__date = date
-        self.__categories = category
+        self.__category = category
         self.__views = views
         self.__title = title
         self.__overview = overview
-        self.__author = author
+        self.__author = author_id
         self.__content = content
-        self.__images: list[str] = []
+        self.__id = ID
+        self.__images: list[str] = self.__extract_images(content)
 
     # Getters
+    def get_id(self) -> int: return self.__id
     def get_date(self) -> str: return self.__date
-    def get_categories(self) -> str: return self.__categories
+    def get_categories(self) -> str: return self.__category
     def get_views(self) -> int: return self.__views
     def get_title(self) -> str: return self.__title
-    def get_author(self) -> Author: return self.__author
+    def get_overview(self) -> str: return self.__overview
+    def get_author(self) -> int: return self.__author
     def get_content(self) -> str: return self.__content
+    def get_images(self) -> list[str]: return self.__images
 
     # Setters
     def set_date(self, date: str): self.__date = date
-    def set_categories(self, category: str): self.__categories = category
+    def set_categories(self, category: str): self.__category = category
     def set_views(self, views: int): self.__views = views
     def set_title(self, title: str): self.__title = title
-    def set_author(self, author: str): self.__author = author
+    def set_overview(self, overview: str): self.__overview = overview
+    def set_author(self, author_id: str): self.__author = author_id
     def set_content(self, content: str): self.__content = content
 
     # Extract images path from content
-    # @staticmethod
-    # def extract_images(content: str) -> list[str]:
-    #     """
-    #     Extract images path from content
-    #     :param content: Content to extract images from
-    #     :return: List of paths to images
-    #     """
-    #     # Image in markdown: ![](path)
-    #     regex = r"!\[(.*?)\]\((.*?)\)"
-    #     matches = re.finditer(regex, content, re.MULTILINE)
-    #
-    #     for matchNum, match in enumerate(matches, start=1):
-    #         for groupNum in range(0, len(match.groups())):
-    #             groupNum = groupNum + 1
-    #             print("Group {groupNum} found at {start}-{end}: {group}".format(groupNum=groupNum,
-    #                                                                             start=match.start(groupNum),
-    #                                                                             end=match.end(groupNum),
-    #                                                                             group=match.group(groupNum)))
-    #         printResult(match.groups())
+    @staticmethod
+    def __addResult(array_start, array_dest):
+        array_dest.append(array_start[1])
+
+    def __extract_images(self, content: str) -> list[str]:
+        """
+        Extract images path from content
+        :param content: Content to extract images from
+        :return: List of path to image
+        """
+        # Image in markdown: ![](path)
+        regex = r"!\[(.*?)\]\((.*?)\)"
+        matches = re.finditer(regex, content, re.MULTILINE)
+        images = []
+        for matchNum, match in enumerate(matches, start=1):
+            self.__addResult(match.groups(), images)
+        return images
