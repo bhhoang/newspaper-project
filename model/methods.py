@@ -1,7 +1,7 @@
 import re
 import bcrypt
 
-def word_limit(text:str, limit:int)->str:
+def limit_word(text:str, limit:int)->str:
     return ' '.join(text.split())[:limit]
 
 def validate_word_limit(text:str, limit:int)->bool:
@@ -18,4 +18,7 @@ def check_password(password:str, hashed_password:str)->bool:
 
 def compare_strings(string1:str, string2:str)->bool:
     return string1 == string2
+
+def check_category(category:str)->bool:
+    return category in ['Economy', 'Politics', 'Traffic', 'Medical', 'Sport', 'Travel', 'Entertain', 'Science & Technology']
 
