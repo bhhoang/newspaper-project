@@ -2,7 +2,8 @@ import re
 
 
 class Article:
-    def __init__(self, date: str, category: str, views: int, title: str, overview: str, author_id: int, content: str, ID: int):
+    def __init__(self, date: str, category: str, title: str, overview: str, author_id: int, content: str, ID: int,
+                 views: int = 0):
         self.__date = date
         self.__category = category
         self.__views = views
