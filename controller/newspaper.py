@@ -1,7 +1,7 @@
-from hashlib import sha256
 from model.dbquery import Database
 from model.author import Author
 from model.article import Article
+from model.methods import *
 
 db = Database()
 
@@ -35,7 +35,7 @@ class Newspapers:
         author_id = article_info['author']
         content = article_info['content']
         ID = article_info['_id']
-        article = Article(date, category, viewed, title, description, author_id, content, ID)
+        article = Article(date, category, title, description, author_id, content, ID, viewed)
         return article
 
     # Signup, Login and Logout
@@ -44,7 +44,7 @@ class Newspapers:
         """
         :return: False if username is already taken, True otherwise
         """
-        hashed_password = sha256(password.encode()).hexdigest()
+        hashed_password = hash_password(password)
         check = db.check_exist_username(username)
         if check:
             return False
@@ -57,13 +57,16 @@ class Newspapers:
         """
         :return: True if login is successful, False otherwise
         """
-        hashed_password = sha256(password.encode()).hexdigest()
-        author_info = db.authors_collection.find_one({'username': username, 'password': hashed_password})
+        author_info = db.authors_collection.find_one({'username': username})
+        # Account doesnt exists
         if author_info is None:
             return False
-        author_obj = self.__convert_to_Author(author_info)
-        self.__current_author = author_obj
-        return True
+        # Check password
+        if check_password(password, author_info['password']):
+            author_obj = self.__convert_to_Author(author_info)
+            self.__current_author = author_obj
+            return True
+        return False
 
     def logout(self):
         self.__current_author = None
@@ -96,7 +99,11 @@ class Newspapers:
     def get_articles_by_category(self, category: str) -> list[Article] | None:
         """
         :return: List of Article objs with matching category or None if not found
+        :raise ValueError: If category doesn't exist
         """
+        if not check_category(category):
+            raise ValueError("Invalid category")
+
         article_objs: list[Article] = []
         articles = db.get_article_by_category(category)
         for article in articles:
@@ -130,18 +137,22 @@ class Newspapers:
             article_objs.append(article_obj)
         return article_objs
 
+    # TODO: Add method to increase views of an article
     # Actions when logged in (Includes actions when not logged in)
-    def add_article(self, date: str, category: str, views: int, title: str, overview: str, content: str) -> None:
+    def add_article(self, date: str, category: str, title: str, overview: str, content: str) -> None:
         """
         :raise Exception: if the author is not logged in
+        :raise ValueError: if the category is invalid
         """
         # Check if the author is logged in
         if self.__current_author is None:
             raise Exception("User is not logged in")
+        if not check_category(category):
+            raise ValueError("Invalid category")
 
         author_id = self.__current_author.get_id()
         article_id = db.count_all_articles() + 1
-        article = Article(date, category, views, title, overview, author_id, content, article_id)
+        article = Article(date, category, title, overview, author_id, content, article_id)
         self.__current_author.add_article(article.get_id())
         db.update_pub_history(author_id, article_id)
         db.add_articles_to_db(article)
@@ -149,9 +160,12 @@ class Newspapers:
     def set_email(self, email: str) -> None:
         """
         :raise Exception: if the author is not logged in
+        :raise ValueError: if the email is invalid
         """
         if self.__current_author is None:
             raise Exception("User is not logged in")
+        if not validate_email(email):
+            raise ValueError("Invalid email. The email must be in the format of abc@def.xyz")
         self.__current_author.set_email(email)
         db.set_email(self.__current_author.get_id(), email)
 
