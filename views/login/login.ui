@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>LoginWindow</class>
+ <widget class="QMainWindow" name="LoginWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -62,7 +62,7 @@
      <number>20</number>
     </property>
     <item>
-     <widget class="QFrame" name="frame_3">
+     <widget class="QFrame" name="title_frame">
       <property name="maximumSize">
        <size>
         <width>16777215</width>
@@ -81,7 +81,7 @@ color: white</string>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-        <widget class="QLabel" name="label_3">
+        <widget class="QLabel" name="title_txt">
          <property name="font">
           <font>
            <pointsize>20</pointsize>
@@ -96,7 +96,7 @@ color: white</string>
      </widget>
     </item>
     <item alignment="Qt::AlignHCenter">
-     <widget class="QFrame" name="frame">
+     <widget class="QFrame" name="username_frame">
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
@@ -105,7 +105,7 @@ color: white</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="username_txt">
          <property name="maximumSize">
           <size>
            <width>16777215</width>
@@ -115,6 +115,7 @@ color: white</string>
          <property name="font">
           <font>
            <pointsize>12</pointsize>
+           <weight>50</weight>
            <bold>false</bold>
           </font>
          </property>
@@ -124,7 +125,7 @@ color: white</string>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit">
+        <widget class="QLineEdit" name="username_input">
          <property name="font">
           <font>
            <pointsize>11</pointsize>
@@ -136,7 +137,7 @@ color: white</string>
      </widget>
     </item>
     <item alignment="Qt::AlignHCenter">
-     <widget class="QFrame" name="frame_2">
+     <widget class="QFrame" name="pwrd_frame">
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
@@ -157,7 +158,7 @@ color: white</string>
         <number>0</number>
        </property>
        <item>
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="pwrd_txt">
          <property name="maximumSize">
           <size>
            <width>16777215</width>
@@ -175,7 +176,7 @@ color: white</string>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_2">
+        <widget class="QLineEdit" name="pwrd_input">
          <property name="font">
           <font>
            <pointsize>11</pointsize>
@@ -190,7 +191,7 @@ color: white</string>
      </widget>
     </item>
     <item alignment="Qt::AlignHCenter">
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="loginButton">
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>

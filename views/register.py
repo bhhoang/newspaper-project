@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'login.ui'
+## Form generated from reading UI file 'register.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.4.3
 ##
@@ -19,18 +19,18 @@ from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
     QLineEdit, QMainWindow, QPushButton, QSizePolicy,
     QVBoxLayout, QWidget)
 
-class Ui_LoginWindow(object):
-    def setupUi(self, LoginWindow):
-        if not LoginWindow.objectName():
-            LoginWindow.setObjectName(u"LoginWindow")
-        LoginWindow.resize(510, 293)
-        LoginWindow.setMinimumSize(QSize(497, 0))
-        LoginWindow.setMaximumSize(QSize(510, 300))
-        LoginWindow.setStyleSheet(u".QLineEdit{\n"
-"	border-radius: 5px;\n"
+class Ui_RegisterWindow(object):
+    def setupUi(self, RegisterWindow):
+        if not RegisterWindow.objectName():
+            RegisterWindow.setObjectName(u"RegisterWindow")
+        RegisterWindow.resize(403, 470)
+        RegisterWindow.setMinimumSize(QSize(392, 369))
+        RegisterWindow.setMaximumSize(QSize(510, 500))
+        RegisterWindow.setStyleSheet(u".QLineEdit{\n"
 "	width: 250%;\n"
 "	height: auto;\n"
-"	border:none\n"
+"	border:none;\n"
+"	border-bottom: 1px solid black\n"
 "}\n"
 ".QPushButton{\n"
 "	background-color: rgb(1, 124, 255);\n"
@@ -45,8 +45,11 @@ class Ui_LoginWindow(object):
 "	pointer-events:none;\n"
 "	border: none\n"
 "}\n"
-"")
-        self.centralwidget = QWidget(LoginWindow)
+"*{\n"
+"	background-color: rgb(255,255,255);\n"
+"	margin: 0\n"
+"}")
+        self.centralwidget = QWidget(RegisterWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -71,29 +74,51 @@ class Ui_LoginWindow(object):
 
         self.verticalLayout.addWidget(self.title_frame)
 
+        self.name_frame = QFrame(self.centralwidget)
+        self.name_frame.setObjectName(u"name_frame")
+        self.name_frame.setFrameShape(QFrame.StyledPanel)
+        self.name_frame.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_2 = QVBoxLayout(self.name_frame)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.name_txt = QLabel(self.name_frame)
+        self.name_txt.setObjectName(u"name_txt")
+        self.name_txt.setMaximumSize(QSize(16777215, 20))
+        font1 = QFont()
+        font1.setPointSize(12)
+        font1.setBold(False)
+        self.name_txt.setFont(font1)
+
+        self.verticalLayout_2.addWidget(self.name_txt)
+
+        self.name_input = QLineEdit(self.name_frame)
+        self.name_input.setObjectName(u"name_input")
+        font2 = QFont()
+        font2.setPointSize(11)
+        self.name_input.setFont(font2)
+
+        self.verticalLayout_2.addWidget(self.name_input)
+
+
+        self.verticalLayout.addWidget(self.name_frame, 0, Qt.AlignHCenter)
+
         self.username_frame = QFrame(self.centralwidget)
         self.username_frame.setObjectName(u"username_frame")
         self.username_frame.setFrameShape(QFrame.StyledPanel)
         self.username_frame.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_2 = QVBoxLayout(self.username_frame)
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout_4 = QVBoxLayout(self.username_frame)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.username_txt = QLabel(self.username_frame)
         self.username_txt.setObjectName(u"username_txt")
         self.username_txt.setMaximumSize(QSize(16777215, 20))
-        font1 = QFont()
-        font1.setPointSize(12)
-        font1.setBold(False)
         self.username_txt.setFont(font1)
 
-        self.verticalLayout_2.addWidget(self.username_txt)
+        self.verticalLayout_4.addWidget(self.username_txt)
 
         self.username_input = QLineEdit(self.username_frame)
         self.username_input.setObjectName(u"username_input")
-        font2 = QFont()
-        font2.setPointSize(11)
         self.username_input.setFont(font2)
 
-        self.verticalLayout_2.addWidget(self.username_input)
+        self.verticalLayout_4.addWidget(self.username_input)
 
 
         self.verticalLayout.addWidget(self.username_frame, 0, Qt.AlignHCenter)
@@ -124,24 +149,25 @@ class Ui_LoginWindow(object):
 
         self.verticalLayout.addWidget(self.pwrd_frame, 0, Qt.AlignHCenter)
 
-        self.loginButton = QPushButton(self.centralwidget)
-        self.loginButton.setObjectName(u"loginButton")
-        self.loginButton.setCursor(QCursor(Qt.PointingHandCursor))
+        self.registerButton = QPushButton(self.centralwidget)
+        self.registerButton.setObjectName(u"registerButton")
+        self.registerButton.setCursor(QCursor(Qt.PointingHandCursor))
 
-        self.verticalLayout.addWidget(self.loginButton, 0, Qt.AlignHCenter)
+        self.verticalLayout.addWidget(self.registerButton, 0, Qt.AlignHCenter)
 
-        LoginWindow.setCentralWidget(self.centralwidget)
+        RegisterWindow.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(LoginWindow)
+        self.retranslateUi(RegisterWindow)
 
-        QMetaObject.connectSlotsByName(LoginWindow)
+        QMetaObject.connectSlotsByName(RegisterWindow)
     # setupUi
 
-    def retranslateUi(self, LoginWindow):
-        LoginWindow.setWindowTitle(QCoreApplication.translate("LoginWindow", u"MainWindow", None))
-        self.title_txt.setText(QCoreApplication.translate("LoginWindow", u"Login as Author", None))
-        self.username_txt.setText(QCoreApplication.translate("LoginWindow", u"Username", None))
-        self.pwrd_txt.setText(QCoreApplication.translate("LoginWindow", u"Password", None))
-        self.loginButton.setText(QCoreApplication.translate("LoginWindow", u"Login", None))
+    def retranslateUi(self, RegisterWindow):
+        RegisterWindow.setWindowTitle(QCoreApplication.translate("RegisterWindow", u"MainWindow", None))
+        self.title_txt.setText(QCoreApplication.translate("RegisterWindow", u"Register to become an Author", None))
+        self.name_txt.setText(QCoreApplication.translate("RegisterWindow", u"Full Name", None))
+        self.username_txt.setText(QCoreApplication.translate("RegisterWindow", u"Username", None))
+        self.pwrd_txt.setText(QCoreApplication.translate("RegisterWindow", u"Password", None))
+        self.registerButton.setText(QCoreApplication.translate("RegisterWindow", u"Register", None))
     # retranslateUi
 
