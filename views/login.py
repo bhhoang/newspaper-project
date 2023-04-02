@@ -19,14 +19,14 @@ from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
     QLineEdit, QMainWindow, QPushButton, QSizePolicy,
     QVBoxLayout, QWidget)
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        if not MainWindow.objectName():
-            MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(510, 293)
-        MainWindow.setMinimumSize(QSize(497, 0))
-        MainWindow.setMaximumSize(QSize(510, 300))
-        MainWindow.setStyleSheet(u".QLineEdit{\n"
+class Ui_LoginWindow(object):
+    def setupUi(self, LoginWindow):
+        if not LoginWindow.objectName():
+            LoginWindow.setObjectName(u"LoginWindow")
+        LoginWindow.resize(510, 293)
+        LoginWindow.setMinimumSize(QSize(497, 0))
+        LoginWindow.setMaximumSize(QSize(510, 300))
+        LoginWindow.setStyleSheet(u".QLineEdit{\n"
 "	border-radius: 5px;\n"
 "	width: 250%;\n"
 "	height: auto;\n"
@@ -46,7 +46,7 @@ class Ui_MainWindow(object):
 "	border: none\n"
 "}\n"
 "")
-        self.centralwidget = QWidget(MainWindow)
+        self.centralwidget = QWidget(LoginWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -130,18 +130,18 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.loginButton, 0, Qt.AlignHCenter)
 
-        MainWindow.setCentralWidget(self.centralwidget)
+        LoginWindow.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(MainWindow)
+        self.retranslateUi(LoginWindow)
 
-        QMetaObject.connectSlotsByName(MainWindow)
+        QMetaObject.connectSlotsByName(LoginWindow)
     # setupUi
 
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.title_txt.setText(QCoreApplication.translate("MainWindow", u"Login as Author", None))
-        self.username_txt.setText(QCoreApplication.translate("MainWindow", u"Username", None))
-        self.pwrd_txt.setText(QCoreApplication.translate("MainWindow", u"Password", None))
-        self.loginButton.setText(QCoreApplication.translate("MainWindow", u"Login", None))
+    def retranslateUi(self, LoginWindow):
+        LoginWindow.setWindowTitle(QCoreApplication.translate("LoginWindow", u"MainWindow", None))
+        self.title_txt.setText(QCoreApplication.translate("LoginWindow", u"Login as Author", None))
+        self.username_txt.setText(QCoreApplication.translate("LoginWindow", u"Username", None))
+        self.pwrd_txt.setText(QCoreApplication.translate("LoginWindow", u"Password", None))
+        self.loginButton.setText(QCoreApplication.translate("LoginWindow", u"Login", None))
     # retranslateUi
 
