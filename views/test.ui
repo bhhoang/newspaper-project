@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1327</width>
+    <height>701</height>
+   </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>16777215</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Newspaper App</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>__siesta_tantei_wa_mou_shindeiru_drawn_by_lua22__sample-6b25b3a8cf6b7de416ce0100826da1b4.jpg</normaloff>__siesta_tantei_wa_mou_shindeiru_drawn_by_lua22__sample-6b25b3a8cf6b7de416ce0100826da1b4.jpg</iconset>
+  </property>
+  <property name="windowOpacity">
+   <double>1.000000000000000</double>
+  </property>
+  <property name="statusTip">
+   <string notr="true"/>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">*{
+	border: none;
+	margin: 0;
+	padding: 0;
+	scrollbar-width: thin
+}
+
+QSrollBar{
+	border:none;
+	background-color: rgb(161, 161, 161);
+	margin: 0
+}
+
+QScrollBar::add-line:vertical, QScrollBar::add-line:horizontal, QScrollBar::sub-line:vertical, QScrollBar::sub-line:horizontal{
+	border: none;
+	background: none
+}
+
+QScrollBar:handle{
+	border:none;
+	background-color: rgb(64, 65, 66);
+	border-radius: 8%;
+	width: 12px
+}
+
+QScrollBar::handle:vertical{
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+}
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal, QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
+	border: none;
+}
+ QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical, QScrollBar:left-arrow:horizontal, QScrollBar::right-arrow:horizontal {
+    border: none;
+	background:none;
+ }
+QScrollBar::handle:vertical:hover, QScrollBar::handle:horizontal:hover{	
+	background-color: rgb(36, 36, 36);
+}
+QScrollBar::handle:vertical:pressed, QScrollBar::handle:horizontal:pressed {	
+	background-color: rgb(24,24,24);
+}
+
+</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">*{
+	margin: 0;
+	padding: 0;
+	border: none
+}</string>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_7">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QFrame" name="categories">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>100</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">*{
+	border:none;
+	background: 	#3e3e42;
+	color: white;
+	margin: 0;
+	padding: 0;
+}
+
+QPushButton{
+	text-decoration: underline;
+	font-size: 14px;
+	font: 10pt url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&amp;family=Roboto:wght@300&amp;display=swap');
+}
+
+.QFrame#categories{
+	width:100%;
+	padding: 0;
+	border:100px
+}</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item row="0" column="4">
+        <widget class="QWidget" name="user_action" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QPushButton" name="login">
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">*{
+	color: white
+}</string>
+            </property>
+            <property name="text">
+             <string>Login</string>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>user (3).png</normaloff>user (3).png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="register_2">
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">*{
+	color: white
+}</string>
+            </property>
+            <property name="text">
+             <string>Register</string>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>user (3).png</normaloff>user (3).png</iconset>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="0" rowspan="4" colspan="2" alignment="Qt::AlignLeft|Qt::AlignVCenter">
+        <widget class="QLabel" name="app_icon">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>94</width>
+           <height>90</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>94</width>
+           <height>94</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>assets/c2809fdd51f6ea93032bfed10dcf824b.png</pixmap>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+         <property name="margin">
+          <number>0</number>
+         </property>
+         <property name="indent">
+          <number>-1</number>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="3">
+        <layout class="QHBoxLayout" name="category_container" stretch="1,1,1,1,1,1,1,2">
+         <property name="spacing">
+          <number>70</number>
+         </property>
+         <property name="sizeConstraint">
+          <enum>QLayout::SetNoConstraint</enum>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>10</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="Economy">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string>Economy</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="Politics">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string>Politics</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="Traffic">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string>Traffic</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="Medical">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string>Medical</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="Sport">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string>Sport</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="Travel">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string>Travel</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="Entertain">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string>Entertain</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="SciTech">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="baseSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string>Science and Technology</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="3" alignment="Qt::AlignHCenter|Qt::AlignTop">
+        <widget class="QLabel" name="app_name">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>PIRATE NEWS</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>1327</width>
+         <height>601</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QFrame" name="frame">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>70</height>
+           </size>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QPushButton" name="pushButton">
+             <property name="minimumSize">
+              <size>
+               <width>30</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>70</width>
+               <height>70</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(8, 148, 255);
+color: white;
+border-radius: 10px</string>
+             </property>
+             <property name="text">
+              <string>HOME</string>
+             </property>
+            </widget>
+           </item>
+           <item alignment="Qt::AlignHCenter">
+            <widget class="QLabel" name="old_1_title">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>50</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>20</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>SAMPLE TITLE</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="older_news">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item alignment="Qt::AlignTop">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras euismod lectus ut feugiat ullamcorper. Vivamus a magna eget massa pharetra finibus. Vivamus fermentum, nulla vitae sollicitudin cursus, risus urna pellentesque massa, in feugiat odio nibh sit amet nibh. Sed tincidunt ultrices cursus. Donec in lacinia ipsum. Maecenas lorem leo, varius eu fringilla at, maximus ac erat. In vehicula iaculis dui quis maximus.
+
+Duis blandit neque non dignissim pulvinar. Sed efficitur, enim mollis vestibulum aliquam, massa tellus viverra ligula, at rutrum lorem sapien a elit. Cras ac neque at diam lobortis egestas ac a libero. Etiam convallis erat a arcu scelerisque, quis porta ligula volutpat. Proin augue orci, convallis vitae laoreet elementum, hendrerit eu nunc. Cras vel iaculis quam, ac faucibus velit. Praesent ullamcorper nisi pharetra, egestas sapien in, eleifend metus. Vivamus iaculis tempus porttitor. Donec in sagittis sem, eget rutrum ipsum. Phasellus sed malesuada ipsum.
+
+Integer rutrum consequat purus non scelerisque. Etiam ultrices pretium ante sed commodo. Sed dignissim eros malesuada ligula tempus, eget porttitor nisl suscipit. Sed vel magna sodales, eleifend est eu, auctor turpis. Sed et tristique nibh, vel volutpat nisl. Sed sit amet eleifend justo, aliquam posuere odio. Praesent mattis, diam et vulputate efficitur, enim lacus viverra urna, eget ullamcorper diam nunc ac lorem. Nunc non malesuada ipsum. Mauris lorem nibh, blandit non bibendum eget, iaculis a nibh. Ut fermentum tincidunt iaculis. Aenean nec quam vel nisl consectetur vulputate ac dignissim orci.
+
+Integer vel dapibus orci, a porttitor ipsum. Nam quis feugiat magna. Sed ultrices gravida volutpat. Quisque a velit sed orci egestas faucibus. Phasellus ac convallis quam. Integer dapibus mauris id vulputate sollicitudin. Etiam id mauris purus. Pellentesque aliquam ac lorem id vulputate. Nullam nec dignissim lorem, et pretium massa. Maecenas varius felis nec sem ultrices, vitae aliquet est elementum. Ut non molestie sem. Proin suscipit suscipit diam, sed pharetra quam blandit viverra. Pellentesque faucibus suscipit enim, a aliquet lacus accumsan at. Proin tempus quam ut leo congue porta. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris vitae purus sit amet arcu cursus molestie et ac metus.
+
+Suspendisse pretium nisi accumsan, tempus neque et, ultrices lacus. Proin eleifend, tortor nec aliquam fermentum, quam ex pretium enim, lacinia iaculis quam quam ut orci. Morbi in posuere turpis. In hac habitasse platea dictumst. Praesent auctor augue non mollis volutpat. Praesent imperdiet efficitur volutpat. Nulla molestie felis eget nisl euismod, sit amet iaculis ante elementum. Cras vel orci ut ipsum elementum lacinia. Ut elementum tincidunt massa, in lobortis elit eleifend in. Curabitur varius justo vitae euismod feugiat. Etiam nec finibus ante. Phasellus nec consectetur magna, non imperdiet tellus. In dapibus rutrum arcu, in fermentum lectus efficitur eu. In varius justo et bibendum s\agittis.</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../Test.qrc"/>
+ </resources>
+ <connections/>
+</ui>

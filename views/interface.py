@@ -24,6 +24,7 @@ hot_article_description = hot_article.get_overview()
 
 recent_articles = np.get_recent_articles()
 
+# TODO: Set mousePressEvent for each article frame
 class Interface(object):
     def open_register(self):
         self.register_window = QtWidgets.QMainWindow()
@@ -524,9 +525,13 @@ class Ui_MainWindow(object):
 
         # Hot News Container: Contains hot news description, label and image
         self.hot_news_container = QtWidgets.QFrame(parent=self.hot_news)
+        self.hot_news_container.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.hot_news_container.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.hot_news_container.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.hot_news_container.setObjectName("hot_news_container")
+        # TODO: change lambda to function
+        self.hot_news_container.mousePressEvent = lambda event: print("Clicked hot news")
+
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.hot_news_container)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.hot_news_label = QtWidgets.QLabel(parent=self.hot_news_container)
@@ -539,30 +544,30 @@ class Ui_MainWindow(object):
         self.hot_news_label.setAutoFillBackground(False)
         self.hot_news_label.setObjectName("hot_news_label")
         self.verticalLayout_2.addWidget(self.hot_news_label)
-        self.hot_news_image_2 = QtWidgets.QLabel(parent=self.hot_news_container)
-        self.hot_news_image_2.setEnabled(True)
+        self.hot_news_image = QtWidgets.QLabel(parent=self.hot_news_container)
+        self.hot_news_image.setEnabled(True)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.hot_news_image_2.sizePolicy().hasHeightForWidth())
-        self.hot_news_image_2.setSizePolicy(sizePolicy)
-        self.hot_news_image_2.setMinimumSize(QtCore.QSize(0, 0))
-        self.hot_news_image_2.setMaximumSize(QtCore.QSize(711, 400))
-        self.hot_news_image_2.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-        self.hot_news_image_2.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
-        self.hot_news_image_2.setAutoFillBackground(False)
-        self.hot_news_image_2.setStyleSheet("")
-        self.hot_news_image_2.setFrameShape(QtWidgets.QFrame.Shape.Panel)
-        self.hot_news_image_2.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
-        self.hot_news_image_2.setText("")
-        self.hot_news_image_2.setTextFormat(QtCore.Qt.TextFormat.RichText)
+        sizePolicy.setHeightForWidth(self.hot_news_image.sizePolicy().hasHeightForWidth())
+        self.hot_news_image.setSizePolicy(sizePolicy)
+        self.hot_news_image.setMinimumSize(QtCore.QSize(0, 0))
+        self.hot_news_image.setMaximumSize(QtCore.QSize(711, 400))
+        self.hot_news_image.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.hot_news_image.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
+        self.hot_news_image.setAutoFillBackground(False)
+        self.hot_news_image.setStyleSheet("")
+        self.hot_news_image.setFrameShape(QtWidgets.QFrame.Shape.Panel)
+        self.hot_news_image.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.hot_news_image.setText("")
+        self.hot_news_image.setTextFormat(QtCore.Qt.TextFormat.RichText)
 
 
-        self.hot_news_image_2.setPixmap(QtGui.QPixmap(os.path.join(assets, hot_article_image)))
-        self.hot_news_image_2.setScaledContents(True)
-        self.hot_news_image_2.setWordWrap(True)
-        self.hot_news_image_2.setObjectName("hot_news_image_2")
-        self.verticalLayout_2.addWidget(self.hot_news_image_2, 0, QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignTop)
+        self.hot_news_image.setPixmap(QtGui.QPixmap(os.path.join(assets, hot_article_image)))
+        self.hot_news_image.setScaledContents(True)
+        self.hot_news_image.setWordWrap(True)
+        self.hot_news_image.setObjectName("hot_news_image_2")
+        self.verticalLayout_2.addWidget(self.hot_news_image, 0, QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignTop)
         self.hot_news_title = QtWidgets.QLabel(parent=self.hot_news_container)
         font = QtGui.QFont()
         font.setPointSize(20)
@@ -570,12 +575,12 @@ class Ui_MainWindow(object):
         self.hot_news_title.setFont(font)
         self.hot_news_title.setObjectName("hot_news_title")
         self.verticalLayout_2.addWidget(self.hot_news_title)
-        self.hot_news_description_6 = QtWidgets.QLabel(parent=self.hot_news_container)
-        self.hot_news_description_6.setMaximumSize(QtCore.QSize(16777215, 60))
-        self.hot_news_description_6.setStyleSheet("background-color: transparent; font-size: 15px;")
-        self.hot_news_description_6.setWordWrap(True)
-        self.hot_news_description_6.setObjectName("hot_news_description_6")
-        self.verticalLayout_2.addWidget(self.hot_news_description_6, 0, QtCore.Qt.AlignmentFlag.AlignTop)
+        self.hot_news_description = QtWidgets.QLabel(parent=self.hot_news_container)
+        self.hot_news_description.setMaximumSize(QtCore.QSize(16777215, 60))
+        self.hot_news_description.setStyleSheet("background-color: transparent; font-size: 15px;")
+        self.hot_news_description.setWordWrap(True)
+        self.hot_news_description.setObjectName("hot_news_description_6")
+        self.verticalLayout_2.addWidget(self.hot_news_description, 0, QtCore.Qt.AlignmentFlag.AlignTop)
         self.gridLayout_4.addWidget(self.hot_news_container, 2, 0, 1, 1)
         self.horizontalLayout.addWidget(self.hot_news)
         
@@ -603,7 +608,8 @@ class Ui_MainWindow(object):
         self.hot_news_label_2.setAutoFillBackground(False)
         self.hot_news_label_2.setObjectName("hot_news_label_2")
         self.verticalLayout_4.addWidget(self.hot_news_label_2)
-        self.recent_news_1 = QtWidgets.QWidget(parent=self.recent_news)
+        self.recent_news_1 = QtWidgets.QFrame(parent=self.recent_news)
+        self.recent_news_1.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.recent_news_1.setMaximumSize(QtCore.QSize(488, 269))
         self.recent_news_1.setStyleSheet("*{\n"
                                         "    background: transparent;\n"
@@ -613,6 +619,9 @@ class Ui_MainWindow(object):
                                         "}\n"
                                         "")
         self.recent_news_1.setObjectName("recent_news_1")
+        # TODO: Set lambda to function
+        self.recent_news_1.mousePressEvent = lambda event: print("Clicked recent news 1")
+
         self.verticalLayout_5 = QtWidgets.QVBoxLayout(self.recent_news_1)
         self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_5.setObjectName("verticalLayout_5")
@@ -650,8 +659,12 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.addWidget(self.recent_1_description_2)
         self.verticalLayout_4.addWidget(self.recent_news_1)
         self.recent_news_2 = QtWidgets.QFrame(parent=self.recent_news)
+        self.recent_news_2.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.recent_news_2.setMaximumSize(QtCore.QSize(488, 269))
         self.recent_news_2.setObjectName("recent_news_2")
+        # TODO: Set lambda to function
+        self.recent_news_2.mousePressEvent = lambda event: print("Clicked recent news 2")
+
         self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.recent_news_2)
         self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_6.setObjectName("verticalLayout_6")
@@ -693,11 +706,17 @@ class Ui_MainWindow(object):
         self.hot_news_label_3.setAutoFillBackground(False)
         self.hot_news_label_3.setObjectName("hot_news_label_3")
         self.verticalLayout_12.addWidget(self.hot_news_label_3)
+        
+        
         self.old_1 = QtWidgets.QFrame(parent=self.older_news)
         self.old_1.setMaximumSize(QtCore.QSize(1204, 181))
         self.old_1.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.old_1.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.old_1.setObjectName("old_1")
+        self.old_1.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        # TODO: Set lambda to function
+        self.old_1.mousePressEvent = lambda event: print("Clicked old news 1")
+
         self.formLayout_5 = QtWidgets.QFormLayout(self.old_1)
         self.formLayout_5.setObjectName("formLayout_5")
         self.old_1_image = QtWidgets.QLabel(parent=self.old_1)
@@ -730,11 +749,17 @@ class Ui_MainWindow(object):
         self.verticalLayout_8.addWidget(self.old_1_description)
         self.formLayout_5.setWidget(0, QtWidgets.QFormLayout.ItemRole.FieldRole, self.old_1_set)
         self.verticalLayout_12.addWidget(self.old_1)
+
+
         self.old_2 = QtWidgets.QFrame(parent=self.older_news)
         self.old_2.setMaximumSize(QtCore.QSize(1204, 181))
         self.old_2.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.old_2.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.old_2.setObjectName("old_2")
+        self.old_2.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        # TODO: Set lambda to function
+        self.old_2.mousePressEvent = lambda event: print("Clicked old news 2")
+
         self.formLayout_8 = QtWidgets.QFormLayout(self.old_2)
         self.formLayout_8.setObjectName("formLayout_8")
         self.old_2_image = QtWidgets.QLabel(parent=self.old_2)
@@ -768,11 +793,17 @@ class Ui_MainWindow(object):
         self.verticalLayout_11.addWidget(self.old_2_description)
         self.formLayout_8.setWidget(0, QtWidgets.QFormLayout.ItemRole.FieldRole, self.old_2_set)
         self.verticalLayout_12.addWidget(self.old_2)
+
+
         self.old_3 = QtWidgets.QFrame(parent=self.older_news)
         self.old_3.setMaximumSize(QtCore.QSize(1204, 181))
         self.old_3.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.old_3.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.old_3.setObjectName("old_3")
+        self.old_3.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        # TODO: Set lambda to function
+        self.old_3.mousePressEvent = lambda event: print("Clicked old news 3")
+        
         self.formLayout_7 = QtWidgets.QFormLayout(self.old_3)
         self.formLayout_7.setObjectName("formLayout_7")
         self.old_3_image = QtWidgets.QLabel(parent=self.old_3)
@@ -805,11 +836,17 @@ class Ui_MainWindow(object):
         self.verticalLayout_10.addWidget(self.old_3_description)
         self.formLayout_7.setWidget(0, QtWidgets.QFormLayout.ItemRole.FieldRole, self.old_3_set)
         self.verticalLayout_12.addWidget(self.old_3)
+
+
         self.old_4 = QtWidgets.QFrame(parent=self.older_news)
         self.old_4.setMaximumSize(QtCore.QSize(1204, 181))
         self.old_4.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.old_4.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.old_4.setObjectName("old_4")
+        self.old_4.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        # TODO: Set lambda to function
+        self.old_4.mousePressEvent = lambda event: print("Clicked old news 4")
+        
         self.formLayout_6 = QtWidgets.QFormLayout(self.old_4)
         self.formLayout_6.setObjectName("formLayout_6")
         self.old_4_image = QtWidgets.QLabel(parent=self.old_4)
@@ -868,8 +905,8 @@ class Ui_MainWindow(object):
         self.hot_news_label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">HOT NEWS</span></p></body></html>"))
         self.hot_news_title.setText(_translate("MainWindow", hot_article_title))
         # self.hot_news_description_6.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Lorem Ipsum</span><span style=\" font-size:10pt;\"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic</span></p></body></html>"))
-        self.hot_news_description_6.setText(_translate("MainWindow", hot_article_description))
-        self.set_text_with_ellipsis(self.hot_news_description_6)
+        self.hot_news_description.setText(_translate("MainWindow", hot_article_description))
+        self.set_text_with_ellipsis(self.hot_news_description)
 
         self.hot_news_label_2.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">    RECENT NEWS</span></p></body></html>"))
         
