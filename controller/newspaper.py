@@ -8,8 +8,12 @@ db = Database()
 
 class Newspapers:
     def __init__(self):
-        self.__hot_articles: list[Article] = db.get_articles_sort_views(1)
+        self.__hot_articles: list[Article] = []
         self.__recent_articles: list[Article] = []
+
+        self.__hot_articles.append(self.__convert_to_Article(db.get_articles_sort_views(1)[0]))
+        for article in db.get_articles_sort_date(6):
+            self.__recent_articles.append(self.__convert_to_Article(article))
         self.__current_author: Author | None = None     # Default to None when not logged in
 
     @staticmethod
@@ -75,6 +79,12 @@ class Newspapers:
     @staticmethod
     def get_all_categories() -> list[str]:
         return db.get_all_categories()
+    
+    def get_hot_articles(self) -> list[Article]:
+        return self.__hot_articles
+    
+    def get_recent_articles(self) -> list[Article]:
+        return self.__recent_articles
 
     def get_author_by_name(self, name: str):
         author = db.get_author_by_name(name)
@@ -132,6 +142,14 @@ class Newspapers:
     def get_articles_sort_by_views(self, limit: int) -> list[Article]:
         article_objs: list[Article] = []
         articles = db.get_articles_sort_views(limit)
+        for article in articles:
+            article_obj = self.__convert_to_Article(article)
+            article_objs.append(article_obj)
+        return article_objs
+    
+    def get_articles_sort_by_date(self, limit: int) -> list[Article]:
+        article_objs: list[Article] = []
+        articles = db.get_articles_sort_date(limit)
         for article in articles:
             article_obj = self.__convert_to_Article(article)
             article_objs.append(article_obj)
