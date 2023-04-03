@@ -12,7 +12,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1278</width>
+    <width>1262</width>
     <height>701</height>
    </rect>
   </property>
@@ -313,6 +313,7 @@ QPushButton{
          <property name="font">
           <font>
            <pointsize>18</pointsize>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -389,9 +390,9 @@ QPushButton{
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-450</y>
-         <width>1261</width>
-         <height>1422</height>
+         <y>0</y>
+         <width>1259</width>
+         <height>1419</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -443,7 +444,7 @@ QPushButton{
                 <property name="frameShadow">
                  <enum>QFrame::Raised</enum>
                 </property>
-                <layout class="QVBoxLayout" name="verticalLayout_2">
+                <layout class="QVBoxLayout" name="verticalLayout_3">
                  <item>
                   <widget class="QLabel" name="hot_news_label">
                    <property name="minimumSize">
@@ -466,7 +467,7 @@ QPushButton{
                    </property>
                   </widget>
                  </item>
-                 <item alignment="Qt::AlignLeft|Qt::AlignTop">
+                 <item>
                   <widget class="QLabel" name="hot_news_image_2">
                    <property name="enabled">
                     <bool>true</bool>
@@ -514,7 +515,7 @@ QPushButton{
                     <enum>Qt::RichText</enum>
                    </property>
                    <property name="pixmap">
-                    <pixmap>assets/Screenshot (14).png</pixmap>
+                    <pixmap>assets/basketball.jpg</pixmap>
                    </property>
                    <property name="scaledContents">
                     <bool>true</bool>
@@ -524,7 +525,27 @@ QPushButton{
                    </property>
                   </widget>
                  </item>
-                 <item alignment="Qt::AlignTop">
+                 <item>
+                  <widget class="QLabel" name="old_1_title_2">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>20</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>SAMPLE TITLE</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
                   <widget class="QLabel" name="hot_news_description_6">
                    <property name="maximumSize">
                     <size>
@@ -533,8 +554,7 @@ QPushButton{
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">*{
-	background-color: white
+                    <string notr="true">*{background-color: transparent
 }</string>
                    </property>
                    <property name="text">
@@ -619,16 +639,7 @@ QPushButton{
 }
 </string>
                 </property>
-                <layout class="QVBoxLayout" name="verticalLayout_5">
-                 <property name="leftMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>0</number>
-                 </property>
+                <layout class="QVBoxLayout" name="verticalLayout_2">
                  <property name="bottomMargin">
                   <number>0</number>
                  </property>
@@ -659,10 +670,30 @@ QPushButton{
                     <string/>
                    </property>
                    <property name="pixmap">
-                    <pixmap>assets/Screenshot (14).png</pixmap>
+                    <pixmap>assets/quantcomp.jpg</pixmap>
                    </property>
                    <property name="scaledContents">
                     <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="old_1_title_3">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>20</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>SAMPLE TITLE</string>
                    </property>
                   </widget>
                  </item>
@@ -677,12 +708,12 @@ QPushButton{
                    <property name="maximumSize">
                     <size>
                      <width>16777215</width>
-                     <height>60</height>
+                     <height>40</height>
                     </size>
                    </property>
                    <property name="styleSheet">
                     <string notr="true">*{
-	background-color: white
+background-color: transparent
 }</string>
                    </property>
                    <property name="text">
@@ -704,16 +735,7 @@ QPushButton{
                   <height>269</height>
                  </size>
                 </property>
-                <layout class="QVBoxLayout" name="verticalLayout_6">
-                 <property name="leftMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>0</number>
-                 </property>
+                <layout class="QVBoxLayout" name="verticalLayout_5">
                  <property name="bottomMargin">
                   <number>0</number>
                  </property>
@@ -726,10 +748,30 @@ QPushButton{
                     <string/>
                    </property>
                    <property name="pixmap">
-                    <pixmap>assets/Screenshot (14).png</pixmap>
+                    <pixmap>assets/soccer.jpg</pixmap>
                    </property>
                    <property name="scaledContents">
                     <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="old_1_title_4">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>20</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>SAMPLE TITLE</string>
                    </property>
                   </widget>
                  </item>
@@ -744,12 +786,12 @@ QPushButton{
                    <property name="maximumSize">
                     <size>
                      <width>16777215</width>
-                     <height>60</height>
+                     <height>40</height>
                     </size>
                    </property>
                    <property name="styleSheet">
                     <string notr="true">*{
-	background-color: white
+background-color: transparent
 }</string>
                    </property>
                    <property name="text">
@@ -827,7 +869,7 @@ QPushButton{
                  <string/>
                 </property>
                 <property name="pixmap">
-                 <pixmap>assets/Screenshot (14).png</pixmap>
+                 <pixmap>assets/pyrecu.png</pixmap>
                 </property>
                 <property name="scaledContents">
                  <bool>true</bool>
@@ -854,6 +896,7 @@ QPushButton{
                    <property name="font">
                     <font>
                      <pointsize>20</pointsize>
+                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -878,7 +921,7 @@ QPushButton{
                    </property>
                    <property name="styleSheet">
                     <string notr="true">*{
-	background-color: white
+background-color: transparent
 }</string>
                    </property>
                    <property name="text">
@@ -922,7 +965,7 @@ QPushButton{
                  <string/>
                 </property>
                 <property name="pixmap">
-                 <pixmap>assets/Screenshot (14).png</pixmap>
+                 <pixmap>assets/vote.jpg</pixmap>
                 </property>
                 <property name="scaledContents">
                  <bool>true</bool>
@@ -949,6 +992,7 @@ QPushButton{
                    <property name="font">
                     <font>
                      <pointsize>20</pointsize>
+                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -973,7 +1017,7 @@ QPushButton{
                    </property>
                    <property name="styleSheet">
                     <string notr="true">*{
-	background-color: white
+	background-color: transparent
 }</string>
                    </property>
                    <property name="text">
@@ -1017,7 +1061,7 @@ QPushButton{
                  <string/>
                 </property>
                 <property name="pixmap">
-                 <pixmap>assets/Screenshot (14).png</pixmap>
+                 <pixmap>assets/mongodb.png</pixmap>
                 </property>
                 <property name="scaledContents">
                  <bool>true</bool>
@@ -1044,6 +1088,7 @@ QPushButton{
                    <property name="font">
                     <font>
                      <pointsize>20</pointsize>
+                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -1068,7 +1113,7 @@ QPushButton{
                    </property>
                    <property name="styleSheet">
                     <string notr="true">*{
-	background-color: white
+background-color: transparent
 }</string>
                    </property>
                    <property name="text">
@@ -1112,7 +1157,7 @@ QPushButton{
                  <string/>
                 </property>
                 <property name="pixmap">
-                 <pixmap>assets/Screenshot (14).png</pixmap>
+                 <pixmap>assets/localpoli.png</pixmap>
                 </property>
                 <property name="scaledContents">
                  <bool>true</bool>
@@ -1139,6 +1184,7 @@ QPushButton{
                    <property name="font">
                     <font>
                      <pointsize>20</pointsize>
+                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -1163,7 +1209,7 @@ QPushButton{
                    </property>
                    <property name="styleSheet">
                     <string notr="true">*{
-	background-color: white
+background-color: transparent
 }</string>
                    </property>
                    <property name="text">
@@ -1190,8 +1236,6 @@ QPushButton{
    </layout>
   </widget>
  </widget>
- <resources>
-  <include location="../Test.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
