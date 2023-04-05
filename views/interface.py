@@ -23,18 +23,17 @@ hot_article_description = hot_article.get_overview()
 
 recent_articles = np.get_recent_articles()
 
-# TODO: Set mousePressEvent for each article frame
 class Interface(object):
     def open_register(self):
         self.register_window = QtWidgets.QMainWindow()
         self.ui = UI_Register()
-        self.ui.setupUi(self.register_window)
+        self.ui.setupUi(self.register_window, np.create_author)
         self.register_window.show()
 
     def open_login(self):
         self.login_window = QtWidgets.QMainWindow()
         self.ui = UI_Login()
-        self.ui.setupUi(self.login_window)
+        self.ui.setupUi(self.login_window, np.login)
         self.login_window.show()
 
     def set_text_with_ellipsis(self, label):
@@ -217,6 +216,8 @@ class Interface(object):
         self.app_name.setFont(font)
         self.app_name.setObjectName("app_name")
         self.gridLayout_2.addWidget(self.app_name, 1, 3, 1, 1, QtCore.Qt.AlignmentFlag.AlignHCenter)
+
+
         self.user_action = QtWidgets.QWidget(parent=self.categories)
         self.user_action.setObjectName("user_action")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.user_action)
