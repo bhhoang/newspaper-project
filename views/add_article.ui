@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AddArticle</class>
+ <widget class="QMainWindow" name="AddArticle">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>497</width>
+    <height>614</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Add Article</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icons/logo.png</normaloff>icons/logo.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="title_label">
+      <property name="text">
+       <string>Title:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPlainTextEdit" name="title_input">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>30</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="description_label">
+      <property name="text">
+       <string>Description:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPlainTextEdit" name="description_input">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>100</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>100</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="content_label">
+      <property name="text">
+       <string>Content:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPlainTextEdit" name="content_input"/>
+    </item>
+    <item>
+     <widget class="QLabel" name="category_label">
+      <property name="text">
+       <string>Category:</string>
+      </property>
+     </widget>
+    </item>
+    <item alignment="Qt::AlignLeft">
+     <widget class="QComboBox" name="category_selection">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>120</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <item>
+       <property name="text">
+        <string>Economy</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Politics</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Traffic</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Medical</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Sport</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Travel</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Entertain</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Science and Technology</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item alignment="Qt::AlignRight">
+     <widget class="QPushButton" name="summit_button">
+      <property name="text">
+       <string>Summit</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
