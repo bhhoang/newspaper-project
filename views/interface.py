@@ -7,86 +7,109 @@
 
 import sys, os
 from PyQt6 import QtCore, QtGui, QtWidgets
-from login import UI_Login
-from register import UI_Register
+from PyQt6.QtCore import Qt
+from .login import UI_Login
+from .register import UI_Register
+from controller.newspaper import Newspapers
 
 assets = os.path.join(os.path.dirname(__file__), "assets")
-print(os.path.join(assets, "c2809fdd51f6ea93032bfed10dcf824b.png"))
+
+np = Newspapers()
+
+hot_article = np.get_hot_articles()[0]
+hot_article_image = hot_article.get_images()[0]
+hot_article_title = hot_article.get_title()
+hot_article_description = hot_article.get_overview()
+
+recent_articles = np.get_recent_articles()
 
 class Interface(object):
     def open_register(self):
         self.register_window = QtWidgets.QMainWindow()
         self.ui = UI_Register()
-        self.ui.setupUi(self.register_window)
+        self.ui.setupUi(self.register_window, np.create_author)
         self.register_window.show()
 
     def open_login(self):
         self.login_window = QtWidgets.QMainWindow()
         self.ui = UI_Login()
-        self.ui.setupUi(self.login_window)
-        self.login_window.show() 
+        self.ui.setupUi(self.login_window, np.login)
+        self.login_window.show()
+
+    def set_text_with_ellipsis(self, label):
+        label_width = label.width()
+        # label_width = 1
+        font_metrics = label.fontMetrics()
+        ellipsis_width = font_metrics.horizontalAdvance("...", -1)
+        max_chars = 2000
+
+        if font_metrics.horizontalAdvance(label.text(), -1) > label_width:
+                ellipsis_text = font_metrics.elidedText(label.text(), Qt.TextElideMode.ElideRight, max_chars)
+                label.setText(ellipsis_text + "...")
+        else:
+                label.setText(label.text())
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("")
         MainWindow.setWindowModality(QtCore.Qt.WindowModality.NonModal)
         MainWindow.setEnabled(True)
         MainWindow.resize(1278, 701)
-        MainWindow.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        MainWindow.setMaximumSize(QtCore.QSize(1276, 1101))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(".\\__siesta_tantei_wa_mou_shindeiru_drawn_by_lua22__sample-6b25b3a8cf6b7de416ce0100826da1b4.jpg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setWindowOpacity(1.0)
         MainWindow.setStatusTip("")
         MainWindow.setStyleSheet("*{\n"
-"    border: none;\n"
-"    margin: 0;\n"
-"    padding: 0\n"
-"}\n"
-"\n"
-"QSrollBar{\n"
-"    border:none;\n"
-"    background-color: rgb(161, 161, 161);\n"
-"    margin: 0\n"
-"}\n"
-"\n"
-"QScrollBar::add-line:vertical, QScrollBar::add-line:horizontal, QScrollBar::sub-line:vertical, QScrollBar::sub-line:horizontal{\n"
-"    border: none;\n"
-"    background: none\n"
-"}\n"
-"\n"
-"QScrollBar:handle{\n"
-"    border:none;\n"
-"    background-color: rgb(64, 65, 66);\n"
-"    border-radius: 8%;\n"
-"    width: 12px\n"
-"}\n"
-"\n"
-"QScrollBar::handle:vertical{\n"
-"    subcontrol-position: top;\n"
-"    subcontrol-origin: margin;\n"
-"}\n"
-"QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal, QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {\n"
-"    background: none;\n"
-"    border: none;\n"
-"}\n"
-" QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical, QScrollBar:left-arrow:horizontal, QScrollBar::right-arrow:horizontal {\n"
-"    border: none;\n"
-"    background:none;\n"
-" }\n"
-"QScrollBar::handle:vertical:hover, QScrollBar::handle:horizontal:hover{    \n"
-"    background-color: rgb(36, 36, 36);\n"
-"}\n"
-"QScrollBar::handle:vertical:pressed, QScrollBar::handle:horizontal:pressed {    \n"
-"    background-color: rgb(24,24,24);\n"
-"}\n"
-"\n"
-"")
+                                "    border: none;\n"
+                                "    margin: 0;\n"
+                                "    padding: 0\n"
+                                "}\n"
+                                "\n"
+                                "QSrollBar{\n"
+                                "    border:none;\n"
+                                "    background-color: rgb(161, 161, 161);\n"
+                                "    margin: 0\n"
+                                "}\n"
+                                "\n"
+                                "QScrollBar::add-line:vertical, QScrollBar::add-line:horizontal, QScrollBar::sub-line:vertical, QScrollBar::sub-line:horizontal{\n"
+                                "    border: none;\n"
+                                "    background: none\n"
+                                "}\n"
+                                "\n"
+                                "QScrollBar:handle{\n"
+                                "    border:none;\n"
+                                "    background-color: rgb(64, 65, 66);\n"
+                                "    border-radius: 8%;\n"
+                                "    width: 12px\n"
+                                "}\n"
+                                "\n"
+                                "QScrollBar::handle:vertical{\n"
+                                "    subcontrol-position: top;\n"
+                                "    subcontrol-origin: margin;\n"
+                                "}\n"
+                                "QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal, QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {\n"
+                                "    background: none;\n"
+                                "    border: none;\n"
+                                "}\n"
+                                " QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical, QScrollBar:left-arrow:horizontal, QScrollBar::right-arrow:horizontal {\n"
+                                "    border: none;\n"
+                                "    background:none;\n"
+                                " }\n"
+                                "QScrollBar::handle:vertical:hover, QScrollBar::handle:horizontal:hover{    \n"
+                                "    background-color: rgb(36, 36, 36);\n"
+                                "}\n"
+                                "QScrollBar::handle:vertical:pressed, QScrollBar::handle:horizontal:pressed {    \n"
+                                "    background-color: rgb(24,24,24);\n"
+                                "}\n"
+                                "\n"
+                                "")
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setStyleSheet("*{\n"
-"    margin: 0;\n"
-"    padding: 0;\n"
-"    border: none\n"
-"}")
+                                        "    margin: 0;\n"
+                                        "    padding: 0;\n"
+                                        "    border: none\n"
+                                        "}")
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
@@ -95,24 +118,24 @@ class Interface(object):
         self.categories = QtWidgets.QFrame(parent=self.centralwidget)
         self.categories.setMaximumSize(QtCore.QSize(16777215, 100))
         self.categories.setStyleSheet("*{\n"
-"    border:none;\n"
-"    background:     #3e3e42;\n"
-"    color: white;\n"
-"    margin: 0;\n"
-"    padding: 0;\n"
-"}\n"
-"\n"
-"QPushButton{\n"
-"    text-decoration: underline;\n"
-"    font-size: 14px;\n"
-"    font: 10pt url(\'https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=Roboto:wght@300&display=swap\');\n"
-"}\n"
-"\n"
-".QFrame#categories{\n"
-"    width:100%;\n"
-"    padding: 0;\n"
-"    border:100px\n"
-"}")
+                                        "    border:none;\n"
+                                        "    background:     #BB1819;\n"
+                                        "    color: white;\n"
+                                        "    margin: 0;\n"
+                                        "    padding: 0;\n"
+                                        "}\n"
+                                        "\n"
+                                        "QPushButton{\n"
+                                        "    text-decoration: underline;\n"
+                                        "    font-size: 14px;\n"
+                                        "    font: 10pt url(\'https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=Roboto:wght@300&display=swap\');\n"
+                                        "}\n"
+                                        "\n"
+                                        ".QFrame#categories{\n"
+                                        "    width:100%;\n"
+                                        "    padding: 0;\n"
+                                        "    border:100px\n"
+                                        "}")
         self.categories.setObjectName("categories")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.categories)
         self.gridLayout_2.setContentsMargins(0, 0, -1, 0)
@@ -193,6 +216,8 @@ class Interface(object):
         self.app_name.setFont(font)
         self.app_name.setObjectName("app_name")
         self.gridLayout_2.addWidget(self.app_name, 1, 3, 1, 1, QtCore.Qt.AlignmentFlag.AlignHCenter)
+
+
         self.user_action = QtWidgets.QWidget(parent=self.categories)
         self.user_action.setObjectName("user_action")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.user_action)
@@ -201,8 +226,8 @@ class Interface(object):
         self.login.setMaximumSize(QtCore.QSize(100, 16777215))
         self.login.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.login.setStyleSheet("*{\n"
-"    color: white\n"
-"}")
+                                "    color: white\n"
+                                "}")
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(".\\user (3).png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.login.setIcon(icon1)
@@ -212,44 +237,60 @@ class Interface(object):
         self.register_2.setMaximumSize(QtCore.QSize(100, 16777215))
         self.register_2.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.register_2.setStyleSheet("*{\n"
-"    color: white\n"
-"}")
+                                        "    color: white\n"
+                                        "}")
         self.register_2.setIcon(icon1)
         self.register_2.setObjectName("register_2")
         self.horizontalLayout_2.addWidget(self.register_2)
         self.gridLayout_2.addWidget(self.user_action, 0, 4, 1, 1)
         self.verticalLayout_7.addWidget(self.categories)
+        
+        
+
+        # Scroll Area Properties
         self.scrollArea = QtWidgets.QScrollArea(parent=self.centralwidget)
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
         self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, -815, 1261, 1422))
+
+        # Scroll Area Widget Contents
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName("verticalLayout")
+
+        # Stonk Frame
         self.stonk = QtWidgets.QFrame(parent=self.scrollAreaWidgetContents)
         self.stonk.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.stonk.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.stonk.setObjectName("stonk")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.stonk)
         self.horizontalLayout.setObjectName("horizontalLayout")
+
+        # Hot News Frame
         self.hot_news = QtWidgets.QFrame(parent=self.stonk)
         self.hot_news.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.hot_news.setStyleSheet("*{\n"
-"    background: transparent;\n"
-"    border-radius: 10px;\n"
-"    width: auto;\n"
-"    height: auto\n"
-"}\n"
-"")
+                                "    background: transparent;\n"
+                                "    border-radius: 10px;\n"
+                                "    width: auto;\n"
+                                "    height: auto\n"
+                                "}\n"
+                                "")
         self.hot_news.setObjectName("hot_news")
         self.gridLayout_4 = QtWidgets.QGridLayout(self.hot_news)
         self.gridLayout_4.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_4.setObjectName("gridLayout_4")
+
+        # Hot News Container: Contains hot news description, label and image
         self.hot_news_container = QtWidgets.QFrame(parent=self.hot_news)
+        self.hot_news_container.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.hot_news_container.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.hot_news_container.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.hot_news_container.setObjectName("hot_news_container")
+        # TODO: change lambda to function
+        self.hot_news_container.mousePressEvent = lambda event: print("Clicked hot news")
+
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.hot_news_container)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.hot_news_label = QtWidgets.QLabel(parent=self.hot_news_container)
@@ -262,28 +303,30 @@ class Interface(object):
         self.hot_news_label.setAutoFillBackground(False)
         self.hot_news_label.setObjectName("hot_news_label")
         self.verticalLayout_2.addWidget(self.hot_news_label)
-        self.hot_news_image_2 = QtWidgets.QLabel(parent=self.hot_news_container)
-        self.hot_news_image_2.setEnabled(True)
+        self.hot_news_image = QtWidgets.QLabel(parent=self.hot_news_container)
+        self.hot_news_image.setEnabled(True)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.hot_news_image_2.sizePolicy().hasHeightForWidth())
-        self.hot_news_image_2.setSizePolicy(sizePolicy)
-        self.hot_news_image_2.setMinimumSize(QtCore.QSize(0, 0))
-        self.hot_news_image_2.setMaximumSize(QtCore.QSize(711, 400))
-        self.hot_news_image_2.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-        self.hot_news_image_2.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
-        self.hot_news_image_2.setAutoFillBackground(False)
-        self.hot_news_image_2.setStyleSheet("")
-        self.hot_news_image_2.setFrameShape(QtWidgets.QFrame.Shape.Panel)
-        self.hot_news_image_2.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
-        self.hot_news_image_2.setText("")
-        self.hot_news_image_2.setTextFormat(QtCore.Qt.TextFormat.RichText)
-        self.hot_news_image_2.setPixmap(QtGui.QPixmap(os.path.join(assets, "Screenshot (14).png")))
-        self.hot_news_image_2.setScaledContents(True)
-        self.hot_news_image_2.setWordWrap(True)
-        self.hot_news_image_2.setObjectName("hot_news_image_2")
-        self.verticalLayout_2.addWidget(self.hot_news_image_2, 0, QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignTop)
+        sizePolicy.setHeightForWidth(self.hot_news_image.sizePolicy().hasHeightForWidth())
+        self.hot_news_image.setSizePolicy(sizePolicy)
+        self.hot_news_image.setMinimumSize(QtCore.QSize(0, 0))
+        self.hot_news_image.setMaximumSize(QtCore.QSize(711, 400))
+        self.hot_news_image.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.hot_news_image.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
+        self.hot_news_image.setAutoFillBackground(False)
+        self.hot_news_image.setStyleSheet("")
+        self.hot_news_image.setFrameShape(QtWidgets.QFrame.Shape.Panel)
+        self.hot_news_image.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.hot_news_image.setText("")
+        self.hot_news_image.setTextFormat(QtCore.Qt.TextFormat.RichText)
+
+
+        self.hot_news_image.setPixmap(QtGui.QPixmap(os.path.join(assets, hot_article_image)))
+        self.hot_news_image.setScaledContents(True)
+        self.hot_news_image.setWordWrap(True)
+        self.hot_news_image.setObjectName("hot_news_image_2")
+        self.verticalLayout_2.addWidget(self.hot_news_image, 0, QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignTop)
         self.hot_news_title = QtWidgets.QLabel(parent=self.hot_news_container)
         font = QtGui.QFont()
         font.setPointSize(20)
@@ -291,26 +334,26 @@ class Interface(object):
         self.hot_news_title.setFont(font)
         self.hot_news_title.setObjectName("hot_news_title")
         self.verticalLayout_2.addWidget(self.hot_news_title)
-        self.hot_news_description_6 = QtWidgets.QLabel(parent=self.hot_news_container)
-        self.hot_news_description_6.setMaximumSize(QtCore.QSize(16777215, 60))
-        self.hot_news_description_6.setStyleSheet("*{\n"
-"    background-color: white\n"
-"}")
-        self.hot_news_description_6.setWordWrap(True)
-        self.hot_news_description_6.setObjectName("hot_news_description_6")
-        self.verticalLayout_2.addWidget(self.hot_news_description_6, 0, QtCore.Qt.AlignmentFlag.AlignTop)
+        self.hot_news_description = QtWidgets.QLabel(parent=self.hot_news_container)
+        self.hot_news_description.setMaximumSize(QtCore.QSize(16777215, 60))
+        self.hot_news_description.setStyleSheet("background-color: transparent; font-size: 15px;")
+        self.hot_news_description.setWordWrap(True)
+        self.hot_news_description.setObjectName("hot_news_description_6")
+        self.verticalLayout_2.addWidget(self.hot_news_description, 0, QtCore.Qt.AlignmentFlag.AlignTop)
         self.gridLayout_4.addWidget(self.hot_news_container, 2, 0, 1, 1)
         self.horizontalLayout.addWidget(self.hot_news)
+        
+        # Recent News Widget
         self.recent_news = QtWidgets.QWidget(parent=self.stonk)
         self.recent_news.setMaximumSize(QtCore.QSize(1421, 16777215))
         self.recent_news.setAutoFillBackground(False)
         self.recent_news.setStyleSheet("*{\n"
-"    background: transparent;\n"
-"    border-radius: 10px;\n"
-"    width: auto;\n"
-"    height: auto\n"
-"}\n"
-"")
+                                        "    background: transparent;\n"
+                                        "    border-radius: 10px;\n"
+                                        "    width: auto;\n"
+                                        "    height: auto\n"
+                                        "}\n"
+                                        "")
         self.recent_news.setObjectName("recent_news")
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.recent_news)
         self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
@@ -324,16 +367,20 @@ class Interface(object):
         self.hot_news_label_2.setAutoFillBackground(False)
         self.hot_news_label_2.setObjectName("hot_news_label_2")
         self.verticalLayout_4.addWidget(self.hot_news_label_2)
-        self.recent_news_1 = QtWidgets.QWidget(parent=self.recent_news)
+        self.recent_news_1 = QtWidgets.QFrame(parent=self.recent_news)
+        self.recent_news_1.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.recent_news_1.setMaximumSize(QtCore.QSize(488, 269))
         self.recent_news_1.setStyleSheet("*{\n"
-"    background: transparent;\n"
-"    border-radius: 10px;\n"
-"    width: auto;\n"
-"    height: auto\n"
-"}\n"
-"")
+                                        "    background: transparent;\n"
+                                        "    border-radius: 10px;\n"
+                                        "    width: auto;\n"
+                                        "    height: auto\n"
+                                        "}\n"
+                                        "")
         self.recent_news_1.setObjectName("recent_news_1")
+        # TODO: Set lambda to function
+        self.recent_news_1.mousePressEvent = lambda event: print("Clicked recent news 1")
+
         self.verticalLayout_5 = QtWidgets.QVBoxLayout(self.recent_news_1)
         self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_5.setObjectName("verticalLayout_5")
@@ -347,7 +394,7 @@ class Interface(object):
         self.recent_1_image.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.recent_1_image.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.recent_1_image.setText("")
-        self.recent_1_image.setPixmap(QtGui.QPixmap(os.path.join(assets, "Screenshot (14).png")))
+        self.recent_1_image.setPixmap(QtGui.QPixmap(os.path.join(assets, recent_articles[0].get_images()[0])))
         self.recent_1_image.setScaledContents(True)
         self.recent_1_image.setObjectName("recent_1_image")
         self.verticalLayout_5.addWidget(self.recent_1_image)
@@ -365,23 +412,25 @@ class Interface(object):
         sizePolicy.setHeightForWidth(self.recent_1_description_2.sizePolicy().hasHeightForWidth())
         self.recent_1_description_2.setSizePolicy(sizePolicy)
         self.recent_1_description_2.setMaximumSize(QtCore.QSize(16777215, 60))
-        self.recent_1_description_2.setStyleSheet("*{\n"
-"    background-color: white\n"
-"}")
+        self.recent_1_description_2.setStyleSheet("background-color: transparent; font-size: 15px;")
         self.recent_1_description_2.setWordWrap(True)
         self.recent_1_description_2.setObjectName("recent_1_description_2")
         self.verticalLayout_5.addWidget(self.recent_1_description_2)
         self.verticalLayout_4.addWidget(self.recent_news_1)
         self.recent_news_2 = QtWidgets.QFrame(parent=self.recent_news)
+        self.recent_news_2.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.recent_news_2.setMaximumSize(QtCore.QSize(488, 269))
         self.recent_news_2.setObjectName("recent_news_2")
+        # TODO: Set lambda to function
+        self.recent_news_2.mousePressEvent = lambda event: print("Clicked recent news 2")
+
         self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.recent_news_2)
         self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_6.setObjectName("verticalLayout_6")
         self.recent_2_image_2 = QtWidgets.QLabel(parent=self.recent_news_2)
         self.recent_2_image_2.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.recent_2_image_2.setText("")
-        self.recent_2_image_2.setPixmap(QtGui.QPixmap(os.path.join(assets, "Screenshot (14).png")))
+        self.recent_2_image_2.setPixmap(QtGui.QPixmap(os.path.join(assets, recent_articles[1].get_images()[0])))
         self.recent_2_image_2.setScaledContents(True)
         self.recent_2_image_2.setObjectName("recent_2_image_2")
         self.verticalLayout_6.addWidget(self.recent_2_image_2)
@@ -395,15 +444,15 @@ class Interface(object):
         self.recent_2_description = QtWidgets.QLabel(parent=self.recent_news_2)
         self.recent_2_description.setMinimumSize(QtCore.QSize(0, 0))
         self.recent_2_description.setMaximumSize(QtCore.QSize(16777215, 60))
-        self.recent_2_description.setStyleSheet("*{\n"
-"    background-color: white\n"
-"}")
+        self.recent_2_description.setStyleSheet("background-color: transparent; font-size: 15px;")
         self.recent_2_description.setWordWrap(True)
         self.recent_2_description.setObjectName("recent_2_description")
         self.verticalLayout_6.addWidget(self.recent_2_description)
         self.verticalLayout_4.addWidget(self.recent_news_2)
         self.horizontalLayout.addWidget(self.recent_news)
         self.verticalLayout.addWidget(self.stonk)
+
+
         self.older_news = QtWidgets.QFrame(parent=self.scrollAreaWidgetContents)
         self.older_news.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.older_news.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
@@ -416,17 +465,23 @@ class Interface(object):
         self.hot_news_label_3.setAutoFillBackground(False)
         self.hot_news_label_3.setObjectName("hot_news_label_3")
         self.verticalLayout_12.addWidget(self.hot_news_label_3)
+        
+        
         self.old_1 = QtWidgets.QFrame(parent=self.older_news)
         self.old_1.setMaximumSize(QtCore.QSize(1204, 181))
         self.old_1.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.old_1.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.old_1.setObjectName("old_1")
+        self.old_1.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        # TODO: Set lambda to function
+        self.old_1.mousePressEvent = lambda event: print("Clicked old news 1")
+
         self.formLayout_5 = QtWidgets.QFormLayout(self.old_1)
         self.formLayout_5.setObjectName("formLayout_5")
         self.old_1_image = QtWidgets.QLabel(parent=self.old_1)
         self.old_1_image.setMaximumSize(QtCore.QSize(391, 181))
         self.old_1_image.setText("")
-        self.old_1_image.setPixmap(QtGui.QPixmap(os.path.join(assets, "Screenshot (14).png")))
+        self.old_1_image.setPixmap(QtGui.QPixmap(os.path.join(assets, recent_articles[2].get_images()[0])))
         self.old_1_image.setScaledContents(True)
         self.old_1_image.setObjectName("old_1_image")
         self.formLayout_5.setWidget(0, QtWidgets.QFormLayout.ItemRole.LabelRole, self.old_1_image)
@@ -447,25 +502,29 @@ class Interface(object):
         self.old_1_description = QtWidgets.QLabel(parent=self.old_1_set)
         self.old_1_description.setMinimumSize(QtCore.QSize(0, 0))
         self.old_1_description.setMaximumSize(QtCore.QSize(16777215, 100))
-        self.old_1_description.setStyleSheet("*{\n"
-"    background-color: white\n"
-"}")
+        self.old_1_description.setStyleSheet("background-color: transparent; font-size: 15px;")
         self.old_1_description.setWordWrap(True)
         self.old_1_description.setObjectName("old_1_description")
         self.verticalLayout_8.addWidget(self.old_1_description)
         self.formLayout_5.setWidget(0, QtWidgets.QFormLayout.ItemRole.FieldRole, self.old_1_set)
         self.verticalLayout_12.addWidget(self.old_1)
+
+
         self.old_2 = QtWidgets.QFrame(parent=self.older_news)
         self.old_2.setMaximumSize(QtCore.QSize(1204, 181))
         self.old_2.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.old_2.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.old_2.setObjectName("old_2")
+        self.old_2.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        # TODO: Set lambda to function
+        self.old_2.mousePressEvent = lambda event: print("Clicked old news 2")
+
         self.formLayout_8 = QtWidgets.QFormLayout(self.old_2)
         self.formLayout_8.setObjectName("formLayout_8")
         self.old_2_image = QtWidgets.QLabel(parent=self.old_2)
         self.old_2_image.setMaximumSize(QtCore.QSize(391, 181))
         self.old_2_image.setText("")
-        self.old_2_image.setPixmap(QtGui.QPixmap(os.path.join(assets, "Screenshot (14).png")))
+        self.old_2_image.setPixmap(QtGui.QPixmap(os.path.join(assets, recent_articles[3].get_images()[0])))
         self.old_2_image.setScaledContents(True)
         self.old_2_image.setObjectName("old_2_image")
         self.formLayout_8.setWidget(0, QtWidgets.QFormLayout.ItemRole.LabelRole, self.old_2_image)
@@ -486,25 +545,30 @@ class Interface(object):
         self.old_2_description = QtWidgets.QLabel(parent=self.old_2_set)
         self.old_2_description.setMinimumSize(QtCore.QSize(0, 0))
         self.old_2_description.setMaximumSize(QtCore.QSize(16777215, 100))
-        self.old_2_description.setStyleSheet("*{\n"
-"    background-color: white\n"
-"}")
+        self.old_2_description.setStyleSheet("background-color: transparent; font-size: 15px;")
+
         self.old_2_description.setWordWrap(True)
         self.old_2_description.setObjectName("old_2_description")
         self.verticalLayout_11.addWidget(self.old_2_description)
         self.formLayout_8.setWidget(0, QtWidgets.QFormLayout.ItemRole.FieldRole, self.old_2_set)
         self.verticalLayout_12.addWidget(self.old_2)
+
+
         self.old_3 = QtWidgets.QFrame(parent=self.older_news)
         self.old_3.setMaximumSize(QtCore.QSize(1204, 181))
         self.old_3.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.old_3.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.old_3.setObjectName("old_3")
+        self.old_3.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        # TODO: Set lambda to function
+        self.old_3.mousePressEvent = lambda event: print("Clicked old news 3")
+        
         self.formLayout_7 = QtWidgets.QFormLayout(self.old_3)
         self.formLayout_7.setObjectName("formLayout_7")
         self.old_3_image = QtWidgets.QLabel(parent=self.old_3)
         self.old_3_image.setMaximumSize(QtCore.QSize(391, 181))
         self.old_3_image.setText("")
-        self.old_3_image.setPixmap(QtGui.QPixmap(os.path.join(assets, "Screenshot (14).png")))
+        self.old_3_image.setPixmap(QtGui.QPixmap(os.path.join(assets, recent_articles[4].get_images()[0])))
         self.old_3_image.setScaledContents(True)
         self.old_3_image.setObjectName("old_3_image")
         self.formLayout_7.setWidget(0, QtWidgets.QFormLayout.ItemRole.LabelRole, self.old_3_image)
@@ -525,25 +589,29 @@ class Interface(object):
         self.old_3_description = QtWidgets.QLabel(parent=self.old_3_set)
         self.old_3_description.setMinimumSize(QtCore.QSize(0, 0))
         self.old_3_description.setMaximumSize(QtCore.QSize(16777215, 100))
-        self.old_3_description.setStyleSheet("*{\n"
-"    background-color: white\n"
-"}")
+        self.old_3_description.setStyleSheet("background-color: transparent; font-size: 15px;")
         self.old_3_description.setWordWrap(True)
         self.old_3_description.setObjectName("old_3_description")
         self.verticalLayout_10.addWidget(self.old_3_description)
         self.formLayout_7.setWidget(0, QtWidgets.QFormLayout.ItemRole.FieldRole, self.old_3_set)
         self.verticalLayout_12.addWidget(self.old_3)
+
+
         self.old_4 = QtWidgets.QFrame(parent=self.older_news)
         self.old_4.setMaximumSize(QtCore.QSize(1204, 181))
         self.old_4.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.old_4.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.old_4.setObjectName("old_4")
+        self.old_4.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        # TODO: Set lambda to function
+        self.old_4.mousePressEvent = lambda event: print("Clicked old news 4")
+        
         self.formLayout_6 = QtWidgets.QFormLayout(self.old_4)
         self.formLayout_6.setObjectName("formLayout_6")
         self.old_4_image = QtWidgets.QLabel(parent=self.old_4)
         self.old_4_image.setMaximumSize(QtCore.QSize(391, 181))
         self.old_4_image.setText("")
-        self.old_4_image.setPixmap(QtGui.QPixmap(os.path.join(assets, "Screenshot (14).png")))
+        self.old_4_image.setPixmap(QtGui.QPixmap(os.path.join(assets, recent_articles[5].get_images()[0])))
         self.old_4_image.setScaledContents(True)
         self.old_4_image.setObjectName("old_4_image")
         self.formLayout_6.setWidget(0, QtWidgets.QFormLayout.ItemRole.LabelRole, self.old_4_image)
@@ -564,9 +632,7 @@ class Interface(object):
         self.old_4_description = QtWidgets.QLabel(parent=self.old_4_set)
         self.old_4_description.setMinimumSize(QtCore.QSize(0, 0))
         self.old_4_description.setMaximumSize(QtCore.QSize(16777215, 100))
-        self.old_4_description.setStyleSheet("*{\n"
-"    background-color: white\n"
-"}")
+        self.old_4_description.setStyleSheet("background-color: transparent; font-size: 15px;")
         self.old_4_description.setWordWrap(True)
         self.old_4_description.setObjectName("old_4_description")
         self.verticalLayout_9.addWidget(self.old_4_description)
@@ -594,23 +660,39 @@ class Interface(object):
         self.app_name.setText(_translate("MainWindow", "TOMATO NEWS"))
         self.login.setText(_translate("MainWindow", "Login"))
         self.register_2.setText(_translate("MainWindow", "Register"))
+        
         self.hot_news_label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">HOT NEWS</span></p></body></html>"))
-        self.hot_news_title.setText(_translate("MainWindow", "SAMPLE TITLE"))
-        self.hot_news_description_6.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Lorem Ipsum</span><span style=\" font-size:10pt;\"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic</span></p></body></html>"))
+        self.hot_news_title.setText(_translate("MainWindow", hot_article_title))
+        # self.hot_news_description_6.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Lorem Ipsum</span><span style=\" font-size:10pt;\"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic</span></p></body></html>"))
+        self.hot_news_description.setText(_translate("MainWindow", hot_article_description))
+        self.set_text_with_ellipsis(self.hot_news_description)
+
         self.hot_news_label_2.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">    RECENT NEWS</span></p></body></html>"))
-        self.recent_1_title.setText(_translate("MainWindow", "SAMPLE TITLE"))
-        self.recent_1_description_2.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Lorem Ipsum</span><span style=\" font-size:10pt;\"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic</span></p></body></html>"))
-        self.recent_2_title.setText(_translate("MainWindow", "SAMPLE TITLE"))
-        self.recent_2_description.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Lorem Ipsum</span><span style=\" font-size:10pt;\"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic</span></p></body></html>"))
+        
+        self.recent_1_title.setText(_translate("MainWindow", recent_articles[0].get_title()))
+        # self.recent_1_description_2.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Lorem Ipsum</span><span style=\" font-size:10pt;\"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic</span></p></body></html>"))
+        self.recent_1_description_2.setText(_translate("MainWindow", recent_articles[0].get_overview()))
+
+        self.recent_2_title.setText(_translate("MainWindow", recent_articles[1].get_title()))
+        # self.recent_2_description.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Lorem Ipsum</span><span style=\" font-size:10pt;\"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic</span></p></body></html>"))
+        self.recent_2_description.setText(_translate("MainWindow", recent_articles[1].get_overview()))
+        
         self.hot_news_label_3.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">OLDER NEWS</span></p></body></html>"))
-        self.old_1_title.setText(_translate("MainWindow", "SAMPLE TITLE"))
-        self.old_1_description.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Lorem Ipsum</span><span style=\" font-size:10pt;\"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic</span></p></body></html>"))
-        self.old_2_title.setText(_translate("MainWindow", "SAMPLE TITLE"))
-        self.old_2_description.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Lorem Ipsum</span><span style=\" font-size:10pt;\"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic</span></p></body></html>"))
-        self.old_3_title.setText(_translate("MainWindow", "SAMPLE TITLE"))
-        self.old_3_description.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Lorem Ipsum</span><span style=\" font-size:10pt;\"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic</span></p></body></html>"))
-        self.old_4_title.setText(_translate("MainWindow", "SAMPLE TITLE"))
-        self.old_4_description.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Lorem Ipsum</span><span style=\" font-size:10pt;\"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic</span></p></body></html>"))
+        self.old_1_title.setText(_translate("MainWindow", recent_articles[2].get_title()))
+        # self.old_1_description.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Lorem Ipsum</span><span style=\" font-size:10pt;\"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic</span></p></body></html>"))
+        self.old_1_description.setText(_translate("MainWindow", recent_articles[2].get_overview()))
+        
+        self.old_2_title.setText(_translate("MainWindow", recent_articles[3].get_title()))
+        # self.old_2_description.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Lorem Ipsum</span><span style=\" font-size:10pt;\"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic</span></p></body></html>"))
+        self.old_2_description.setText(_translate("MainWindow", recent_articles[3].get_overview()))
+        
+        self.old_3_title.setText(_translate("MainWindow", recent_articles[4].get_title()))
+        # self.old_3_description.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Lorem Ipsum</span><span style=\" font-size:10pt;\"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic</span></p></body></html>"))
+        self.old_3_description.setText(_translate("MainWindow", recent_articles[4].get_overview()))
+        
+        self.old_4_title.setText(_translate("MainWindow", recent_articles[5].get_title()))
+        # self.old_4_description.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Lorem Ipsum</span><span style=\" font-size:10pt;\"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic</span></p></body></html>"))
+        self.old_4_description.setText(_translate("MainWindow", recent_articles[5].get_overview()))
 
 
 if __name__ == "__main__":

@@ -10,7 +10,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 
 
 class UI_Register(object):
-    def setupUi(self, RegisterWindow):
+    def setupUi(self, RegisterWindow, npcallback):
         RegisterWindow.setObjectName("RegisterWindow")
         RegisterWindow.resize(403, 470)
         RegisterWindow.setMinimumSize(QtCore.QSize(392, 369))
@@ -124,12 +124,19 @@ class UI_Register(object):
         self.pwrd_input.setObjectName("pwrd_input")
         self.verticalLayout_3.addWidget(self.pwrd_input)
         self.verticalLayout.addWidget(self.pwrd_frame, 0, QtCore.Qt.AlignmentFlag.AlignHCenter)
-        self.registerButton = QtWidgets.QPushButton(parent=self.centralwidget)
+
+        # Call register (callback) when button is clicked
+        self.registerButton = QtWidgets.QPushButton(parent=self.centralwidget, clicked=lambda: self.controller_register(npcallback) )
         self.registerButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.registerButton.setObjectName("registerButton")
         self.verticalLayout.addWidget(self.registerButton, 0, QtCore.Qt.AlignmentFlag.AlignHCenter)
+        
+        self.result_label = QtWidgets.QLabel(parent=self.centralwidget)
+        self.result_label.setObjectName("resultLabel")
+        self.result_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.verticalLayout.addWidget(self.result_label, 0, QtCore.Qt.AlignmentFlag.AlignHCenter)
+        
         RegisterWindow.setCentralWidget(self.centralwidget)
-
         self.retranslateUi(RegisterWindow)
         QtCore.QMetaObject.connectSlotsByName(RegisterWindow)
 
@@ -142,12 +149,13 @@ class UI_Register(object):
         self.pwrd_txt.setText(_translate("RegisterWindow", "Password"))
         self.registerButton.setText(_translate("RegisterWindow", "Register"))
 
+    def controller_register(self, register_callback):
+        real_name = self.name_input.text()
+        username = self.username_input.text()
+        password = self.pwrd_input.text()
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    RegisterWindow = QtWidgets.QMainWindow()
-    ui = UI_Register()
-    ui.setupUi(RegisterWindow)
-    RegisterWindow.show()
-    sys.exit(app.exec())
+        res = register_callback(username, password, real_name)
+        if res:
+            self.result_label.setText("Register successful")
+        else:
+            self.result_label.setText("The username is already taken. Please try another one.")

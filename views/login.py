@@ -9,31 +9,31 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
 
 
-class UI_Login(object):
-    def setupUi(self, LoginWindow):
+class UI_Login(QtWidgets.QWidget):
+    def setupUi(self, LoginWindow, npcallback):
         LoginWindow.setObjectName("LoginWindow")
         LoginWindow.resize(510, 293)
         LoginWindow.setMinimumSize(QtCore.QSize(497, 0))
         LoginWindow.setMaximumSize(QtCore.QSize(510, 300))
         LoginWindow.setStyleSheet(".QLineEdit{\n"
-"    border-radius: 5px;\n"
-"    width: 250%;\n"
-"    height: auto;\n"
-"    border:none\n"
-"}\n"
-".QPushButton{\n"
-"    background-color: rgb(1, 124, 255);\n"
-"    border-radius: 5px;\n"
-"    width: 80%;\n"
-"    height: auto;\n"
-"    color: white;\n"
-"    border:none\n"
-"}\n"
-".QPushButton:focus{\n"
-"    background-color: rgb(0, 50, 255);\n"
-"    border: none\n"
-"}\n"
-"")
+                                "    border-radius: 5px;\n"
+                                "    width: 250%;\n"
+                                "    height: auto;\n"
+                                "    border:none\n"
+                                "}\n"
+                                ".QPushButton{\n"
+                                "    background-color: rgb(1, 124, 255);\n"
+                                "    border-radius: 5px;\n"
+                                "    width: 80%;\n"
+                                "    height: auto;\n"
+                                "    color: white;\n"
+                                "    border:none\n"
+                                "}\n"
+                                ".QPushButton:focus{\n"
+                                "    background-color: rgb(0, 50, 255);\n"
+                                "    border: none\n"
+                                "}\n"
+                                "")
         self.centralwidget = QtWidgets.QWidget(parent=LoginWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -42,12 +42,14 @@ class UI_Login(object):
         self.title_frame = QtWidgets.QFrame(parent=self.centralwidget)
         self.title_frame.setMaximumSize(QtCore.QSize(16777215, 160))
         self.title_frame.setStyleSheet("background-color: rgb(42, 42, 42);\n"
-"color: white")
+                                        "color: white")
         self.title_frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.title_frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.title_frame.setObjectName("title_frame")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.title_frame)
         self.horizontalLayout.setObjectName("horizontalLayout")
+        
+        
         self.title_txt = QtWidgets.QLabel(parent=self.title_frame)
         font = QtGui.QFont()
         font.setPointSize(20)
@@ -55,6 +57,8 @@ class UI_Login(object):
         self.title_txt.setObjectName("title_txt")
         self.horizontalLayout.addWidget(self.title_txt, 0, QtCore.Qt.AlignmentFlag.AlignHCenter|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.verticalLayout.addWidget(self.title_frame)
+
+
         self.username_frame = QtWidgets.QFrame(parent=self.centralwidget)
         self.username_frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.username_frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
@@ -71,6 +75,8 @@ class UI_Login(object):
         self.username_txt.setObjectName("username_txt")
         self.verticalLayout_2.addWidget(self.username_txt)
         self.username_input = QtWidgets.QLineEdit(parent=self.username_frame)
+
+
         font = QtGui.QFont()
         font.setPointSize(11)
         self.username_input.setFont(font)
@@ -92,6 +98,8 @@ class UI_Login(object):
         self.pwrd_txt.setObjectName("pwrd_txt")
         self.verticalLayout_3.addWidget(self.pwrd_txt)
         self.pwrd_input = QtWidgets.QLineEdit(parent=self.pwrd_frame)
+
+
         font = QtGui.QFont()
         font.setPointSize(11)
         self.pwrd_input.setFont(font)
@@ -99,29 +107,41 @@ class UI_Login(object):
         self.pwrd_input.setObjectName("pwrd_input")
         self.verticalLayout_3.addWidget(self.pwrd_input)
         self.verticalLayout.addWidget(self.pwrd_frame, 0, QtCore.Qt.AlignmentFlag.AlignHCenter)
-        self.loginButton = QtWidgets.QPushButton(parent=self.centralwidget)
+
+        # Call log in (npcallback) when button is clicked
+        self.loginButton = QtWidgets.QPushButton(parent=self.centralwidget, clicked=lambda: self.controller_login(npcallback))
         self.loginButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.loginButton.setObjectName("loginButton")
         self.verticalLayout.addWidget(self.loginButton, 0, QtCore.Qt.AlignmentFlag.AlignHCenter)
+        
+        self.result_label = QtWidgets.QLabel(parent=self.centralwidget)
+        self.result_label.setObjectName("resultLabel")
+        self.result_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.verticalLayout.addWidget(self.result_label, 0, QtCore.Qt.AlignmentFlag.AlignHCenter)
+        
         LoginWindow.setCentralWidget(self.centralwidget)
-
         self.retranslateUi(LoginWindow)
         QtCore.QMetaObject.connectSlotsByName(LoginWindow)
 
     def retranslateUi(self, LoginWindow):
         _translate = QtCore.QCoreApplication.translate
-        LoginWindow.setWindowTitle(_translate("LoginWindow", "MainWindow"))
+        LoginWindow.setWindowTitle(_translate("LoginWindow", "Login"))
         self.title_txt.setText(_translate("LoginWindow", "Login as Author"))
         self.username_txt.setText(_translate("LoginWindow", "Username"))
         self.pwrd_txt.setText(_translate("LoginWindow", "Password"))
         self.loginButton.setText(_translate("LoginWindow", "Login"))
+        self.result_label.setText(_translate("LoginWindow", ""))
 
+    def controller_login(self, login_callback):
+        username = self.username_input.text()
+        password = self.pwrd_input.text()
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    LoginWindow = QtWidgets.QMainWindow()
-    ui = UI_Login()
-    ui.setupUi(LoginWindow)
-    LoginWindow.show()
-    sys.exit(app.exec())
+        res = login_callback(username, password)
+        if res:
+            self.result_label.setText("Login successful")
+
+            # This doesn't close the window. Why?
+            # QtCore.QTimer.singleShot(1000, self.close)
+        else:
+            self.result_label.setText("Login failed. Please try again")
+        

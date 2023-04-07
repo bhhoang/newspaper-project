@@ -1,12 +1,11 @@
 # This Python file uses the following encoding: utf-8
 
 import sys, os
-
-
-
-from PySide6.QtWidgets import QMainWindow
-from PyQt6 import QtWidgets
-
+from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtWidgets import QApplication, QMainWindow
+from controller.newspaper import Newspapers
+from views.interface import Interface
+from controller.methods import get_instance
 
 
 
@@ -18,18 +17,12 @@ from PyQt6 import QtWidgets
 
 #     pyside2-uic form.ui -o ui_form.py
 
-from interface import Interface
-
-
-
 class MainWindow(QMainWindow):
 
     def __init__(self, parent=None):
-
         super().__init__(parent)
-
+        self.np_instance = get_instance()
         self.ui = Interface()
-
         self.ui.setupUi(self)
 
 
@@ -37,11 +30,12 @@ class MainWindow(QMainWindow):
 
 
 if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Interface()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+
+    app = QApplication(sys.argv)
+
+    widget = MainWindow()
+
+    widget.show()
+
     sys.exit(app.exec())
 
