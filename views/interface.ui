@@ -389,7 +389,7 @@ QPushButton{
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-450</y>
+         <y>-815</y>
          <width>1261</width>
          <height>1422</height>
         </rect>
@@ -458,6 +458,12 @@ QPushButton{
                      <height>32</height>
                     </size>
                    </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>10</pointsize>
+                     <bold>true</bold>
+                    </font>
+                   </property>
                    <property name="autoFillBackground">
                     <bool>false</bool>
                    </property>
@@ -514,13 +520,26 @@ QPushButton{
                     <enum>Qt::RichText</enum>
                    </property>
                    <property name="pixmap">
-                    <pixmap>assets/Screenshot (14).png</pixmap>
+                    <pixmap resource="assets/Resource/main.qrc">:/assets/Screenshot (14).png</pixmap>
                    </property>
                    <property name="scaledContents">
                     <bool>true</bool>
                    </property>
                    <property name="wordWrap">
                     <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="hot_news_title">
+                   <property name="font">
+                    <font>
+                     <pointsize>20</pointsize>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>SAMPLE TITLE</string>
                    </property>
                   </widget>
                  </item>
@@ -593,6 +612,12 @@ QPushButton{
                   <height>50</height>
                  </size>
                 </property>
+                <property name="font">
+                 <font>
+                  <pointsize>10</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
                 <property name="autoFillBackground">
                  <bool>false</bool>
                 </property>
@@ -602,7 +627,7 @@ QPushButton{
                </widget>
               </item>
               <item>
-               <widget class="QWidget" name="recent_news_" native="true">
+               <widget class="QWidget" name="recent_news_1" native="true">
                 <property name="maximumSize">
                  <size>
                   <width>488</width>
@@ -633,7 +658,7 @@ QPushButton{
                   <number>0</number>
                  </property>
                  <item>
-                  <widget class="QLabel" name="recent_2_image">
+                  <widget class="QLabel" name="recent_1_image">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
                      <horstretch>0</horstretch>
@@ -659,7 +684,7 @@ QPushButton{
                     <string/>
                    </property>
                    <property name="pixmap">
-                    <pixmap>assets/Screenshot (14).png</pixmap>
+                    <pixmap resource="assets/Resource/main.qrc">:/assets/Screenshot (14).png</pixmap>
                    </property>
                    <property name="scaledContents">
                     <bool>true</bool>
@@ -667,7 +692,20 @@ QPushButton{
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLabel" name="recent_2_description">
+                  <widget class="QLabel" name="recent_1_title">
+                   <property name="font">
+                    <font>
+                     <pointsize>20</pointsize>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>SAMPLE TITLE</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="recent_1_description_2">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                      <horstretch>0</horstretch>
@@ -697,7 +735,7 @@ QPushButton{
                </widget>
               </item>
               <item>
-               <widget class="QFrame" name="recent_news_1">
+               <widget class="QFrame" name="recent_news_2">
                 <property name="maximumSize">
                  <size>
                   <width>488</width>
@@ -734,7 +772,20 @@ QPushButton{
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLabel" name="recent_1_description">
+                  <widget class="QLabel" name="recent_2_title">
+                   <property name="font">
+                    <font>
+                     <pointsize>20</pointsize>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>SAMPLE TITLE</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="recent_2_description">
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
@@ -848,7 +899,7 @@ QPushButton{
                    <property name="maximumSize">
                     <size>
                      <width>16777215</width>
-                     <height>20</height>
+                     <height>40</height>
                     </size>
                    </property>
                    <property name="font">
@@ -943,7 +994,7 @@ QPushButton{
                    <property name="maximumSize">
                     <size>
                      <width>16777215</width>
-                     <height>20</height>
+                     <height>40</height>
                     </size>
                    </property>
                    <property name="font">
@@ -1038,7 +1089,7 @@ QPushButton{
                    <property name="maximumSize">
                     <size>
                      <width>16777215</width>
-                     <height>20</height>
+                     <height>40</height>
                     </size>
                    </property>
                    <property name="font">
@@ -1133,7 +1184,7 @@ QPushButton{
                    <property name="maximumSize">
                     <size>
                      <width>16777215</width>
-                     <height>20</height>
+                     <height>40</height>
                     </size>
                    </property>
                    <property name="font">
@@ -1191,7 +1242,7 @@ QPushButton{
   </widget>
  </widget>
  <resources>
-  <include location="../Test.qrc"/>
+  <include location="assets/Resource/main.qrc"/>
  </resources>
  <connections/>
 </ui>
