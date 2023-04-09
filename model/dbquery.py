@@ -1,11 +1,13 @@
 from pymongo import MongoClient
 from .article import Article
 from .author import Author
+import os
 
+DATABASE = os.environ.get('mongo_host')
 
 class Database:
     def __init__(self):
-        self.__client = MongoClient('mongodb://localhost:27017/')
+        self.__client = MongoClient(DATABASE)
         self.__database = self.__client['newspapers_db']
         self.articles_collection = self.__database['newspapers']
         self.authors_collection = self.__database['authors']

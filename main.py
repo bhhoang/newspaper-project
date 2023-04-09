@@ -6,8 +6,7 @@ from PyQt6.QtWidgets import QApplication, QMainWindow
 from controller.newspaper import Newspapers
 from views.interface import Interface
 from controller.methods import get_instance
-
-
+import configparser
 
 # Important:
 
@@ -16,6 +15,8 @@ from controller.methods import get_instance
 #     pyside6-uic form.ui -o ui_form.py, or
 
 #     pyside2-uic form.ui -o ui_form.py
+
+
 
 class MainWindow(QMainWindow):
 
