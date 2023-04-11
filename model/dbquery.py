@@ -69,10 +69,11 @@ class Database:
         :return: True when the username is in the database, False otherwise
         """
         result = self.authors_collection.find({'username': username})
+        password = result['password']
         if result is None:
             return False
-        return True
-
+        return password
+    
     def delete_article(self, ft: dict):
         self.articles_collection.delete_one(ft)
 
