@@ -34,7 +34,7 @@ border-radius: 20px;
 border-color: rgb(0, 240, 255);
 border-width: 0.5px;
 padding: 1px;
-background-color: rgb(102, 255, 255)
+background-color: rgba(102, 255, 255, 50)
 }</string>
      </property>
      <property name="frameShape">
@@ -54,7 +54,8 @@ background-color: rgb(102, 255, 255)
         </property>
         <property name="styleSheet">
          <string notr="true">QFrame{
-border: none
+border: none;
+background-color: rgba(0, 0, 0, 0)
 }</string>
         </property>
         <property name="frameShape">
@@ -141,7 +142,7 @@ border: none
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>icons/user.png</normaloff>icons/user.png</iconset>
+          <normaloff>assets/icons/user.png</normaloff>assets/icons/user.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -605,6 +606,9 @@ border: none
           <height>16777215</height>
          </size>
         </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="text">
          <string>Cancel</string>
         </property>
@@ -623,6 +627,9 @@ border: none
           <width>100</width>
           <height>16777215</height>
          </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="styleSheet">
          <string notr="true"/>

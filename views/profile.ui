@@ -40,7 +40,7 @@ border-radius: 20px;
 border-color: rgb(0, 240, 255);
 border-width: 0.5px;
 padding: 1px;
-background-color: rgba(102, 255, 255, 127)
+background-color: rgba(102, 255, 255, 50)
 }</string>
      </property>
      <property name="frameShape">
@@ -149,7 +149,7 @@ border: none
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>icons/user.png</normaloff>icons/user.png</iconset>
+          <normaloff>assets/icons/user.png</normaloff>assets/icons/user.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -455,7 +455,7 @@ border: none
        </widget>
       </item>
       <item alignment="Qt::AlignLeft|Qt::AlignTop">
-       <widget class="QLabel" name="label_4">
+       <widget class="QLabel" name="bio_label_2">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -494,7 +494,7 @@ border: none
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item alignment="Qt::AlignRight|Qt::AlignBottom">
-       <widget class="QPushButton" name="confirm_button">
+       <widget class="QPushButton" name="edit_profile_button">
         <property name="minimumSize">
          <size>
           <width>90</width>
