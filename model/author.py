@@ -36,3 +36,5 @@ class Author:
         :return: None
         """
         self.__publication_history.append(article_id)
+
+    def login(self, username, __password)

@@ -22,5 +22,3 @@ def compare_strings(string1:str, string2:str)->bool:
 
 def check_category(category:str)->bool:
     return category in ['Economy', 'Politics', 'Traffic', 'Medical', 'Sport', 'Travel', 'Entertain', 'Science & Technology']
-
-def check_account(account:str)->bool:

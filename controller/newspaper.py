@@ -49,7 +49,7 @@ class Newspapers:
         :return: False if username is already taken, True otherwise
         """
         hashed_password = hash_password(password)
-        check = db.check_exist_username(username)
+        check = db._check_exist_username(username)
         if check:
             return False
         author_id = db.count_all_authors() + 1
@@ -69,7 +69,7 @@ class Newspapers:
         if check_password(password, author_info['password']):
             author_obj = self.__convert_to_Author(author_info)
             self.__current_author = author_obj
-            return True
+            return author_obj
         return False
 
     def logout(self):

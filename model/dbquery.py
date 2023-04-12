@@ -64,7 +64,7 @@ class Database:
         # Insert the author into the database
         self.authors_collection.insert_one(authors_data)
 
-    def check_exist_username(self, username: str) -> bool:
+    def _check_exist_username(self, username: str) -> bool:
         """
         :return: True when the username is in the database, False otherwise
         """
@@ -74,7 +74,7 @@ class Database:
             return False
         return password
     
-    def delete_article(self, ft: dict):
+    def _delete_article(self, ft: dict):
         self.articles_collection.delete_one(ft)
 
     def get_all_categories(self) -> list[str]:
@@ -117,7 +117,7 @@ class Database:
         author = self.authors_collection.find_one({'name': name})
         return author
 
-    def update_pub_history(self, author_id: int, article_id: int):
+    def update_publish_history(self, author_id: int, article_id: int):
         # Get the author's publication history
         history = self.authors_collection.find_one({'_id': author_id}, {'_id': 0, 'publication_history': 1})
         history_array = history['publication_history']
@@ -134,3 +134,4 @@ class Database:
 
     def set_expertise(self, author_id: int, expertise: str):
         self.authors_collection.update_one({'_id': author_id}, {'$set': {'expertise': expertise}})
+
