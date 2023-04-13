@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>articles_management</class>
- <widget class="QDialog" name="articles_management">
+ <class>delete_articles</class>
+ <widget class="QDialog" name="delete_articles">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Your Articles</string>
+   <string>Delete Articles</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QDialog{
@@ -56,13 +56,13 @@ background-color: rgba(0, 0, 0, 0)
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QPushButton" name="articles_management_logo">
+          <widget class="QPushButton" name="delete_article_logo">
            <property name="text">
             <string/>
            </property>
            <property name="icon">
             <iconset>
-             <normaloff>assets/icons/articles_management_logo.png</normaloff>assets/icons/articles_management_logo.png</iconset>
+             <normaloff>assets/icons/delete_article.png</normaloff>assets/icons/delete_article.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -73,64 +73,12 @@ background-color: rgba(0, 0, 0, 0)
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="articles_management_title">
+          <widget class="QLabel" name="delete_article_title">
            <property name="styleSheet">
             <string notr="true">font: 24pt &quot;.AppleSystemUIFont&quot;;</string>
            </property>
            <property name="text">
-            <string>Your Articles</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QFrame" name="buttons">
-        <property name="maximumSize">
-         <size>
-          <width>150</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <widget class="QPushButton" name="add_articles_button">
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="text">
-            <string>Add</string>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>assets/icons/add_article.png</normaloff>assets/icons/add_article.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>16</width>
-             <height>16</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="delete_articles_button">
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="text">
-            <string>Delete</string>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>assets/icons/delete_article.png</normaloff>assets/icons/delete_article.png</iconset>
+            <string>Delete Articles</string>
            </property>
           </widget>
          </item>
@@ -151,7 +99,7 @@ background-color: rgba(0, 0, 0, 0)
         <x>0</x>
         <y>0</y>
         <width>593</width>
-        <height>480</height>
+        <height>440</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -242,6 +190,18 @@ QLabel{
           </item>
           <item>
            <widget class="QFrame" name="title_description_display">
+            <property name="minimumSize">
+             <size>
+              <width>310</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>320</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="styleSheet">
              <string notr="true">QLabel{
 border: none
@@ -274,11 +234,43 @@ border: none
             </layout>
            </widget>
           </item>
+          <item alignment="Qt::AlignRight|Qt::AlignVCenter">
+           <widget class="QCheckBox" name="choosing_checkbox">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>30</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
       </layout>
      </widget>
+    </widget>
+   </item>
+   <item alignment="Qt::AlignRight|Qt::AlignBottom">
+    <widget class="QDialogButtonBox" name="confirm_button">
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
     </widget>
    </item>
   </layout>
