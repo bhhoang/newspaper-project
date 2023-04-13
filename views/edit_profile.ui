@@ -24,7 +24,7 @@ background-color: qlineargradient(spread:pad, x1:0.497537, y1:1, x2:0.468443, y2
      <property name="maximumSize">
       <size>
        <width>16777215</width>
-       <height>90</height>
+       <height>120</height>
       </size>
      </property>
      <property name="styleSheet">
@@ -35,7 +35,8 @@ border-color: rgb(0, 240, 255);
 border-width: 0.5px;
 padding: 1px;
 background-color: rgba(102, 255, 255, 50)
-}</string>
+}
+</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -56,6 +57,12 @@ background-color: rgba(102, 255, 255, 50)
          <string notr="true">QFrame{
 border: none;
 background-color: rgba(0, 0, 0, 0)
+}
+QPlainTextEdit{
+        border-radius: 1px;
+        border-style: solid;
+        border-color: rgb(204, 204, 204);
+        border-width: 0.5px 0.5px 0.5px 0.5px;
 }</string>
         </property>
         <property name="frameShape">
@@ -65,53 +72,29 @@ background-color: rgba(0, 0, 0, 0)
          <enum>QFrame::Raised</enum>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
-         <property name="spacing">
-          <number>0</number>
-         </property>
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-         <item alignment="Qt::AlignLeft">
-          <widget class="QLabel" name="name_display">
+         <item>
+          <widget class="QPlainTextEdit" name="name_edit">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>30</height>
+             <height>16777215</height>
             </size>
            </property>
-           <property name="styleSheet">
-            <string notr="true">font: 20pt &quot;.AppleSystemUIFont&quot;;</string>
-           </property>
-           <property name="text">
-            <string>Le Vu Hoang Linh</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+           <property name="placeholderText">
+            <string>Name</string>
            </property>
           </widget>
          </item>
-         <item alignment="Qt::AlignLeft">
-          <widget class="QLabel" name="email_display">
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>levuhoanglinh@gmail.com</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+         <item>
+          <widget class="QPlainTextEdit" name="email_edit">
+           <property name="placeholderText">
+            <string>Email</string>
            </property>
           </widget>
          </item>
@@ -164,7 +147,7 @@ border: none;
 QPlainTextEdit{
         border-radius: 1px;
         border-style: solid;
-        border-color: black;
+        border-color: rgb(179, 179, 179);
         border-width: 0.5px 0.5px 0.5px 0.5px;
 }</string>
      </property>
