@@ -1,10 +1,13 @@
-from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QDialog
+from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QDialog, QFrame, QVBoxLayout
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.uic import loadUi
 import sys
 from  controller.newspaper import Newspapers
+from model.dbquery import Database
 
+db = Database()
 news = Newspapers()
+not_available_image = "./views/assets/Resource/No_Image_Available.jpg"
 
 class MainWindow(QMainWindow):
 
@@ -19,6 +22,12 @@ class MainWindow(QMainWindow):
        def __init__(self):
               super(MainWindow, self).__init__()
               loadUi("./views/main/interface.ui", self)
+              self.setWindowIcon(QtGui.QIcon("./views/assets/icons/logo.png"))
+              self.setWindowTitle("Pirate News")
+              self.stackedWidget.setCurrentWidget(self.main_page)
+              self.app_mascot.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+              self.app_mascot.mousePressEvent = lambda event: self.stackedWidget.setCurrentWidget(self.main_page)
+              self.app_mascot.setToolTip("Go to home page")
               menu = QtWidgets.QMenu(self)
               actions = ["Login", "Register", "Exit"]
               for action in actions:
@@ -44,12 +53,103 @@ class MainWindow(QMainWindow):
               self.functional_button.menu().setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
               self.functional_button.menu().triggered.connect(self.button_menu_action)
               hot_news = news.get_hot_articles()[0]
+              recents = news.get_recent_articles()
               self.hot_news_title.setText(hot_news.get_title())
               self.hot_news_description.setText(hot_news.get_overview())
-              print(hot_news.get_images())
-              print(hot_news.get_id())
+              if (hot_news.get_images() == None or hot_news.get_images() == []):
+                     self.hot_news_image.setPixmap(QtGui.QPixmap(not_available_image))
               self.hot_news_image.setScaledContents(True)           
-              
+              self.hot_news_image.mousePressEvent = lambda event: print("Clicked hot news")
+              self.hot_news_container.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+              self.hot_news_image.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
+              self.hot_news_image.setStyleSheet("border: 1px solid #000000; border-radius: 5px;")
+              self.hot_news_image.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+              self.hot_news_image.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+              self.hot_news_image.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+              self.hot_news_image.setContentsMargins(0, 0, 0, 0)
+              self.hot_news_image.setWordWrap(True)
+
+              self.hot_news_title.mousePressEvent = lambda event: print("Clicked hot news")
+
+              self.recent_news_1.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+              self.recent_news_1.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
+              self.recent_news_1.mousePressEvent = lambda event: print("Clicked recent news 1")
+              self.recent_1_title.setText(recents[0].get_title())
+              self.recent_news_1.setToolTip(recents[0].get_title())
+              self.recent_1_description.setText(recents[0].get_overview())
+              if (recents[0].get_images() == None or recents[0].get_images() == []):
+                     self.recent_1_image.setPixmap(QtGui.QPixmap(not_available_image))
+              self.recent_1_image.setScaledContents(True)
+              self.recent_1_image.setStyleSheet("border: 1px solid #000000; border-radius: 5px;")
+              self.recent_1_image.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+              self.recent_1_image.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+              self.recent_1_image.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+              self.recent_1_image.setContentsMargins(0, 0, 0, 0)
+              self.recent_1_image.setWordWrap(True)
+
+
+              self.recent_news_2.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+              self.recent_news_2.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
+              self.recent_news_2.mousePressEvent = lambda event: print("Clicked recent news 2")
+              self.recent_2_title.setText(recents[1].get_title())
+              self.recent_news_2.setToolTip(recents[1].get_title())
+              self.recent_2_description.setText(recents[1].get_overview())
+              if (recents[1].get_images() == None or recents[1].get_images() == []):
+                     self.recent_2_image.setPixmap(QtGui.QPixmap(not_available_image))
+              self.recent_2_image.setScaledContents(True)
+              self.recent_2_image.setStyleSheet("border: 1px solid #000000; border-radius: 5px;")
+              self.recent_2_image.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+              self.recent_2_image.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+              self.recent_2_image.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+              self.recent_2_image.setContentsMargins(0, 0, 0, 0)
+              self.recent_2_image.setWordWrap(True)
+
+              ## Older news part
+              self.old_1.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+              self.old_1.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
+              self.old_1.mousePressEvent = lambda event: print("Clicked old news 1")
+              self.old_1_title.setText(recents[2].get_title())
+              self.old_1.setToolTip(recents[2].get_title())
+              self.old_1_description.setText(recents[2].get_overview())
+              if (recents[2].get_images() == None or recents[2].get_images() == []):
+                     self.old_1_image.setPixmap(QtGui.QPixmap(not_available_image))
+              self.old_1_image.setScaledContents(True)
+
+              self.old_2.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+              self.old_2.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
+              self.old_2.mousePressEvent = lambda event: print("Clicked old news 2")
+              self.old_2_title.setText(recents[3].get_title())
+              self.old_2.setToolTip(recents[3].get_title())
+              self.old_2_description.setText(recents[3].get_overview())
+              if (recents[3].get_images() == None or recents[3].get_images() == []):
+                     self.old_2_image.setPixmap(QtGui.QPixmap(not_available_image))
+
+              self.old_3.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+              self.old_3.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
+              self.old_3.mousePressEvent = lambda event: print("Clicked old news 3")
+              self.old_3_title.setText(recents[4].get_title())
+              self.old_3.setToolTip(recents[4].get_title())
+              self.old_3_description.setText(recents[4].get_overview())
+              if (recents[4].get_images() == None or recents[4].get_images() == []):
+                     self.old_3_image.setPixmap(QtGui.QPixmap(not_available_image))
+
+              self.old_4.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+              self.old_4.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
+              self.old_4.mousePressEvent = lambda event: print("Clicked old news 4")
+              self.old_4_title.setText(recents[5].get_title())
+              self.old_4.setToolTip(recents[5].get_title())
+              self.old_4_description.setText(recents[5].get_overview())
+              if (recents[5].get_images() == None or recents[5].get_images() == []):
+                     self.old_4_image.setPixmap(QtGui.QPixmap(not_available_image))
+
+              self.Economy.clicked.connect(lambda: self.open_category("Economy"))
+              self.Sport.clicked.connect(lambda: self.open_category("Sports"))    
+              self.Politics.clicked.connect(lambda: self.open_category("Politics"))
+              self.Entertain.clicked.connect(lambda: self.open_category("Entertainment"))
+              self.Traffic.clicked.connect(lambda: self.open_category("Traffic"))
+              self.Medical.clicked.connect(lambda: self.open_category("Medical"))
+              self.SciTech.clicked.connect(lambda: self.open_category("Science & Technology"))
+                   
               self.show()
        def button_menu_action(self, action):
               if action.text() == "Login":
@@ -59,10 +159,45 @@ class MainWindow(QMainWindow):
               elif action.text() == "Exit":
                      sys.exit()
 
+       def open_category(self, category):
+              self.stackedWidget.setCurrentWidget(self.category_page)
+              self.setWindowTitle("Pirates News - " + category)
+              self.list_articles_by_category = db.get_article_by_category(category)
+              self.category_contents = QVBoxLayout()
+              for i in range(len(self.list_articles_by_category)):
+                     self.category_contents.addWidget(ArticleCard(self.list_articles_by_category[i]))
+              self.category_contents.addStretch()
+              self.category_contents.setContentsMargins(0, 0, 0, 0)
+              self.category_contents.setSpacing(0)
+              self.category_contents.setAlignment(QtCore.Qt.AlignmentFlag.AlignTop)
+              self.category_contents.setDirection(QVBoxLayout.Direction.TopToBottom)
+              
+
+class ArticleCard(QFrame):
+       def __init__(self, article, parent=None):
+              super(ArticleCard, self).__init__()
+              loadUi("./views/login/Article_card.ui", self)
+              self.article = article
+              self.article_title.setText(article['title'])
+              self.article_description.setText(article['description'])
+              self.article_image.setPixmap(QtGui.QPixmap(not_available_image))
+              self.article_image.setScaledContents(True)
+              self.article_image.setStyleSheet("border: 1px solid #000000; border-radius: 5px;")
+              self.article_image.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+              self.article_image.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+              self.article_image.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+              self.article_image.setContentsMargins(0, 0, 0, 0)
+              self.article_image.setWordWrap(True)
+              self.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+              self.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
+              self.mousePressEvent = lambda event: self.open_article()
+
+
 class LoginWindow(QDialog):
        def __init__(self):
               super(LoginWindow, self).__init__()
               loadUi("./views/login/login.ui", self)
+              self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
               self.submit_button.clicked.connect(self.submit)
               self.show()
        def submit(self):
@@ -77,6 +212,8 @@ class LoginWindow(QDialog):
               else:
                      self.status_label.setStyleSheet("color: #00ff00;")
                      self.status_label.setText("Login successful")
+                     QtCore.QTimer.singleShot(1000, self.close)
+
 
 class RegisterWindow(QDialog):
        def __init__(self):
@@ -84,53 +221,9 @@ class RegisterWindow(QDialog):
               loadUi("./views/login/register.ui", self)
               self.show()
 
-class Older_news_element():
-       def __init__(self):
-                 
-        self.old_1 = QtWidgets.QFrame(parent=self.older_news)
-        self.old_1.setMaximumSize(QtCore.QSize(1204, 181))
-        self.old_1.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
-        self.old_1.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
-        self.old_1.setObjectName("old_1")
-        self.old_1.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-        # TODO: Set lambda to function
-        self.old_1.mousePressEvent = lambda event: print("Clicked old news 1")
-
-        self.formLayout_5 = QtWidgets.QFormLayout(self.old_1)
-        self.formLayout_5.setObjectName("formLayout_5")
-        self.old_1_image = QtWidgets.QLabel(parent=self.old_1)
-        self.old_1_image.setMaximumSize(QtCore.QSize(391, 181))
-        self.old_1_image.setText("")
-        self.old_1_image.setPixmap(QtGui.QPixmap())
-        self.old_1_image.setScaledContents(True)
-        self.old_1_image.setObjectName("old_1_image")
-        self.formLayout_5.setWidget(0, QtWidgets.QFormLayout.ItemRole.LabelRole, self.old_1_image)
-        self.old_1_set = QtWidgets.QFrame(parent=self.old_1)
-        self.old_1_set.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
-        self.old_1_set.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
-        self.old_1_set.setObjectName("old_1_set")
-        self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.old_1_set)
-        self.verticalLayout_8.setObjectName("verticalLayout_8")
-        self.old_1_title = QtWidgets.QLabel(parent=self.old_1_set)
-        self.old_1_title.setMaximumSize(QtCore.QSize(16777215, 40))
-        font = QtGui.QFont()
-        font.setPointSize(20)
-        font.setBold(True)
-        self.old_1_title.setFont(font)
-        self.old_1_title.setObjectName("old_1_title")
-        self.verticalLayout_8.addWidget(self.old_1_title)
-        self.old_1_description = QtWidgets.QLabel(parent=self.old_1_set)
-        self.old_1_description.setMinimumSize(QtCore.QSize(0, 0))
-        self.old_1_description.setMaximumSize(QtCore.QSize(16777215, 100))
-        self.old_1_description.setStyleSheet("background-color: transparent; font-size: 15px;")
-        self.old_1_description.setWordWrap(True)
-        self.old_1_description.setObjectName("old_1_description")
-        self.verticalLayout_8.addWidget(self.old_1_description)
-        self.formLayout_5.setWidget(0, QtWidgets.QFormLayout.ItemRole.FieldRole, self.old_1_set)
-        self.verticalLayout_12.addWidget(self.old_1)
-
-
 if __name__ == "__main__":
-       app = QApplication(sys.argv)
+       ## StackWidget
+       app = QtWidgets.QApplication(sys.argv)
        window = MainWindow()
+
        sys.exit(app.exec())

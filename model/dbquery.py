@@ -28,7 +28,7 @@ class Database:
         articles = self.articles_collection.find()
         for article in articles:
             date = article['date']
-            category = article['categories']
+            category = article['category']
             viewed = article['viewed']
             title = article['title']
             description = article['description']
@@ -96,7 +96,7 @@ class Database:
 
     def get_article_by_category(self, category: str):
         articles = []
-        result = self.articles_collection.find({'categories': category})
+        result = self.articles_collection.find({'category': category})
         for article in result:
             articles.append(article)
         return articles
