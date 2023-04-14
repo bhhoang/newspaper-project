@@ -17,7 +17,7 @@ class Article:
     # Getters
     def get_id(self) -> int: return self.__id
     def get_date(self) -> str: return self.__date
-    def get_categories(self) -> str: return self.__category
+    def get_category(self) -> str: return self.__category
     def get_views(self) -> int: return self.__views
     def get_title(self) -> str: return self.__title
     def get_overview(self) -> str: return self.__overview

@@ -2,8 +2,11 @@ from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QDialog
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.uic import loadUi
 import sys
+from  controller.newspaper import Newspapers
 
-class MainWindow(QDialog):
+news = Newspapers()
+
+class MainWindow(QMainWindow):
 
        def openLoginWindow(self):
               self.loginWindow = LoginWindow()
@@ -15,7 +18,7 @@ class MainWindow(QDialog):
 
        def __init__(self):
               super(MainWindow, self).__init__()
-              loadUi("./views/new_ui.ui", self)
+              loadUi("./views/main/interface.ui", self)
               menu = QtWidgets.QMenu(self)
               actions = ["Login", "Register", "Exit"]
               for action in actions:
@@ -28,7 +31,6 @@ class MainWindow(QDialog):
               self.functional_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
               self.functional_button.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
               self.functional_button.setDown(True)
-
               self.functional_button.setStyleSheet("QPushButton::menu-indicator {image:none;}"
                                                    "QPushButton:pressed::menu-inidcator{image:none;}"
                                                    "QPushButton:pressed{border: none}"
@@ -41,6 +43,13 @@ class MainWindow(QDialog):
               
               self.functional_button.menu().setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
               self.functional_button.menu().triggered.connect(self.button_menu_action)
+              hot_news = news.get_hot_articles()[0]
+              self.hot_news_title.setText(hot_news.get_title())
+              self.hot_news_description.setText(hot_news.get_overview())
+              print(hot_news.get_images())
+              print(hot_news.get_id())
+              self.hot_news_image.setScaledContents(True)           
+              
               self.show()
        def button_menu_action(self, action):
               if action.text() == "Login":
@@ -65,12 +74,61 @@ class LoginWindow(QDialog):
                             self.status_label.setText("Password is required")
                      else:
                             self.status_label.setText("Invalid username or password")
+              else:
+                     self.status_label.setStyleSheet("color: #00ff00;")
+                     self.status_label.setText("Login successful")
 
 class RegisterWindow(QDialog):
        def __init__(self):
               super(RegisterWindow, self).__init__()
               loadUi("./views/login/register.ui", self)
               self.show()
+
+class Older_news_element():
+       def __init__(self):
+                 
+        self.old_1 = QtWidgets.QFrame(parent=self.older_news)
+        self.old_1.setMaximumSize(QtCore.QSize(1204, 181))
+        self.old_1.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.old_1.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.old_1.setObjectName("old_1")
+        self.old_1.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        # TODO: Set lambda to function
+        self.old_1.mousePressEvent = lambda event: print("Clicked old news 1")
+
+        self.formLayout_5 = QtWidgets.QFormLayout(self.old_1)
+        self.formLayout_5.setObjectName("formLayout_5")
+        self.old_1_image = QtWidgets.QLabel(parent=self.old_1)
+        self.old_1_image.setMaximumSize(QtCore.QSize(391, 181))
+        self.old_1_image.setText("")
+        self.old_1_image.setPixmap(QtGui.QPixmap())
+        self.old_1_image.setScaledContents(True)
+        self.old_1_image.setObjectName("old_1_image")
+        self.formLayout_5.setWidget(0, QtWidgets.QFormLayout.ItemRole.LabelRole, self.old_1_image)
+        self.old_1_set = QtWidgets.QFrame(parent=self.old_1)
+        self.old_1_set.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.old_1_set.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.old_1_set.setObjectName("old_1_set")
+        self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.old_1_set)
+        self.verticalLayout_8.setObjectName("verticalLayout_8")
+        self.old_1_title = QtWidgets.QLabel(parent=self.old_1_set)
+        self.old_1_title.setMaximumSize(QtCore.QSize(16777215, 40))
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        font.setBold(True)
+        self.old_1_title.setFont(font)
+        self.old_1_title.setObjectName("old_1_title")
+        self.verticalLayout_8.addWidget(self.old_1_title)
+        self.old_1_description = QtWidgets.QLabel(parent=self.old_1_set)
+        self.old_1_description.setMinimumSize(QtCore.QSize(0, 0))
+        self.old_1_description.setMaximumSize(QtCore.QSize(16777215, 100))
+        self.old_1_description.setStyleSheet("background-color: transparent; font-size: 15px;")
+        self.old_1_description.setWordWrap(True)
+        self.old_1_description.setObjectName("old_1_description")
+        self.verticalLayout_8.addWidget(self.old_1_description)
+        self.formLayout_5.setWidget(0, QtWidgets.QFormLayout.ItemRole.FieldRole, self.old_1_set)
+        self.verticalLayout_12.addWidget(self.old_1)
+
 
 if __name__ == "__main__":
        app = QApplication(sys.argv)

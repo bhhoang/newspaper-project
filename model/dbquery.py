@@ -1,12 +1,17 @@
 from pymongo import MongoClient
 from .article import Article
 from .author import Author
+import configparser
 import os
 
-DATABASE = os.environ.get('mongo_host')
+config = configparser.ConfigParser()
+config.read(os.path.join(os.path.dirname(__file__), '../base.conf'))
+print(config['DEFAULT']['host'])
+DATABASE = config['DEFAULT']['host']
 
 class Database:
     def __init__(self):
+
         self.__client = MongoClient(DATABASE)
         self.__database = self.__client['newspapers_db']
         self.articles_collection = self.__database['newspapers']
@@ -38,7 +43,7 @@ class Database:
         articles_data = {
             '_id': article.get_id(),
             'date': article.get_date(),
-            'category': article.get_categories(),
+            'category': article.get_category(),
             'viewed': article.get_views(),
             'title': article.get_title(),
             'description': article.get_overview(),

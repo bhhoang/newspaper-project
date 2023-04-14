@@ -80,6 +80,7 @@ class Newspapers:
     def get_all_categories() -> list[str]:
         return db.get_all_categories()
     
+    
     def get_hot_articles(self) -> list[Article]:
         return self.__hot_articles
     

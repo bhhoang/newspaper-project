@@ -19,6 +19,9 @@ with open(path) as csv_file:
     #print("[ INFO ] Connected to the database successfully.")
     #print("[ INFO ] Inserting data...")
     Info_Log("Connected to the database successfully.")
+    ## Drop the collection if it already exists
+    newspapers_collection.drop()
+    authors_collection.drop()
     Info_Log("Inserting data...")
     # Iterate over each row in the CSV file
     for row in csv_reader:
@@ -28,7 +31,7 @@ with open(path) as csv_file:
             'country': row['Country'],
             'city': row['City'],
             'date': row['Date'],
-            'categories': row['Categories'],
+            'category': row['Categories'],
             'viewed': row['Viewed'],
             'title': row['Title'],
             'description': row['Description'],
