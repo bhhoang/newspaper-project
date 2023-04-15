@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QDialog, QFrame, QVBoxLayout
+from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QDialog, QFrame, QVBoxLayout, QLabel
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.uic import loadUi
 import sys
@@ -143,15 +143,14 @@ class MainWindow(QMainWindow):
                      self.old_4_image.setPixmap(QtGui.QPixmap(not_available_image))
 
               self.Economy.clicked.connect(lambda: self.open_category("Economy"))
-              self.Sport.clicked.connect(lambda: self.open_category("Sports"))    
+              self.Sport.clicked.connect(lambda: self.open_category("Environment"))    
               self.Politics.clicked.connect(lambda: self.open_category("Politics"))
               self.Entertain.clicked.connect(lambda: self.open_category("Entertainment"))
               self.Traffic.clicked.connect(lambda: self.open_category("Traffic"))
-              self.Medical.clicked.connect(lambda: self.open_category("Medical"))
-              self.SciTech.clicked.connect(lambda: self.open_category("Science & Technology"))
-                   
+              self.Medical.clicked.connect(lambda: self.open_category("Health"))
+              self.SciTech.clicked.connect(lambda: self.open_category("Technology"))           
               self.show()
-       def button_menu_action(self, action):
+       def button_menu_action(self, action) -> None:
               if action.text() == "Login":
                      self.openLoginWindow()
               elif action.text() == "Register":
@@ -159,22 +158,30 @@ class MainWindow(QMainWindow):
               elif action.text() == "Exit":
                      sys.exit()
 
-       def open_category(self, category):
+       def open_category(self, category: str)->None:
               self.stackedWidget.setCurrentWidget(self.category_page)
               self.setWindowTitle("Pirates News - " + category)
               self.list_articles_by_category = db.get_article_by_category(category)
-              self.category_contents = QVBoxLayout()
-              for i in range(len(self.list_articles_by_category)):
-                     self.category_contents.addWidget(ArticleCard(self.list_articles_by_category[i]))
-              self.category_contents.addStretch()
-              self.category_contents.setContentsMargins(0, 0, 0, 0)
-              self.category_contents.setSpacing(0)
-              self.category_contents.setAlignment(QtCore.Qt.AlignmentFlag.AlignTop)
-              self.category_contents.setDirection(QVBoxLayout.Direction.TopToBottom)
-              
+              if self.category_scroll_area.layout() != None:
+                     self.delete_widgets(self.category_scroll_area.layout())
+                     layout = self.category_scroll_area.layout()
+              else:
+                     layout = QVBoxLayout(self.category_scroll_area)
+              for i in reversed(range(layout.count())):
+                     layout.itemAt(i).widget().setParent(None)
+              for article in self.list_articles_by_category:
+                     card = ArticleCard(article)
+                     layout.addWidget(card)
+              self.category_scroll_area.setWidgetResizable(True)
+              self.category_scroll_area.show()
 
-class ArticleCard(QFrame):
-       def __init__(self, article, parent=None):
+
+       def delete_widgets(self, layout) -> None:
+              for i in reversed(range(layout.count())):
+                     layout.itemAt(i).widget().deleteLater()
+
+class ArticleCard(QWidget):
+       def __init__(self, article: list[dict], parent=None):
               super(ArticleCard, self).__init__()
               loadUi("./views/login/Article_card.ui", self)
               self.article = article
@@ -191,7 +198,13 @@ class ArticleCard(QFrame):
               self.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
               self.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
               self.mousePressEvent = lambda event: self.open_article()
-
+       
+       def open_article(self):
+              # change stacked widget to article page and stacked widget is in MainWindow class
+              window.stackedWidget.setCurrentWidget(window.article_page)
+              window.setWindowTitle("Pirates News - " + self.article['title'])
+              window.article_title.setText(self.article['title'])
+              window.content.setText(QtCore.QCoreApplication.translate("MainWindow", self.article['content']))
 
 class LoginWindow(QDialog):
        def __init__(self):
