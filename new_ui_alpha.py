@@ -6,7 +6,13 @@ from  controller.newspaper import Newspapers
 from model.dbquery import Database
 from selectolax.parser import HTMLParser
 import requests, shutil
-import re
+import configparser
+import ctypes
+
+myappid = u'group3.piratenews.maingui.1.0.0'
+# u is for unicode
+# From win7 onwards, you need to explicitly set the app user model id. Reference keyword: AppUserModelID
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 db = Database()
 news = Newspapers()
@@ -164,6 +170,15 @@ class MainWindow(QMainWindow):
               self.SciTech.clicked.connect(lambda: self.open_category("Science & Technology"))           
               self.Travel.clicked.connect(lambda: self.open_category("Travel"))
 
+              self.Economy.setToolTip("Economy")
+              self.Sport.setToolTip("Sport")
+              self.Politics.setToolTip("Politics")
+              self.Entertain.setToolTip("Entertainment")
+              self.Traffic.setToolTip("Traffic")
+              self.Medical.setToolTip("Medical")
+              self.SciTech.setToolTip("Science & Technology")
+              self.Travel.setToolTip("Travel")
+
               self.show()
        def button_menu_action(self, action) -> None:
               if action.text() == "Login":
@@ -177,13 +192,11 @@ class MainWindow(QMainWindow):
               self.stackedWidget.setCurrentWidget(self.category_page)
               self.setWindowTitle("Pirates News - " + category)
               self.list_articles_by_category = db.get_article_by_category(category)
-              if self.category_scroll_area.layout() != None:
-                     self.delete_widgets(self.category_scroll_area.layout())
-                     layout = self.category_scroll_area.layout()
+              if self.category_contents.layout() != None:
+                     self.delete_widgets(self.category_contents.layout())
+                     layout = self.category_contents.layout()
               else:
-                     layout = QVBoxLayout(self.category_scroll_area)
-              for i in reversed(range(layout.count())):
-                     layout.itemAt(i).widget().setParent(None)
+                     layout = QVBoxLayout(self.category_contents)
               for article in self.list_articles_by_category:
                      card = ArticleCard(article)
                      layout.addWidget(card)
@@ -246,7 +259,7 @@ class MainWindow(QMainWindow):
               author = db.get_author_by_id(int(article.get_author()))
               self.author_name.setText("Author: " + author.get("name") + "\nDate: " + article.get_date())
 
-class ArticleCard(QWidget):
+class ArticleCard(QFrame):
        def __init__(self, article: list[dict], parent=None):
               super(ArticleCard, self).__init__()
               loadUi("./views/login/Article_card.ui", self)
@@ -256,14 +269,12 @@ class ArticleCard(QWidget):
               self.article_image.setPixmap(QtGui.QPixmap(not_available_image))
               self.article_image.setScaledContents(True)
               self.article_image.setStyleSheet("border: 1px solid #000000; border-radius: 5px;")
-              self.article_image.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
-              self.article_image.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
               self.article_image.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
               self.article_image.setContentsMargins(0, 0, 0, 0)
-              self.article_image.setWordWrap(True)
+              self.article_image.setWordWrap(False)
               self.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
-              self.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
               self.mousePressEvent = lambda event: self.open_article()
+              self.setMinimumHeight(200)
        
        def open_article(self)->None:
               """
@@ -311,6 +322,8 @@ class ArticleCard(QWidget):
               self.article['content'] = self.article['content'].replace("<img", "<p align='center'><img")
               self.article['content'] = self.article['content'].replace("</img>", "</img></p>")
               window.content.setText(self.article['content'])
+              author = db.get_author_by_id(int(self.article['author']))
+              window.author_name.setText("Author: " + author.get("name") + "\nDate: " + self.article.get('date'))
 
 class LoginWindow(QDialog):
        def __init__(self):
@@ -355,6 +368,27 @@ class RegisterWindow(QDialog):
               super(RegisterWindow, self).__init__()
               loadUi("./views/login/register.ui", self)
               self.show()
+              self.submit_button.clicked.connect(self.submit)
+       def submit(self):
+              if (self.name_input.text()).strip() == "" or self.password_input.text() == "" or self.username_input.text() == "" or self.email_input.text() == "":
+                     self.status_label.setStyleSheet("color: #ff0000;")
+                     self.status_label.setText("All fields are required")
+              else:
+                     self.status_label.setStyleSheet("color: #00ff00;")
+                     username = self.username_input.text()
+                     password = self.password_input.text()
+                     name = self.name_input.text()
+                     email = self.email_input.text()
+
+                     state = news.create_author(str(username), password, str(name), str(email))
+                     if state == False:
+                            self.status_label.setStyleSheet("color: #ff0000;")
+                            self.status_label.setText("Username or email already exists")
+                     else:
+                            self.status_label.setText("Register successful")
+                            QtCore.QTimer.singleShot(1000, self.close)
+                     
+
 
 if __name__ == "__main__":
        ## StackWidget

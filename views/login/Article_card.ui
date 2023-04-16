@@ -12,7 +12,7 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>1204</width>
+    <width>2000</width>
     <height>181</height>
    </size>
   </property>
@@ -52,8 +52,8 @@
        <widget class="QLabel" name="article_title">
         <property name="maximumSize">
          <size>
-          <width>1204</width>
-          <height>181</height>
+          <width>16777215</width>
+          <height>40</height>
          </size>
         </property>
         <property name="font">

@@ -72,10 +72,20 @@ class Database:
         """
         :return: True when the username is in the database, False otherwise
         """
-        result = self.authors_collection.find({'username': username})
-        password = result['password']
+        result = self.authors_collection.find_one({'username': username})
         if result is None:
             return False
+        password = result.get('password', None)
+        return password
+    
+    def _check_exist_email(self, email: str) -> bool:
+        """
+        :return: True when the email is in the database, False otherwise
+        """
+        result = self.authors_collection.find_one({'email': email})
+        if result is None:
+            return False
+        password = result.get('password', None)
         return password
     
     def _delete_article(self, ft: dict):
