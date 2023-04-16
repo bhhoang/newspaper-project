@@ -28,6 +28,9 @@ class MainWindow(QMainWindow):
        def openRegisterWindow(self):
               self.registerWindow = RegisterWindow()
               self.registerWindow.show()
+       def go_home(self):
+              self.stackedWidget.setCurrentWidget(self.main_page)
+              self.setWindowTitle("Pirate News")
 
        def __init__(self):
               super(MainWindow, self).__init__()
@@ -36,8 +39,11 @@ class MainWindow(QMainWindow):
               self.setWindowTitle("Pirate News")
               self.stackedWidget.setCurrentWidget(self.main_page)
               self.app_mascot.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
-              self.app_mascot.mousePressEvent = lambda event: self.stackedWidget.setCurrentWidget(self.main_page)
+              self.app_mascot.mousePressEvent = lambda event: self.go_home()
               self.app_mascot.setToolTip("Go to home page")
+              self.app_logo.setToolTip("Go to home page")
+              self.app_logo.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+              self.app_logo.mousePressEvent = lambda event: self.go_home()
               self.Economy.setIcon(QtGui.QIcon("./views/assets/icons/statistics.png"))
               self.Politics.setIcon(QtGui.QIcon("./views/assets/icons/politics.png"))
               self.Sport.setIcon(QtGui.QIcon("./views/assets/icons/sport.png"))
@@ -74,7 +80,8 @@ class MainWindow(QMainWindow):
               recents = news.get_recent_articles()
               self.hot_news_title.setText(hot_news.get_title())
               self.hot_news_description.setText(hot_news.get_overview())
-              if (hot_news.get_images() == None or hot_news.get_images() == []):
+              self.hot_news_image.setPixmap(QtGui.QPixmap(hot_news.get_preview_img()))
+              if (hot_news.get_preview_img() == ''):
                      self.hot_news_image.setPixmap(QtGui.QPixmap(not_available_image))
               self.hot_news_image.setScaledContents(True)           
               self.hot_news_image.mousePressEvent = lambda event: self.open_article(hot_news)
@@ -95,6 +102,7 @@ class MainWindow(QMainWindow):
               self.recent_1_title.setText(recents[0].get_title())
               self.recent_news_1.setToolTip(recents[0].get_title())
               self.recent_1_description.setText(recents[0].get_overview())
+              self.recent_1_image.setPixmap(QtGui.QPixmap(recents[0].get_preview_img()))
               if (recents[0].get_images() == None or recents[0].get_images() == []):
                      self.recent_1_image.setPixmap(QtGui.QPixmap(not_available_image))
               self.recent_1_image.setScaledContents(True)
@@ -112,6 +120,7 @@ class MainWindow(QMainWindow):
               self.recent_2_title.setText(recents[1].get_title())
               self.recent_news_2.setToolTip(recents[1].get_title())
               self.recent_2_description.setText(recents[1].get_overview())
+              self.recent_2_image.setPixmap(QtGui.QPixmap(recents[1].get_preview_img()))
               if (recents[1].get_images() == None or recents[1].get_images() == []):
                      self.recent_2_image.setPixmap(QtGui.QPixmap(not_available_image))
               self.recent_2_image.setScaledContents(True)
@@ -129,6 +138,7 @@ class MainWindow(QMainWindow):
               self.old_1_title.setText(recents[2].get_title())
               self.old_1.setToolTip(recents[2].get_title())
               self.old_1_description.setText(recents[2].get_overview())
+              self.old_1_image.setPixmap(QtGui.QPixmap(recents[2].get_preview_img()))
               if (recents[2].get_images() == None or recents[2].get_images() == []):
                      self.old_1_image.setPixmap(QtGui.QPixmap(not_available_image))
               self.old_1_image.setScaledContents(True)
@@ -139,6 +149,7 @@ class MainWindow(QMainWindow):
               self.old_2_title.setText(recents[3].get_title())
               self.old_2.setToolTip(recents[3].get_title())
               self.old_2_description.setText(recents[3].get_overview())
+              self.old_2_image.setPixmap(QtGui.QPixmap(recents[3].get_preview_img()))
               if (recents[3].get_images() == None or recents[3].get_images() == []):
                      self.old_2_image.setPixmap(QtGui.QPixmap(not_available_image))
 
@@ -148,6 +159,7 @@ class MainWindow(QMainWindow):
               self.old_3_title.setText(recents[4].get_title())
               self.old_3.setToolTip(recents[4].get_title())
               self.old_3_description.setText(recents[4].get_overview())
+              self.old_3_image.setPixmap(QtGui.QPixmap(recents[4].get_preview_img()))
               if (recents[4].get_images() == None or recents[4].get_images() == []):
                      self.old_3_image.setPixmap(QtGui.QPixmap(not_available_image))
 
@@ -156,7 +168,7 @@ class MainWindow(QMainWindow):
               self.old_4.mousePressEvent = lambda event: self.open_article(recents[5])
               self.old_4_title.setText(recents[5].get_title())
               self.old_4.setToolTip(recents[5].get_title())
-              self.old_4_description.setText(recents[5].get_overview())
+              self.old_4_image.setPixmap(QtGui.QPixmap(recents[5].get_preview_img()))
               if (recents[5].get_images() == None or recents[5].get_images() == []):
                      self.old_4_image.setPixmap(QtGui.QPixmap(not_available_image))
 
@@ -269,7 +281,9 @@ class ArticleCard(QFrame):
               self.article = article
               self.article_title.setText(article['title'])
               self.article_description.setText(article['description'])
-              self.article_image.setPixmap(QtGui.QPixmap(not_available_image))
+              self.article_image.setPixmap(QtGui.QPixmap(article.get('preview_img')))
+              if article.get('preview_img') == '':
+                     self.article_image.setPixmap(QtGui.QPixmap(not_available_image))
               self.article_image.setScaledContents(True)
               self.article_image.setStyleSheet("border: 1px solid #000000; border-radius: 5px;")
               self.article_image.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)

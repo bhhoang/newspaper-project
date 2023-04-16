@@ -1,4 +1,4 @@
-[{
+{"Authors": [{
   "_id": 1,
   "username": "jane_doe",
   "password": "123456",
@@ -37,3 +37,4 @@
     6
   ]
 }]
+}

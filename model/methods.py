@@ -8,6 +8,9 @@ def limit_word(text:str, limit:int)->str:
 def validate_word_limit(text:str, limit:int)->bool:
     return len(text.split()) <= limit
 
+def modify_exceeded_word(text:str, limit:int)->str:
+    return ' '.join(text.split())[:limit] + '...'
+
 def validate_email(email:str) -> bool:
     return re.match(r"[^@]+@[^@]+\.[^@]+", email)
 

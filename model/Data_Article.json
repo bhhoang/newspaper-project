@@ -1,4 +1,4 @@
-[{
+{"Articles":[{
   "_id": 1,
   "date": "01-03-2023",
   "category": "Science and Technology",
@@ -98,4 +98,4 @@
   "author": 2,
   "content": "![](gene.jpg)Hereditary tyrosinemia type 1 (HT1) is a rare genetic disorder that affects the body's ability to break down the amino acid tyrosine. People with HT1 are at risk of developing liver failure and liver cancer, and the disease is currently managed through a combination of diet and medication. However, these treatments are not always effective, and there is currently no cure for HT1.\n\nGene therapy is a promising approach to treating genetic disorders like HT1. The idea behind gene therapy is to introduce a functional copy of a gene that is defective in a patient's cells, in order to correct the underlying genetic defect. However, delivering genes to cells in a safe and effective way has proven to be a challenge.\n\nIn the current study, the researchers used a type of virus called adeno-associated virus (AAV) to deliver the therapeutic genes to cells in the mice. AAVs are considered to be safe for gene therapy because they do not cause disease in humans and are not known to integrate into the genome, which could cause unintended mutations. The researchers engineered the AAVs to specifically target liver cells, since the liver is the primary site of tyrosine metabolism in the body.\n\nThe results of the study are promising, but there are still many challenges to overcome before gene therapy can be used as a routine treatment for genetic disorders like HT1. One of the biggest challenges is delivering the therapeutic genes to the right cells in the body, and ensuring that they are expressed at the right levels over time. Nevertheless, the current study provides a proof of concept that gene therapy can be effective in treating genetic disorders, and it is likely that we will see more research in this area in the coming years.",
   "preview_img": "views\\assets\\gene.jpg"
-}]
+}]}

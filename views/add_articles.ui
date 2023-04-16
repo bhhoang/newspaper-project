@@ -203,7 +203,7 @@ background-color: rgba(0, 0, 0, 0)
     </widget>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="confrim_button">
+    <widget class="QDialogButtonBox" name="confirm_button">
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
