@@ -1,7 +1,6 @@
-from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QDialog, QFrame, QVBoxLayout, QLabel, QTextBrowser
+from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QDialog, QFrame, QVBoxLayout
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.uic import loadUi
-from PyQt6.QtCore import QUrl
 import sys,os
 from  controller.newspaper import Newspapers
 from model.dbquery import Database
@@ -72,7 +71,7 @@ class MainWindow(QMainWindow):
               if (hot_news.get_images() == None or hot_news.get_images() == []):
                      self.hot_news_image.setPixmap(QtGui.QPixmap(not_available_image))
               self.hot_news_image.setScaledContents(True)           
-              self.hot_news_image.mousePressEvent = lambda event: print("Clicked hot news")
+              self.hot_news_image.mousePressEvent = lambda event: self.open_article(hot_news)
               self.hot_news_container.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
               self.hot_news_image.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
               self.hot_news_image.setStyleSheet("border: 1px solid #000000; border-radius: 5px;")
@@ -82,11 +81,11 @@ class MainWindow(QMainWindow):
               self.hot_news_image.setContentsMargins(0, 0, 0, 0)
               self.hot_news_image.setWordWrap(True)
 
-              self.hot_news_title.mousePressEvent = lambda event: print("Clicked hot news")
+              self.hot_news_title.mousePressEvent = lambda event: self.open_article(hot_news)
 
               self.recent_news_1.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
               self.recent_news_1.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
-              self.recent_news_1.mousePressEvent = lambda event: print("Clicked recent news 1")
+              self.recent_news_1.mousePressEvent = lambda event: self.open_article(recents[0])
               self.recent_1_title.setText(recents[0].get_title())
               self.recent_news_1.setToolTip(recents[0].get_title())
               self.recent_1_description.setText(recents[0].get_overview())
@@ -103,7 +102,7 @@ class MainWindow(QMainWindow):
 
               self.recent_news_2.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
               self.recent_news_2.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
-              self.recent_news_2.mousePressEvent = lambda event: print("Clicked recent news 2")
+              self.recent_news_2.mousePressEvent = lambda event: self.open_article(recents[1])
               self.recent_2_title.setText(recents[1].get_title())
               self.recent_news_2.setToolTip(recents[1].get_title())
               self.recent_2_description.setText(recents[1].get_overview())
@@ -120,7 +119,7 @@ class MainWindow(QMainWindow):
               ## Older news part
               self.old_1.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
               self.old_1.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
-              self.old_1.mousePressEvent = lambda event: print("Clicked old news 1")
+              self.old_1.mousePressEvent = lambda event: self.open_article(recents[2])
               self.old_1_title.setText(recents[2].get_title())
               self.old_1.setToolTip(recents[2].get_title())
               self.old_1_description.setText(recents[2].get_overview())
@@ -130,7 +129,7 @@ class MainWindow(QMainWindow):
 
               self.old_2.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
               self.old_2.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
-              self.old_2.mousePressEvent = lambda event: print("Clicked old news 2")
+              self.old_2.mousePressEvent = lambda event: self.open_article(recents[3])
               self.old_2_title.setText(recents[3].get_title())
               self.old_2.setToolTip(recents[3].get_title())
               self.old_2_description.setText(recents[3].get_overview())
@@ -139,7 +138,7 @@ class MainWindow(QMainWindow):
 
               self.old_3.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
               self.old_3.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
-              self.old_3.mousePressEvent = lambda event: print("Clicked old news 3")
+              self.old_3.mousePressEvent = lambda event: self.open_article(recents[4])
               self.old_3_title.setText(recents[4].get_title())
               self.old_3.setToolTip(recents[4].get_title())
               self.old_3_description.setText(recents[4].get_overview())
@@ -148,7 +147,7 @@ class MainWindow(QMainWindow):
 
               self.old_4.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
               self.old_4.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
-              self.old_4.mousePressEvent = lambda event: print("Clicked old news 4")
+              self.old_4.mousePressEvent = lambda event: self.open_article(recents[5])
               self.old_4_title.setText(recents[5].get_title())
               self.old_4.setToolTip(recents[5].get_title())
               self.old_4_description.setText(recents[5].get_overview())
@@ -191,10 +190,61 @@ class MainWindow(QMainWindow):
               self.category_scroll_area.setWidgetResizable(True)
               self.category_scroll_area.show()
 
+       
+
 
        def delete_widgets(self, layout) -> None:
               for i in reversed(range(layout.count())):
                      layout.itemAt(i).widget().deleteLater()
+
+       def open_article(self, article):
+              """
+              Open article page to read article
+              """
+              # change stacked widget to article page and stacked widget is in MainWindow class
+              self.stackedWidget.setCurrentWidget(self.article_page)
+              self.setWindowTitle("Pirates News - " + article.get_title())
+              self.article_title.setText(article.get_title())
+              html_content = article.get_content()
+              html_content = HTMLParser(html_content)
+              images = list()
+              if html_content.css_first('img') != None:
+                     for image in html_content.css('img'):
+                            images.append(image.attributes.get('src'))
+              local_images = list()
+              article_id = str(article.get_id())
+              ## Download to local cache
+              iterate = 0
+              for image in images:
+                     if not os.path.exists("./cache/images/article_" + article_id + "/" + str(iterate) + ".jpg"):
+                            if not os.path.exists("./cache/images/article_" + article_id + "/"):
+                                   os.makedirs("./cache/images/article_" + article_id + "/")
+                            res = requests.get(image)
+                            with open("./cache/images/article_" + article_id + "/" + str(iterate) + ".jpg", 'wb') as f:
+                                   f.write(res.content)
+                            local_images.append("./cache/images/article_" + article_id + "/" + str(iterate) + ".jpg")
+                            iterate += 1 
+                     else:
+                            local_images.append("./cache/images/article_" + article_id + "/" + str(iterate) + ".jpg")
+
+              ## Replace img src with each of local images
+              html_content = str(html_content.html)
+              if not os.path.exists("./cache/article_" + article_id + ".html"):
+                     if not os.path.exists("./cache/"):
+                            os.makedirs("./cache/")
+                     for i in range(len(images)):
+                            img_source = images[i]
+                            img_replace = local_images[i]
+                            html_content = html_content.replace(img_source, img_replace)
+                     with open("./cache/article_" + article_id + ".html", 'w') as f:
+                            f.write(html_content)
+              article.set_content(open("./cache/article_" + article_id + ".html", 'r').read())
+              ## Align image to center
+              article.set_content(article.get_content().replace("<img", "<p align='center'><img"))
+              article.set_content(article.get_content().replace("</img>", "</img></p>"))
+              self.content.setText(article.get_content())
+              author = db.get_author_by_id(int(article.get_author()))
+              self.author_name.setText("Author: " + author.get("name") + "\nDate: " + article.get_date())
 
 class ArticleCard(QWidget):
        def __init__(self, article: list[dict], parent=None):
@@ -215,7 +265,7 @@ class ArticleCard(QWidget):
               self.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
               self.mousePressEvent = lambda event: self.open_article()
        
-       def open_article(self):
+       def open_article(self)->None:
               """
               Open article page to read article
               """

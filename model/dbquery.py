@@ -120,6 +120,9 @@ class Database:
     def get_author_by_name(self, name: str):
         author = self.authors_collection.find_one({'name': name})
         return author
+    
+    def get_author_by_id(self, ID: int):
+        return self.authors_collection.find_one({'_id': ID})
 
     def update_publish_history(self, author_id: int, article_id: int):
         # Get the author's publication history
