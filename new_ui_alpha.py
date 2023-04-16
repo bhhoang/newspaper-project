@@ -275,6 +275,8 @@ class MainWindow(QMainWindow):
               """
               # change stacked widget to article page and stacked widget is in MainWindow class
               self.stackedWidget.setCurrentWidget(self.article_page)
+              article.set_views(article.get_views() + 1)
+              db.add_views(article.get_id())
               self.setWindowTitle("Pirates News - " + article.get_title())
               self.article_title.setText(article.get_title())
               html_content = article.get_content()
@@ -288,11 +290,11 @@ class MainWindow(QMainWindow):
               ## Download to local cache
               iterate = 0
               for image in images:
-                     if not os.path.exists("./cache/articles/article_" + article_id + "/images" + str(iterate) + ".jpg"):
+                     if not os.path.exists("./cache/articles/article_" + article_id + "/images/" + str(iterate) + ".jpg"):
                             if not os.path.exists("./cache/articles/article_" + article_id + "/images"):
                                    os.makedirs("./cache/articles/article_" + article_id + "/images/")
                             res = requests.get(image)
-                            with open("./cache/articles/article_" + article_id + "/" + str(iterate) + ".jpg", 'wb') as f:
+                            with open("./cache/articles/article_" + article_id + "/images/" + str(iterate) + ".jpg", 'wb') as f:
                                    f.write(res.content)
                             local_images.append("./cache/articles/article_" + article_id + "/" + str(iterate) + ".jpg")
                             iterate += 1 
@@ -316,7 +318,7 @@ class MainWindow(QMainWindow):
               article.set_content(article.get_content().replace("</img>", "</img></p>"))
               self.content.setText(article.get_content())
               author = db.get_author_by_id(int(article.get_author()))
-              self.author_name.setText("Author: " + author.get("name") + "\nDate: " + article.get_date())
+              self.author_name.setText("Author: " + author.get("name") + "\nDate: " + article.get_date() + "\nViews: " + str(article.get_views()))
 
 class ArticleCard(QFrame):
        def __init__(self, article: list[dict], parent=None):
@@ -353,20 +355,19 @@ class ArticleCard(QFrame):
                             images.append(image.attributes.get('src'))
               local_images = list()
               article_id = str(self.article['_id'])
-
+              db.add_views(int(article_id))
+              self.article['viewed'] += 1
               ## Download to local cache
               iterate = 0
               for image in images:
-                     if not os.path.exists("./cache/articles/article_" + article_id + "/" + str(iterate) + ".jpg"):
-                            if not os.path.exists("./cache/articles/article_" + article_id + "/"):
-                                   os.makedirs("./cache/articles/article_" + article_id + "/")
+                     if not os.path.exists("./cache/articles/article_" + article_id + "/images/" + str(iterate) + ".jpg"):
+                            if not os.path.exists("./cache/articles/article_" + article_id):
+                                   os.makedirs("./cache/articles/article_" + article_id)
                             res = requests.get(image)
-                            with open("./cache/articles/article_" + article_id + "/" + str(iterate) + ".jpg", 'wb') as f:
+                            with open("./cache/articles/article_" + article_id + "/images/" + str(iterate) + ".jpg", 'wb') as f:
                                    f.write(res.content)
-                            local_images.append("./cache/articles/article_" + article_id + "/" + str(iterate) + ".jpg")
+                            local_images.append("./cache/articles/article_" + article_id + "/images/" + str(iterate) + ".jpg")
                             iterate += 1 
-                     else:
-                            local_images.append("./cache/articles/article_" + article_id + "/" + str(iterate) + ".jpg")
 
               ## Replace img src with each of local images
               html_content = str(html_content.html)
@@ -385,7 +386,7 @@ class ArticleCard(QFrame):
               self.article['content'] = self.article['content'].replace("</img>", "</img></p>")
               window.content.setText(self.article['content'])
               author = db.get_author_by_id(int(self.article['author']))
-              window.author_name.setText("Author: " + author.get("name") + "\nDate: " + self.article.get('date'))
+              window.author_name.setText("Author: " + author.get("name") + "\nDate: " + self.article.get('date') + "\nViews: " + str(self.article.get('viewed')))
 
 class LoginWindow(QDialog):
        def __init__(self):

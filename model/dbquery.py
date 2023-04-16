@@ -22,6 +22,9 @@ class Database:
     def count_all_articles(self) -> int:
         return self.articles_collection.count_documents({})
 
+    def add_views(self, article_id: int):
+        self.articles_collection.update_one({'_id': article_id}, {'$inc': {'viewed': 1}})
+        
     def get_all_articles(self) -> list[Article]:
         article_objs: list[Article] = []
         articles = self.articles_collection.find()
