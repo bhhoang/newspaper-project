@@ -2,10 +2,12 @@ from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QDialog, QFrame,
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.uic import loadUi
 from PyQt6.QtCore import QUrl
-import sys
+import sys,os
 from  controller.newspaper import Newspapers
 from model.dbquery import Database
 from selectolax.parser import HTMLParser
+import requests, shutil
+import re
 
 db = Database()
 news = Newspapers()
@@ -31,6 +33,14 @@ class MainWindow(QMainWindow):
               self.app_mascot.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
               self.app_mascot.mousePressEvent = lambda event: self.stackedWidget.setCurrentWidget(self.main_page)
               self.app_mascot.setToolTip("Go to home page")
+              self.Economy.setIcon(QtGui.QIcon("./views/assets/icons/statistics.png"))
+              self.Politics.setIcon(QtGui.QIcon("./views/assets/icons/politics.png"))
+              self.Sport.setIcon(QtGui.QIcon("./views/assets/icons/sport.png"))
+              self.SciTech.setIcon(QtGui.QIcon("./views/assets/icons/science.png"))
+              self.Entertain.setIcon(QtGui.QIcon("./views/assets/icons/music.png"))
+              self.Traffic.setIcon(QtGui.QIcon("./views/assets/icons/car.png"))
+              self.Medical.setIcon(QtGui.QIcon("./views/assets/icons/medical.png"))
+              self.Travel.setIcon(QtGui.QIcon("./views/assets/icons/mountain.png"))
               menu = QtWidgets.QMenu(self)
               actions = ["Login", "Register", "Exit"]
               for action in actions:
@@ -206,6 +216,9 @@ class ArticleCard(QWidget):
               self.mousePressEvent = lambda event: self.open_article()
        
        def open_article(self):
+              """
+              Open article page to read article
+              """
               # change stacked widget to article page and stacked widget is in MainWindow class
               window.stackedWidget.setCurrentWidget(window.article_page)
               window.setWindowTitle("Pirates News - " + self.article['title'])
@@ -213,12 +226,41 @@ class ArticleCard(QWidget):
               html_content = self.article['content']
               html_content = HTMLParser(html_content)
               images = list()
-              if html_content.css_first('img').attributes("src") != None:
+              if html_content.css_first('img') != None:
                      for image in html_content.css('img'):
-                            images.append(image.get('src'))
-              
-              # Set window.content with content has image as html
-              window.content.setHtml(self.article['content'])
+                            images.append(image.attributes.get('src'))
+              local_images = list()
+              article_id = str(self.article['_id'])
+              ## Download to local cache
+              iterate = 0
+              for image in images:
+                     if not os.path.exists("./cache/images/article_" + article_id + "/" + str(iterate) + ".jpg"):
+                            if not os.path.exists("./cache/images/article_" + article_id + "/"):
+                                   os.makedirs("./cache/images/article_" + article_id + "/")
+                            res = requests.get(image)
+                            with open("./cache/images/article_" + article_id + "/" + str(iterate) + ".jpg", 'wb') as f:
+                                   f.write(res.content)
+                            local_images.append("./cache/images/article_" + article_id + "/" + str(iterate) + ".jpg")
+                            iterate += 1 
+                     else:
+                            local_images.append("./cache/images/article_" + article_id + "/" + str(iterate) + ".jpg")
+
+              ## Replace img src with each of local images
+              html_content = str(html_content.html)
+              if not os.path.exists("./cache/article_" + article_id + ".html"):
+                     if not os.path.exists("./cache/"):
+                            os.makedirs("./cache/")
+                     for i in range(len(images)):
+                            img_source = images[i]
+                            img_replace = local_images[i]
+                            html_content = html_content.replace(img_source, img_replace)
+                     with open("./cache/article_" + article_id + ".html", 'w') as f:
+                            f.write(html_content)
+              self.article['content'] = open("./cache/article_" + article_id + ".html", 'r').read()
+              ## Align image to center
+              self.article['content'] = self.article['content'].replace("<img", "<p align='center'><img")
+              self.article['content'] = self.article['content'].replace("</img>", "</img></p>")
+              window.content.setText(self.article['content'])
 
 class LoginWindow(QDialog):
        def __init__(self):
@@ -240,7 +282,23 @@ class LoginWindow(QDialog):
                      self.status_label.setStyleSheet("color: #00ff00;")
                      self.status_label.setText("Login successful")
                      QtCore.QTimer.singleShot(1000, self.close)
+                     window.username_label.setText("Hello, " + self.username_input.text())
+                     window.username_label.setStyleSheet("border-bottom: 1px solid #000000;")
+                     window.menu = QtWidgets.QMenu()
+                     window.menu.addAction("Profile")
+                     window.menu.addAction("Logout")                
+                     window.functional_button.setMenu(window.menu)
+                     window.functional_button.setStyleSheet("QPushButton::menu-indicator {image:none;}"
+                                                          "QPushButton:pressed::menu-inidcator{image:none;}"
+                                                          "QPushButton:pressed{border: none}"
+                                                          "QPushButton{background-color: #ffffff; border-image: url(./views/assets/icons/user.png); border-radius: 50%; padding: 5px, border: 1px solid #000000;}")
 
+                     window.functional_button.menu().setStyleSheet("QMenu::item {background-color: transparent; padding: 5px; color: #000000;} "
+                                                "QMenu::item:selected {background-color: #000000; color: #ffffff;}"
+                                                "QMenu::item:pressed {background-color: #000000; color: #ffffff;} "
+                                                "QMenu{background-color: #ffffff; border: 1px solid #000000; border-radius: 5px; padding: 5px; margin: 0px; font-size: 12px; font-family: 'Segoe UI';}")
+
+                     window.functional_button.menu().setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
 
 class RegisterWindow(QDialog):
        def __init__(self):
@@ -252,5 +310,9 @@ if __name__ == "__main__":
        ## StackWidget
        app = QtWidgets.QApplication(sys.argv)
        window = MainWindow()
-
-       sys.exit(app.exec())
+       try: 
+           sys.exit(app.exec(), shutil.rmtree("./cache"))
+       except TypeError:
+           print("Exited")
+       except FileNotFoundError:
+           print("Exited")
