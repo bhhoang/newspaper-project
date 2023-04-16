@@ -1,13 +1,16 @@
-from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QDialog, QFrame, QVBoxLayout, QLabel
+from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QDialog, QFrame, QVBoxLayout, QLabel, QTextBrowser
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.uic import loadUi
+from PyQt6.QtCore import QUrl
 import sys
 from  controller.newspaper import Newspapers
 from model.dbquery import Database
+from selectolax.parser import HTMLParser
 
 db = Database()
 news = Newspapers()
 not_available_image = "./views/assets/Resource/No_Image_Available.jpg"
+
 
 class MainWindow(QMainWindow):
 
@@ -142,13 +145,16 @@ class MainWindow(QMainWindow):
               if (recents[5].get_images() == None or recents[5].get_images() == []):
                      self.old_4_image.setPixmap(QtGui.QPixmap(not_available_image))
 
+              ## Categories part
               self.Economy.clicked.connect(lambda: self.open_category("Economy"))
-              self.Sport.clicked.connect(lambda: self.open_category("Environment"))    
+              self.Sport.clicked.connect(lambda: self.open_category("Sport"))    
               self.Politics.clicked.connect(lambda: self.open_category("Politics"))
               self.Entertain.clicked.connect(lambda: self.open_category("Entertainment"))
               self.Traffic.clicked.connect(lambda: self.open_category("Traffic"))
-              self.Medical.clicked.connect(lambda: self.open_category("Health"))
-              self.SciTech.clicked.connect(lambda: self.open_category("Technology"))           
+              self.Medical.clicked.connect(lambda: self.open_category("Medical"))
+              self.SciTech.clicked.connect(lambda: self.open_category("Science & Technology"))           
+              self.Travel.clicked.connect(lambda: self.open_category("Travel"))
+
               self.show()
        def button_menu_action(self, action) -> None:
               if action.text() == "Login":
@@ -204,7 +210,15 @@ class ArticleCard(QWidget):
               window.stackedWidget.setCurrentWidget(window.article_page)
               window.setWindowTitle("Pirates News - " + self.article['title'])
               window.article_title.setText(self.article['title'])
-              window.content.setText(QtCore.QCoreApplication.translate("MainWindow", self.article['content']))
+              html_content = self.article['content']
+              html_content = HTMLParser(html_content)
+              images = list()
+              if html_content.css_first('img').attributes("src") != None:
+                     for image in html_content.css('img'):
+                            images.append(image.get('src'))
+              
+              # Set window.content with content has image as html
+              window.content.setHtml(self.article['content'])
 
 class LoginWindow(QDialog):
        def __init__(self):

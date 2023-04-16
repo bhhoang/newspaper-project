@@ -6,7 +6,6 @@ import os
 
 config = configparser.ConfigParser()
 config.read(os.path.join(os.path.dirname(__file__), '../base.conf'))
-print(config['DEFAULT']['host'])
 DATABASE = config['DEFAULT']['host']
 
 class Database:
