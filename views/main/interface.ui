@@ -475,7 +475,7 @@ QScrollBar::handle:vertical:pressed, QScrollBar::handle:horizontal:pressed {
               </layout>
              </widget>
             </item>
-            <item>
+            <item alignment="Qt::AlignTop">
              <widget class="QFrame" name="content_frame">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
@@ -507,6 +507,13 @@ QScrollBar::handle:vertical:pressed, QScrollBar::handle:horizontal:pressed {
           </widget>
          </widget>
         </item>
+        <item alignment="Qt::AlignRight|Qt::AlignBottom">
+         <widget class="QLabel" name="author_name">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="category_page">
@@ -521,8 +528,8 @@ QScrollBar::handle:vertical:pressed, QScrollBar::handle:horizontal:pressed {
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>65</width>
-             <height>16</height>
+             <width>1303</width>
+             <height>578</height>
             </rect>
            </property>
           </widget>
