@@ -162,12 +162,12 @@ class MainWindow(QMainWindow):
 
               ## Categories part
               self.Economy.clicked.connect(lambda: self.open_category("Economy"))
-              self.Sport.clicked.connect(lambda: self.open_category("Sport"))    
+              self.Sport.clicked.connect(lambda: self.open_category("Sport"))
               self.Politics.clicked.connect(lambda: self.open_category("Politics"))
               self.Entertain.clicked.connect(lambda: self.open_category("Entertainment"))
               self.Traffic.clicked.connect(lambda: self.open_category("Traffic"))
               self.Medical.clicked.connect(lambda: self.open_category("Medical"))
-              self.SciTech.clicked.connect(lambda: self.open_category("Science & Technology"))           
+              self.SciTech.clicked.connect(lambda: self.open_category("Science & Technology"))    
               self.Travel.clicked.connect(lambda: self.open_category("Travel"))
 
               self.Economy.setToolTip("Economy")
@@ -192,6 +192,9 @@ class MainWindow(QMainWindow):
               self.stackedWidget.setCurrentWidget(self.category_page)
               self.setWindowTitle("Pirates News - " + category)
               self.list_articles_by_category = db.get_article_by_category(category)
+              if self.category_contents.layout() != None:
+                     self.delete_widgets(self.category_contents.layout())
+                     layout = self.category_contents.layout()
               if self.category_contents.layout() != None:
                      self.delete_widgets(self.category_contents.layout())
                      layout = self.category_contents.layout()
