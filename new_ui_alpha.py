@@ -8,6 +8,7 @@ from selectolax.parser import HTMLParser
 import requests, shutil
 import configparser
 import ctypes
+import json
 
 myappid = u'group3.piratenews.maingui.1.0.0'
 # u is for unicode
@@ -17,7 +18,7 @@ ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 db = Database()
 news = Newspapers()
 not_available_image = "./views/assets/Resource/No_Image_Available.jpg"
-
+import time
 
 class MainWindow(QMainWindow):
 
@@ -32,10 +33,58 @@ class MainWindow(QMainWindow):
               self.stackedWidget.setCurrentWidget(self.main_page)
               self.setWindowTitle("Pirate News")
 
+       def redraw_logged_in_home(self):
+              state = json.load(open("./cache/state.json", "r"))
+              # Check expired token
+              if state.get("expires") < time.time():
+                     self.redraw_logged_out_home()
+                     os.remove("./cache/state.json")
+                     return
+              self.username_label.setText("Hello, " + state.get("username"))
+              self.username_label.setStyleSheet("border-bottom: 1px solid #000000;")
+              self.menu = QtWidgets.QMenu()
+              self.menu.addAction("Profile")
+              self.menu.addAction("Logout")                
+              self.functional_button.setMenu(self.menu)
+              self.functional_button.setStyleSheet("QPushButton::menu-indicator {image:none;}"
+                                                   "QPushButton:pressed::menu-inidcator{image:none;}"
+                                                   "QPushButton:pressed{border: none}"
+                                                   "QPushButton{background-color: #ffffff; border-image: url(./views/assets/icons/user.png); border-radius: 50%; padding: 5px, border: 1px solid #000000;}")
+              self.functional_button.menu().setStyleSheet("QMenu::item {background-color: transparent; padding: 5px; color: #000000;} "
+                                         "QMenu::item:selected {background-color: #000000; color: #ffffff;}"
+                                         "QMenu::item:pressed {background-color: #000000; color: #ffffff;} "
+                                         "QMenu{background-color: #ffffff; border: 1px solid #000000; border-radius: 5px; padding: 5px; margin: 0px; font-size: 12px; font-family: 'Segoe UI';}")
+              self.functional_button.menu().setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+              self.functional_button.setMenu(self.menu)
+              self.functional_button.menu().triggered.connect(self.button_menu_action)
+
+       def redraw_logged_out_home(self):
+              self.username_label.setText("")
+              self.username_label.setStyleSheet("border-bottom: 0px solid #000000;")
+              menu = QtWidgets.QMenu(self)
+              actions = ["Login", "Register", "Exit"]
+              for action in actions:
+                     menu.addAction(action)
+              self.functional_button.setMenu(menu)
+              self.functional_button.setFlat(True)
+              self.functional_button.setStyleSheet("QPushButton::menu-indicator {image:none;}"
+                                                   "QPushButton:pressed::menu-inidcator{image:none;}"
+                                                   "QPushButton:pressed{border: none}"
+                                                   "QPushButton{background-color: #ffffff; border-image: url(./views/assets/icons/user.png); border-radius: 50%; padding: 5px, border: 1px solid #000000;}")
+              self.functional_button.menu().setStyleSheet("QMenu::item {background-color: transparent; padding: 5px; color: #000000;} "
+                                         "QMenu::item:selected {background-color: #000000; color: #ffffff;}"
+                                         "QMenu::item:pressed {background-color: #000000; color: #ffffff;} "
+                                         "QMenu{background-color: #ffffff; border: 1px solid #000000; border-radius: 5px; padding: 5px; margin: 0px; font-size: 12px; font-family: 'Segoe UI';}")
+              self.functional_button.menu().setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+              self.functional_button.menu().triggered.connect(self.button_menu_action)
        def __init__(self):
               super(MainWindow, self).__init__()
               loadUi("./views/main/interface.ui", self)
               self.setWindowIcon(QtGui.QIcon("./views/assets/icons/logo.png"))
+              if os.path.exists("./cache/state.json"):
+                     self.redraw_logged_in_home()
+              else:
+                     self.redraw_logged_out_home()
               self.setWindowTitle("Pirate News")
               self.stackedWidget.setCurrentWidget(self.main_page)
               self.app_mascot.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
@@ -52,12 +101,6 @@ class MainWindow(QMainWindow):
               self.Traffic.setIcon(QtGui.QIcon("./views/assets/icons/car.png"))
               self.Medical.setIcon(QtGui.QIcon("./views/assets/icons/medical.png"))
               self.Travel.setIcon(QtGui.QIcon("./views/assets/icons/mountain.png"))
-              menu = QtWidgets.QMenu(self)
-              actions = ["Login", "Register", "Exit"]
-              for action in actions:
-                     menu.addAction(action)
-              self.functional_button.setMenu(menu)
-              self.functional_button.setFlat(True)
               self.functional_button.setIcon(QtGui.QIcon("./views/assets/icons/user.png"))
               self.functional_button.setText("")
               self.functional_button.setIconSize(QtCore.QSize(50, 50))
@@ -73,9 +116,7 @@ class MainWindow(QMainWindow):
                                          "QMenu::item:selected {background-color: #000000; color: #ffffff;}"
                                          "QMenu::item:pressed {background-color: #000000; color: #ffffff;} "
                                          "QMenu{background-color: #ffffff; border: 1px solid #000000; border-radius: 5px; padding: 5px; margin: 0px; font-size: 12px; font-family: 'Segoe UI';}")
-              
               self.functional_button.menu().setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
-              self.functional_button.menu().triggered.connect(self.button_menu_action)
               hot_news = news.get_hot_articles()[0]
               recents = news.get_recent_articles()
               self.hot_news_title.setText(hot_news.get_title())
@@ -199,6 +240,9 @@ class MainWindow(QMainWindow):
                      self.openRegisterWindow()
               elif action.text() == "Exit":
                      sys.exit()
+              elif action.text() == "Logout":
+                     os.remove("./cache/state.json")
+                     self.redraw_logged_out_home()
 
        def open_category(self, category: str)->None:
               self.stackedWidget.setCurrentWidget(self.category_page)
@@ -244,29 +288,29 @@ class MainWindow(QMainWindow):
               ## Download to local cache
               iterate = 0
               for image in images:
-                     if not os.path.exists("./cache/images/article_" + article_id + "/" + str(iterate) + ".jpg"):
-                            if not os.path.exists("./cache/images/article_" + article_id + "/"):
-                                   os.makedirs("./cache/images/article_" + article_id + "/")
+                     if not os.path.exists("./cache/articles/article_" + article_id + "/images" + str(iterate) + ".jpg"):
+                            if not os.path.exists("./cache/articles/article_" + article_id + "/images"):
+                                   os.makedirs("./cache/articles/article_" + article_id + "/images/")
                             res = requests.get(image)
-                            with open("./cache/images/article_" + article_id + "/" + str(iterate) + ".jpg", 'wb') as f:
+                            with open("./cache/articles/article_" + article_id + "/" + str(iterate) + ".jpg", 'wb') as f:
                                    f.write(res.content)
-                            local_images.append("./cache/images/article_" + article_id + "/" + str(iterate) + ".jpg")
+                            local_images.append("./cache/articles/article_" + article_id + "/" + str(iterate) + ".jpg")
                             iterate += 1 
                      else:
-                            local_images.append("./cache/images/article_" + article_id + "/" + str(iterate) + ".jpg")
+                            local_images.append("./cache/articles/article_" + article_id + "/" + str(iterate) + ".jpg")
 
               ## Replace img src with each of local images
               html_content = str(html_content.html)
-              if not os.path.exists("./cache/article_" + article_id + ".html"):
-                     if not os.path.exists("./cache/"):
-                            os.makedirs("./cache/")
+              if not os.path.exists("./cache/articles/article_" + article_id + "/content.html"):
+                     if not os.path.exists("./cache/articles/article_" + article_id + "/"):
+                            os.makedirs("./cache/articles/article_" + article_id + "/")
                      for i in range(len(images)):
                             img_source = images[i]
                             img_replace = local_images[i]
                             html_content = html_content.replace(img_source, img_replace)
-                     with open("./cache/article_" + article_id + ".html", 'w') as f:
+                     with open("./cache/articles/article_" + article_id + "/content.html", 'w') as f:
                             f.write(html_content)
-              article.set_content(open("./cache/article_" + article_id + ".html", 'r').read())
+              article.set_content(open("./cache/articles/article_" + article_id + "/content.html", 'r').read())
               ## Align image to center
               article.set_content(article.get_content().replace("<img", "<p align='center'><img"))
               article.set_content(article.get_content().replace("</img>", "</img></p>"))
@@ -309,32 +353,33 @@ class ArticleCard(QFrame):
                             images.append(image.attributes.get('src'))
               local_images = list()
               article_id = str(self.article['_id'])
+
               ## Download to local cache
               iterate = 0
               for image in images:
-                     if not os.path.exists("./cache/images/article_" + article_id + "/" + str(iterate) + ".jpg"):
-                            if not os.path.exists("./cache/images/article_" + article_id + "/"):
-                                   os.makedirs("./cache/images/article_" + article_id + "/")
+                     if not os.path.exists("./cache/articles/article_" + article_id + "/" + str(iterate) + ".jpg"):
+                            if not os.path.exists("./cache/articles/article_" + article_id + "/"):
+                                   os.makedirs("./cache/articles/article_" + article_id + "/")
                             res = requests.get(image)
-                            with open("./cache/images/article_" + article_id + "/" + str(iterate) + ".jpg", 'wb') as f:
+                            with open("./cache/articles/article_" + article_id + "/" + str(iterate) + ".jpg", 'wb') as f:
                                    f.write(res.content)
-                            local_images.append("./cache/images/article_" + article_id + "/" + str(iterate) + ".jpg")
+                            local_images.append("./cache/articles/article_" + article_id + "/" + str(iterate) + ".jpg")
                             iterate += 1 
                      else:
-                            local_images.append("./cache/images/article_" + article_id + "/" + str(iterate) + ".jpg")
+                            local_images.append("./cache/articles/article_" + article_id + "/" + str(iterate) + ".jpg")
 
               ## Replace img src with each of local images
               html_content = str(html_content.html)
-              if not os.path.exists("./cache/article_" + article_id + ".html"):
-                     if not os.path.exists("./cache/"):
-                            os.makedirs("./cache/")
+              if not os.path.exists("./cache/articles/article_" + article_id + "/content.html"):
+                     if not os.path.exists("./cache/articles/article_" + article_id + "/"):
+                            os.makedirs("./cache/articles/article_" + article_id + "/")
                      for i in range(len(images)):
                             img_source = images[i]
                             img_replace = local_images[i]
                             html_content = html_content.replace(img_source, img_replace)
-                     with open("./cache/article_" + article_id + ".html", 'w') as f:
+                     with open("./cache/articles/article_" + article_id + "/content.html", 'w') as f:
                             f.write(html_content)
-              self.article['content'] = open("./cache/article_" + article_id + ".html", 'r').read()
+              self.article['content'] = open("./cache/articles/article_" + article_id + "/content.html", 'r').read()
               ## Align image to center
               self.article['content'] = self.article['content'].replace("<img", "<p align='center'><img")
               self.article['content'] = self.article['content'].replace("</img>", "</img></p>")
@@ -350,7 +395,8 @@ class LoginWindow(QDialog):
               self.submit_button.clicked.connect(self.submit)
               self.show()
        def submit(self):
-              if not self.username_input.text() == "admin" and not self.password_input.text() == "admin":
+              author_obj = news.login(self.username_input.text(), self.password_input.text())
+              if author_obj == False:
                      self.status_label.setStyleSheet("color: #ff0000;")
                      if self.username_input.text() == "":
                             self.status_label.setText("Username is required")
@@ -362,23 +408,19 @@ class LoginWindow(QDialog):
                      self.status_label.setStyleSheet("color: #00ff00;")
                      self.status_label.setText("Login successful")
                      QtCore.QTimer.singleShot(1000, self.close)
-                     window.username_label.setText("Hello, " + self.username_input.text())
-                     window.username_label.setStyleSheet("border-bottom: 1px solid #000000;")
-                     window.menu = QtWidgets.QMenu()
-                     window.menu.addAction("Profile")
-                     window.menu.addAction("Logout")                
-                     window.functional_button.setMenu(window.menu)
-                     window.functional_button.setStyleSheet("QPushButton::menu-indicator {image:none;}"
-                                                          "QPushButton:pressed::menu-inidcator{image:none;}"
-                                                          "QPushButton:pressed{border: none}"
-                                                          "QPushButton{background-color: #ffffff; border-image: url(./views/assets/icons/user.png); border-radius: 50%; padding: 5px, border: 1px solid #000000;}")
-
-                     window.functional_button.menu().setStyleSheet("QMenu::item {background-color: transparent; padding: 5px; color: #000000;} "
-                                                "QMenu::item:selected {background-color: #000000; color: #ffffff;}"
-                                                "QMenu::item:pressed {background-color: #000000; color: #ffffff;} "
-                                                "QMenu{background-color: #ffffff; border: 1px solid #000000; border-radius: 5px; padding: 5px; margin: 0px; font-size: 12px; font-family: 'Segoe UI';}")
-
-                     window.functional_button.menu().setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+                     #Create state.json
+                     state = {
+                            "username": self.username_input.text(),
+                            "expires": time.time() + 3600,
+                            "name": author_obj.get_name(),
+                            "email": author_obj.get_email(),
+                            "id": author_obj.get_id()
+                     }
+                     if not os.path.exists("./cache/state.json"):
+                            with open("./cache/state.json", 'w') as f:
+                                   f.write(json.dumps(state))         
+                     window.redraw_logged_in_home()                     
+                     
 
 class RegisterWindow(QDialog):
        def __init__(self):
@@ -412,7 +454,7 @@ if __name__ == "__main__":
        app = QtWidgets.QApplication(sys.argv)
        window = MainWindow()
        try: 
-           sys.exit(app.exec(), shutil.rmtree("./cache"))
+           sys.exit(app.exec(), shutil.rmtree("./cache/articles/"))
        except TypeError:
            print("Exited")
        except FileNotFoundError:
