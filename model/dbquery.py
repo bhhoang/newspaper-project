@@ -48,6 +48,7 @@ class Database:
             'description': article.get_overview(),
             'author': article.get_author(),
             'content': article.get_content(),
+            'preview_img': article.get_preview_img(),
         }
 
         # Insert the article into the database

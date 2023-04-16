@@ -39,7 +39,8 @@ class Newspapers:
         author_id = article_info['author']
         content = article_info['content']
         ID = article_info['_id']
-        article = Article(date, category, title, description, author_id, content, ID, viewed)
+        preview_img = article_info['preview_img']
+        article = Article(date, category, title, description, author_id, content, ID, preview_img, viewed)
         return article
 
     # Signup, Login and Logout
