@@ -419,7 +419,7 @@ QScrollBar::handle:vertical:pressed, QScrollBar::handle:horizontal:pressed {
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="article_page">
        <layout class="QVBoxLayout" name="verticalLayout_16">
@@ -549,8 +549,8 @@ QScrollBar::handle:vertical:pressed, QScrollBar::handle:horizontal:pressed {
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>952</width>
-             <height>936</height>
+             <width>1286</width>
+             <height>864</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout">

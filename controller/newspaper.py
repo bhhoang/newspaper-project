@@ -10,7 +10,6 @@ class Newspapers:
     def __init__(self):
         self.__hot_articles: list[Article] = []
         self.__recent_articles: list[Article] = []
-
         self.__hot_articles.append(self.__convert_to_Article(db.get_articles_sort_views(1)[0]))
         for article in db.get_articles_sort_date(6):
             self.__recent_articles.append(self.__convert_to_Article(article))
@@ -45,7 +44,7 @@ class Newspapers:
 
     # Signup, Login and Logout
     @staticmethod
-    def create_author(username: str, password: str, real_name: str) -> bool:
+    def create_author(username: str, password: str, real_name: str, email:str) -> bool:
         """
         :return: False if username is already taken, True otherwise
         """
@@ -53,8 +52,11 @@ class Newspapers:
         check = db._check_exist_username(username)
         if check:
             return False
+        check = db._check_exist_email(email)
+        if check:
+            return False
         author_id = db.count_all_authors() + 1
-        author = Author(username, hashed_password, real_name, author_id)
+        author = Author(username, hashed_password, real_name, author_id, email)
         db.add_author_to_db(author)
         return True
 
