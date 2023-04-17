@@ -1,5 +1,5 @@
 class Author:
-    def __init__(self, username: str, password, real_name: str, ID: int ,email: str, gender="", dob="", bio="", expertise="",
+    def __init__(self, username: str, password, real_name: str, ID: int ,email: str, gender="", dob="00/00/0000", bio="", expertise="",
                  publication_history=None):
         if publication_history is None:
             publication_history = []
