@@ -27,7 +27,7 @@ class Newspapers:
         bio = author_info['bio']
         expertise = author_info['expertise']
         publication_history = author_info['publication_history']
-        author = Author(username, password, name, ID, gender, email, bio, expertise, publication_history)
+        author = Author(username=username,password=password,real_name=name,ID=ID,email=email,gender=gender,dob=dob,bio=bio,expertise=expertise,publication_history=publication_history)
         return author
 
     @staticmethod

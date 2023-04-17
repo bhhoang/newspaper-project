@@ -416,6 +416,7 @@ class LoginWindow(QDialog):
                      #Create state.json
                      state = {
                             "username": self.username_input.text(),
+                            "password": self.password_input.text(),
                             "expires": time.time() + 3600,
                             "name": author_obj.get_name(),
                             "email": author_obj.get_email(),
@@ -426,7 +427,7 @@ class LoginWindow(QDialog):
                      }
                      if not os.path.exists("./cache/state.json"):
                             with open("./cache/state.json", 'w') as f:
-                                   f.write(json.dumps(state))         
+                                   f.write(json.dumps(state, indent=4))         
                      window.redraw_logged_in_home()                     
                      
 
@@ -464,7 +465,8 @@ class ProfileWindow(QDialog):
               self.name_display.setText(self.state.get("name"))
               self.email_display.setText(self.state.get("email"))
               self.gender_display.setText(self.state.get("gender", "Not set"))
-              self.expertise_display.setText(self.state.get("expertise", "Not set"))
+              if self.state.get("expertise") == []:
+                     self.expertise_display.setText("Not set")
               self.bio_display.setText(self.state.get("bio", "Not set"))
 
 if __name__ == "__main__":
