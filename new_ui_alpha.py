@@ -94,7 +94,7 @@ class MainWindow(QMainWindow):
               self.app_logo.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
               self.app_logo.mousePressEvent = lambda event: self.go_home()
               self.Economy.setIcon(QtGui.QIcon("./views/assets/icons/statistics.png"))
-              self.Politics.setIcon(QtGui.QIcon("./views/assets/icons/politics.png"))
+              self.Politics.setIcon(QtGui.QIcon("./views/assets/icons/politi.png"))
               self.Sport.setIcon(QtGui.QIcon("./views/assets/icons/sport.png"))
               self.SciTech.setIcon(QtGui.QIcon("./views/assets/icons/science.png"))
               self.Entertain.setIcon(QtGui.QIcon("./views/assets/icons/music.png"))
@@ -296,10 +296,10 @@ class MainWindow(QMainWindow):
                             res = requests.get(image)
                             with open("./cache/articles/article_" + article_id + "/images/" + str(iterate) + ".jpg", 'wb') as f:
                                    f.write(res.content)
-                            local_images.append("./cache/articles/article_" + article_id + "/" + str(iterate) + ".jpg")
+                            local_images.append("./cache/articles/article_" + article_id + "/images/" + str(iterate) + ".jpg")
                             iterate += 1 
                      else:
-                            local_images.append("./cache/articles/article_" + article_id + "/" + str(iterate) + ".jpg")
+                            local_images.append("./cache/articles/article_" + article_id + "/images/" + str(iterate) + ".jpg")
 
               ## Replace img src with each of local images
               html_content = str(html_content.html)
