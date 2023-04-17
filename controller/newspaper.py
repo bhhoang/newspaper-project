@@ -21,11 +21,12 @@ class Newspapers:
         password = author_info['password']
         ID = author_info['_id']
         name = author_info['name']
+        gender = author_info['gender']
         email = author_info['email']
         bio = author_info['bio']
         expertise = author_info['expertise']
         publication_history = author_info['publication_history']
-        author = Author(username, password, name, ID, email, bio, expertise, publication_history)
+        author = Author(username, password, name, ID, gender, email, bio, expertise, publication_history)
         return author
 
     @staticmethod
@@ -44,7 +45,7 @@ class Newspapers:
 
     # Signup, Login and Logout
     @staticmethod
-    def create_author(username: str, password: str, real_name: str, email:str) -> bool:
+    def create_author(username: str, password: str, real_name: str,gender: str, email:str) -> bool:
         """
         :return: False if username is already taken, True otherwise
         """
@@ -56,7 +57,7 @@ class Newspapers:
         if check:
             return False
         author_id = db.count_all_authors() + 1
-        author = Author(username, hashed_password, real_name, author_id, email)
+        author = Author(username, hashed_password, real_name, author_id, gender, email)
         db.add_author_to_db(author)
         return True
 

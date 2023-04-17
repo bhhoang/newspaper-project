@@ -63,6 +63,7 @@ class Database:
             'username': author.get_username(),
             'password': author.get_password(),
             'name': author.get_name(),
+            'gender': author.get_gender(),
             'email': author.get_email(),
             'bio': author.get_bio(),
             'expertise': author.get_expertise(),
