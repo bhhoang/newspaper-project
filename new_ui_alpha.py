@@ -94,7 +94,7 @@ class MainWindow(QMainWindow):
               self.app_logo.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
               self.app_logo.mousePressEvent = lambda event: self.go_home()
               self.Economy.setIcon(QtGui.QIcon("./views/assets/icons/statistics.png"))
-              self.Politics.setIcon(QtGui.QIcon("./views/assets/icons/politi.png"))
+              self.Politics.setIcon(QtGui.QIcon("./views/assets/icons/politics.png"))
               self.Sport.setIcon(QtGui.QIcon("./views/assets/icons/sport.png"))
               self.SciTech.setIcon(QtGui.QIcon("./views/assets/icons/science.png"))
               self.Entertain.setIcon(QtGui.QIcon("./views/assets/icons/music.png"))
