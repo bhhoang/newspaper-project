@@ -139,17 +139,7 @@ background-color: rgba(0, 0, 0, 0)
     </widget>
    </item>
    <item>
-    <widget class="QPlainTextEdit" name="content_edit">
-     <property name="plainText">
-      <string/>
-     </property>
-     <property name="overwriteMode">
-      <bool>true</bool>
-     </property>
-     <property name="placeholderText">
-      <string/>
-     </property>
-    </widget>
+    <widget class="QTextEdit" name="content_edit"/>
    </item>
    <item>
     <widget class="QLabel" name="category_label">
