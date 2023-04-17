@@ -1,12 +1,12 @@
 from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QDialog, QFrame, QVBoxLayout
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.uic import loadUi
+from PyQt6.QtCore import pyqtSignal, QThread
 import sys,os
 from  controller.newspaper import Newspapers
 from model.dbquery import Database
 from selectolax.parser import HTMLParser
 import requests, shutil
-import configparser
 import ctypes
 import json
 
@@ -21,12 +21,14 @@ not_available_image = "./views/assets/Resource/No_Image_Available.jpg"
 import time
 
 class MainWindow(QMainWindow):
-
-       def openLoginWindow(self):
+       def open_EditProfileWindow(self):
+              self.editProfileWindow = ProfileWindow()
+              self.editProfileWindow.show()
+       def open_LoginWindow(self):
               self.loginWindow = LoginWindow()
               self.loginWindow.show()
 
-       def openRegisterWindow(self):
+       def open_RegisterWindow(self):
               self.registerWindow = RegisterWindow()
               self.registerWindow.show()
        def go_home(self):
@@ -235,14 +237,16 @@ class MainWindow(QMainWindow):
               self.show()
        def button_menu_action(self, action) -> None:
               if action.text() == "Login":
-                     self.openLoginWindow()
+                     self.open_LoginWindow()
               elif action.text() == "Register":
-                     self.openRegisterWindow()
+                     self.open_RegisterWindow()
               elif action.text() == "Exit":
                      sys.exit()
               elif action.text() == "Logout":
                      os.remove("./cache/state.json")
                      self.redraw_logged_out_home()
+              elif action.text() == "Profile":
+                     self.open_EditProfileWindow()
 
        def open_category(self, category: str)->None:
               self.stackedWidget.setCurrentWidget(self.category_page)
@@ -361,8 +365,8 @@ class ArticleCard(QFrame):
               iterate = 0
               for image in images:
                      if not os.path.exists("./cache/articles/article_" + article_id + "/images/" + str(iterate) + ".jpg"):
-                            if not os.path.exists("./cache/articles/article_" + article_id):
-                                   os.makedirs("./cache/articles/article_" + article_id)
+                            if not os.path.exists("./cache/articles/article_" + article_id + "/images"):
+                                   os.makedirs("./cache/articles/article_" + article_id + "/images/")
                             res = requests.get(image)
                             with open("./cache/articles/article_" + article_id + "/images/" + str(iterate) + ".jpg", 'wb') as f:
                                    f.write(res.content)
@@ -415,7 +419,10 @@ class LoginWindow(QDialog):
                             "expires": time.time() + 3600,
                             "name": author_obj.get_name(),
                             "email": author_obj.get_email(),
-                            "id": author_obj.get_id()
+                            "id": author_obj.get_id(),
+                            "expertise": author_obj.get_expertise(),
+                            "bio": author_obj.get_bio(),
+                            "dob": author_obj.get_dob()
                      }
                      if not os.path.exists("./cache/state.json"):
                             with open("./cache/state.json", 'w') as f:
@@ -448,7 +455,17 @@ class RegisterWindow(QDialog):
                             self.status_label.setText("Register successful")
                             QtCore.QTimer.singleShot(1000, self.close)
                      
-
+class ProfileWindow(QDialog):
+       def __init__(self):
+              super(ProfileWindow, self).__init__()
+              loadUi("./views/profile.ui", self)
+              self.show()
+              self.state = json.loads(open("./cache/state.json", 'r').read())
+              self.name_display.setText(self.state.get("name"))
+              self.email_display.setText(self.state.get("email"))
+              self.gender_display.setText(self.state.get("gender", "Not set"))
+              self.expertise_display.setText(self.state.get("expertise", "Not set"))
+              self.bio_display.setText(self.state.get("bio", "Not set"))
 
 if __name__ == "__main__":
        ## StackWidget

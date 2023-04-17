@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>348</width>
-    <height>446</height>
+    <width>558</width>
+    <height>625</height>
    </rect>
   </property>
   <property name="sizeIncrement">
@@ -89,10 +89,16 @@ background-color: rgba(0,0,0,0)
          </property>
          <item>
           <widget class="QLabel" name="name_display">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>48</height>
+            </size>
+           </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>30</height>
+             <height>60</height>
             </size>
            </property>
            <property name="styleSheet">
@@ -108,6 +114,12 @@ background-color: rgba(0,0,0,0)
          </item>
          <item>
           <widget class="QLabel" name="email_display">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
@@ -177,7 +189,7 @@ border: none
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <property name="spacing">
-       <number>-1</number>
+       <number>7</number>
       </property>
       <property name="leftMargin">
        <number>12</number>
@@ -376,7 +388,7 @@ border: none
            </property>
            <property name="maximumSize">
             <size>
-             <width>60</width>
+             <width>150</width>
              <height>16777215</height>
             </size>
            </property>
@@ -455,7 +467,7 @@ border: none
        </widget>
       </item>
       <item alignment="Qt::AlignLeft|Qt::AlignTop">
-       <widget class="QLabel" name="bio_label_2">
+       <widget class="QLabel" name="bio_display">
         <property name="minimumSize">
          <size>
           <width>0</width>
