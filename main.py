@@ -9,9 +9,9 @@ import requests, shutil
 import ctypes
 import json
 from utils.get_preview_image import getimage_and_setname
-from views.add_articles import MainWindow as AddArticleWindow
-from views.delete_articles import DeleteArticle as DeleteArticleWindow
-
+from views.profile import ProfileWindow
+from views.login.register_window import RegisterWindow
+from views.article_stuff import *
 
 myappid = u'group3.piratenews.maingui.1.0.0'
 # u is for unicode
@@ -25,18 +25,18 @@ import time
 
 class MainWindow(QMainWindow):
        def open_ArticleManager(self):
-              self.articleManager = ArticleManager()
+              self.articleManager = ArticleManager(news=news, db=db)
               self.articleManager.show()
 
        def open_EditProfileWindow(self):
-              self.editProfileWindow = ProfileWindow()
+              self.editProfileWindow = ProfileWindow(news)
               self.editProfileWindow.show()
        def open_LoginWindow(self):
               self.loginWindow = LoginWindow()
               self.loginWindow.show()
 
        def open_RegisterWindow(self):
-              self.registerWindow = RegisterWindow()
+              self.registerWindow = RegisterWindow(news)
               self.registerWindow.show()
        def go_home(self):
               self.stackedWidget.setCurrentWidget(self.main_page)
@@ -337,6 +337,45 @@ class MainWindow(QMainWindow):
               author = db.get_author_by_id(int(article.get_author()))
               self.author_name.setText("Author: " + author.get("name") + "\nDate: " + article.get_date() + "\nViews: " + str(article.get_views()))
 
+class LoginWindow(QDialog):
+       def __init__(self):
+              super(LoginWindow, self).__init__()
+              loadUi("./views/login/login.ui", self)
+              self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
+              self.submit_button.clicked.connect(lambda: self.submit())
+              self.show()
+       def submit(self):
+              author_obj = news.login(self.username_input.text(), self.password_input.text())
+              if author_obj == False:
+                     self.status_label.setStyleSheet("color: #ff0000;")
+                     if self.username_input.text() == "":
+                            self.status_label.setText("Username is required")
+                     elif self.password_input.text() == "":
+                            self.status_label.setText("Password is required")
+                     else:
+                            self.status_label.setText("Invalid username or password")
+              else:
+                     self.status_label.setStyleSheet("color: #00ff00;")
+                     self.status_label.setText("Login successful")
+                     QtCore.QTimer.singleShot(1000, self.close)
+                     #Create state.json
+                     state = {
+                            "username": self.username_input.text(),
+                            # "password": self.password_input.text(),
+                            "expires": time.time() + 3600,
+                            "name": author_obj.get_name(),
+                            "email": author_obj.get_email(),
+                            "id": author_obj.get_id(),
+                            "expertise": author_obj.get_expertise(),
+                            "bio": author_obj.get_bio(),
+                            "dob": author_obj.get_dob(),
+                            "gender": author_obj.get_gender()
+                     }
+                     if not os.path.exists("./cache/state.json"):
+                            with open("./cache/state.json", 'w') as f:
+                                   f.write(json.dumps(state, indent=4))         
+                     window.redraw_logged_in_home()           
+
 class ArticleCard(QFrame):
        def __init__(self, article: list[dict], parent=None):
               super(ArticleCard, self).__init__()
@@ -403,210 +442,7 @@ class ArticleCard(QFrame):
               self.article['content'] = self.article['content'].replace("</img>", "</img></p>")
               window.content.setText(self.article['content'])
               author = db.get_author_by_id(int(self.article['author']))
-              window.author_name.setText("Author: " + author.get("name") + "\nDate: " + self.article.get('date') + "\nViews: " + str(self.article.get('viewed')))
-
-class LoginWindow(QDialog):
-       def __init__(self):
-              super(LoginWindow, self).__init__()
-              loadUi("./views/login/login.ui", self)
-              self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
-              self.submit_button.clicked.connect(self.submit)
-              self.show()
-       def submit(self):
-              author_obj = news.login(self.username_input.text(), self.password_input.text())
-              if author_obj == False:
-                     self.status_label.setStyleSheet("color: #ff0000;")
-                     if self.username_input.text() == "":
-                            self.status_label.setText("Username is required")
-                     elif self.password_input.text() == "":
-                            self.status_label.setText("Password is required")
-                     else:
-                            self.status_label.setText("Invalid username or password")
-              else:
-                     self.status_label.setStyleSheet("color: #00ff00;")
-                     self.status_label.setText("Login successful")
-                     QtCore.QTimer.singleShot(1000, self.close)
-                     #Create state.json
-                     state = {
-                            "username": self.username_input.text(),
-                            # "password": self.password_input.text(),
-                            "expires": time.time() + 3600,
-                            "name": author_obj.get_name(),
-                            "email": author_obj.get_email(),
-                            "id": author_obj.get_id(),
-                            "expertise": author_obj.get_expertise(),
-                            "bio": author_obj.get_bio(),
-                            "dob": author_obj.get_dob(),
-                            "gender": author_obj.get_gender()
-                     }
-                     if not os.path.exists("./cache/state.json"):
-                            with open("./cache/state.json", 'w') as f:
-                                   f.write(json.dumps(state, indent=4))         
-                     window.redraw_logged_in_home()                     
-                     
-
-class RegisterWindow(QDialog):
-       def __init__(self):
-              super(RegisterWindow, self).__init__()
-              loadUi("./views/login/register.ui", self)
-              self.show()
-              self.submit_button.clicked.connect(self.submit)
-       def submit(self):
-              if (self.name_input.text()).strip() == "" or self.password_input.text() == "" or self.username_input.text() == "" or self.email_input.text() == "":
-                     self.status_label.setStyleSheet("color: #ff0000;")
-                     self.status_label.setText("All fields are required")
-              else:
-                     self.status_label.setStyleSheet("color: #00ff00;")
-                     username = self.username_input.text()
-                     password = self.password_input.text()
-                     name = self.name_input.text()
-                     email = self.email_input.text()
-
-                     state = news.create_author(str(username), password, str(name), str(email))
-                     if state == False:
-                            self.status_label.setStyleSheet("color: #ff0000;")
-                            self.status_label.setText("Username or email already exists")
-                     else:
-                            self.status_label.setText("Register successful")
-                            QtCore.QTimer.singleShot(1000, self.close)
-                     
-class ProfileWindow(QDialog):
-       def __init__(self):
-              super(ProfileWindow, self).__init__()
-              loadUi("./views/profile.ui", self)
-              self.show()
-              self.stackedWidget.setCurrentWidget(self.profile_page)
-              self.state = json.loads(open("./cache/state.json", 'r').read())
-              self.name_display.setText(self.state.get("name"))
-              self.email_display.setText(self.state.get("email"))
-              self.gender_display.setText(self.state.get("gender", "Not set"))
-              if self.state.get("expertise") == []:
-                     self.expertise_display.setText("Not set")
-              self.bio_display.setText(self.state.get("bio", "Not set"))
-              dob_list = self.state.get("dob").split("/")
-              self.day_display.setText(dob_list[0])
-              self.month_display.setText(dob_list[1])
-              self.year_display.setText(dob_list[2])
-              self.expertise_display.setText(self.state.get("expertise"))
-              self.edit_profile_button.clicked.connect(self.edit_profile)
-       
-       def edit_profile(self):
-              self.stackedWidget.setCurrentWidget(self.edit_page)
-              self.setWindowTitle("Edit profile")
-              self.name_edit.setPlainText(self.state.get("name"))
-              self.email_edit.setPlainText(self.state.get("email"))
-              dob_list = self.state.get("dob").split("/")
-              self.gender_edit.setCurrentText(self.state.get("gender"))
-              self.day_edit.setValue(int(dob_list[0]))
-              self.month_edit.setValue(int(dob_list[1]))
-              self.year_edit.setValue(int(dob_list[2]))
-              self.expertise_edit.setCurrentText(self.state.get("expertise"))
-              self.bio_edit.setPlainText(self.state.get("bio"))
-              self.show()
-              self.confirm_buttons.accepted.connect(self.submit)
-              self.confirm_buttons.rejected.connect(self.cancel)
-
-       def submit(self):
-              name = self.name_edit.toPlainText()
-              email = self.email_edit.toPlainText()
-              gender = self.gender_edit.currentText()
-
-              dob_day = self.day_edit.value()
-              dob_month = self.month_edit.value()
-              dob_year = self.year_edit.value()
-              dob = str(dob_day) + "/" + str(dob_month) + "/" + str(dob_year)
-
-              expertise = self.expertise_edit.currentText()
-              bio = self.bio_edit.toPlainText()
-              
-              # print({
-              #        "username": self.state.get("username"),
-              #        "password": self.state.get("password"),
-              #        "expires": self.state.get("expires"),
-              #        "name": name,
-              #        "email": email,
-              #        "id": self.state.get("id"),
-              #        "gender": gender,
-              #        "dob": dob,
-              #        "expertise": expertise,
-              #        "bio": bio,
-              # })
-
-              # Update state.json
-              state = {
-                     "username": self.state.get("username"),
-                     # "password": self.state.get("password"),
-                     "expires": self.state.get("expires"),
-                     "name": name,
-                     "email": email,
-                     "id": self.state.get("id"),
-                     "gender": gender,
-                     "dob": dob,
-                     "expertise": expertise,
-                     "bio": bio,
-              }
-              with open("./cache/state.json", 'w') as f:
-                     f.write(json.dumps(state))
-
-              # Update on DB and controller's current_author
-              news.set_name(name)
-              news.set_email(email)
-              news.set_gender(gender)
-              news.set_dob(dob)
-              news.set_expertise(expertise)
-              news.set_bio(bio)
-              self.close()
-
-       def cancel(self):
-              self.stackedWidget.setCurrentWidget(self.profile_page)
-class AricleCardManager(QFrame):
-       def __init__(self, article):
-              super(AricleCardManager, self).__init__()
-              loadUi("./views/article_mgmt_card.ui", self)
-              self.article = article
-              self.title.setText(self.article['title'])
-              self.description.setText(self.article['description'])
-              self.image.setPixmap(QtGui.QPixmap(getimage_and_setname(self.article['preview_img'], self.article['_id'])))
-
-class DeleteArticleCard(QFrame):
-       def __init__(self, article):
-              super(DeleteArticleCard, self).__init__()
-              loadUi("./views/articledel_card.ui", self)
-              self.article = article
-              self.title.setText(self.article['title'])
-              self.description.setText(self.article['description'])
-              self.image.setPixmap(QtGui.QPixmap(getimage_and_setname(self.article['preview_img'], self.article['_id'])))
-              self.confirm_button.accepted.connect(self.delete_article)
-              self.confirm_button.rejected.connect(self.close)
-       def delete_article(self):
-              db.delete_article(self.article['_id'])
-              self.close()
-
-
-class ArticleManager(QDialog):
-       def open_AddArticle(self):
-              self.add_article_window = AddArticleWindow(news.add_article)
-              self.add_article_window.show()
-       
-       def open_DeleteArticle(self):
-              self.delete_article_window = DeleteArticleWindow()
-              self.delete_article_window.show()
-
-       def __init__(self):
-              super(ArticleManager, self).__init__()
-              loadUi("./views/article_management.ui", self)
-              self.add_articles_button.clicked.connect(self.open_AddArticle)
-              self.delete_articles_button.clicked.connect(self.open_DeleteArticle)
-              state = json.loads(open("./cache/state.json", 'r').read())
-              self.articles_author = db.get_articles_by_author_id(int(state.get("id")))
-              if self.articles_list.layout() != None:
-                     layout = self.articles_list.layout()
-              else:
-                     layout = QVBoxLayout(self.articles_list)
-              for article in self.articles_author:
-                     layout.addWidget(AricleCardManager(article))
-              
-              self.articles_display.show()
+              window.author_name.setText("Author: " + author.get("name") + "\nDate: " + self.article.get('date') + "\nViews: " + str(self.article.get('viewed')))                     
 
 if __name__ == "__main__":
        ## StackWidget
