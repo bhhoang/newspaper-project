@@ -206,7 +206,7 @@ class Newspapers:
 
     def set_gender(self, gender: str):
         self.__current_author.set_gender(gender)
-        db.set_gender(self.__current_author.get_id, gender)
+        db.set_gender(self.__current_author.get_id(), gender)
 
     def set_dob(self, dob: str):
         self.__current_author.set_dob(dob)
