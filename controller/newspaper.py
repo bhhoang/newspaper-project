@@ -183,6 +183,15 @@ class Newspapers:
         db.update_publish_history(author_id, article_id)
         db.add_articles_to_db(article)
 
+    def set_name(self, name: str) -> None:
+        """
+        :raise Exception: if the author is not logged in
+        """
+        if self.__current_author is None:
+            raise Exception("User is not logged in")
+        self.__current_author.set_name(name)
+        db.set_name(self.__current_author.get_id(), name)
+
     def set_email(self, email: str) -> None:
         """
         :raise Exception: if the author is not logged in
@@ -194,6 +203,14 @@ class Newspapers:
             raise ValueError("Invalid email. The email must be in the format of abc@def.xyz")
         self.__current_author.set_email(email)
         db.set_email(self.__current_author.get_id(), email)
+
+    def set_gender(self, gender: str):
+        self.__current_author.set_gender(gender)
+        db.set_gender(self.__current_author.get_id, gender)
+
+    def set_dob(self, dob: str):
+        self.__current_author.set_dob(dob)
+        db.set_dob(self.__current_author.get_id(), dob)
 
     def set_bio(self, bio: str) -> None:
         """
