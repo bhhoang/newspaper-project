@@ -9,6 +9,7 @@ import requests, shutil
 import ctypes
 import json
 from utils.get_preview_image import getimage_and_setname
+from views.add_articles import MainWindow as AddArticleWindow
 
 myappid = u'group3.piratenews.maingui.1.0.0'
 # u is for unicode
@@ -21,6 +22,10 @@ not_available_image = "./views/assets/Resource/No_Image_Available.jpg"
 import time
 
 class MainWindow(QMainWindow):
+       def open_ArticleManager(self):
+              self.articleManager = ArticleManager()
+              self.articleManager.show()
+
        def open_EditProfileWindow(self):
               self.editProfileWindow = ProfileWindow()
               self.editProfileWindow.show()
@@ -46,6 +51,7 @@ class MainWindow(QMainWindow):
               self.username_label.setStyleSheet("border-bottom: 1px solid #000000;")
               self.menu = QtWidgets.QMenu()
               self.menu.addAction("Profile")
+              self.menu.addAction("Articles")
               self.menu.addAction("Logout")                
               self.functional_button.setMenu(self.menu)
               self.functional_button.setStyleSheet("QPushButton::menu-indicator {image:none;}"
@@ -249,6 +255,8 @@ class MainWindow(QMainWindow):
                      self.redraw_logged_out_home()
               elif action.text() == "Profile":
                      self.open_EditProfileWindow()
+              elif action.text() == "Articles":
+                     self.open_ArticleManager()
 
        def open_category(self, category: str)->None:
               self.stackedWidget.setCurrentWidget(self.category_page)
@@ -477,6 +485,18 @@ class ProfileWindow(QDialog):
               self.month_display.setText(dob_list[1])
               self.year_display.setText(dob_list[2])
               self.expertise_display.setText(self.state.get("expertise"))
+
+
+class ArticleManager(QDialog):
+       def open_AddArticle(self):
+              self.add_article_window = AddArticleWindow()
+              self.add_article_window.show()
+
+       def __init__(self):
+              super(ArticleManager, self).__init__()
+              loadUi("./views/article_management.ui", self)
+              self.add_articles_button.clicked.connect(self.open_AddArticle)
+
 
 if __name__ == "__main__":
        ## StackWidget

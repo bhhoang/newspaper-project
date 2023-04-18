@@ -13,12 +13,11 @@ class MainWindow(QDialog):
 
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
-        print(os.path.abspath("add_articles.ui"))
-        loadUi(os.path.abspath("add_articles.ui"), self)
+        loadUi(os.path.abspath("./views/add_articles.ui"), self)
         self.show()
-        if not os.path.exists("../cache/state.json"):
+        if not os.path.exists("./cache/state.json"):
             QMessageBox.warning(self, "Error", "Please login first!")
-            return
+            return self.close()
         
         self.setWindowTitle("Pirate News - Add Article")
         #Paste image from clipboard
@@ -44,10 +43,10 @@ class MainWindow(QDialog):
             cursor.insertImage(image)
 
     def accept(self) -> None:
-        if not os.path.exists("../cache/state.json"):
+        if not os.path.exists("./cache/state.json"):
             QMessageBox.warning(self, "Error", "Please login first!")
             return
-        state = json.load(open("../cache/state.json", "r"))
+        state = json.load(open("./cache/state.json", "r"))
         news.login(state["username"], state["password"])
         news.add_article(date=str(datetime.datetime.today().strftime('%m-%d-%Y')), title=self.title_edit.toPlainText(), overview=self.description_edit.toPlainText(), content=self.content_edit.toHtml(), category=self.category_edit.currentText(), preview_img=self.image_link.toPlainText())
         QMessageBox.information(self, "Success", "Article added successfully!")
