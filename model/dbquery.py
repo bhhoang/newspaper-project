@@ -133,6 +133,13 @@ class Database:
         for article in result:
             articles.append(article)
         return articles
+    
+    def get_articles_by_author_id(self, author_id: int):
+        articles = []
+        result = self.articles_collection.find({'author': author_id})
+        for article in result:
+            articles.append(article)
+        return articles
 
     def get_author_by_name(self, name: str):
         author = self.authors_collection.find_one({'name': name})

@@ -10,6 +10,8 @@ import ctypes
 import json
 from utils.get_preview_image import getimage_and_setname
 from views.add_articles import MainWindow as AddArticleWindow
+from views.delete_articles import DeleteArticle as DeleteArticleWindow
+
 
 myappid = u'group3.piratenews.maingui.1.0.0'
 # u is for unicode
@@ -486,17 +488,54 @@ class ProfileWindow(QDialog):
               self.year_display.setText(dob_list[2])
               self.expertise_display.setText(self.state.get("expertise"))
 
+class AricleCardManager(QFrame):
+       def __init__(self, article):
+              super(AricleCardManager, self).__init__()
+              loadUi("./views/article_mgmt_card.ui", self)
+              self.article = article
+              self.title.setText(self.article['title'])
+              self.description.setText(self.article['description'])
+              self.image.setPixmap(QtGui.QPixmap(getimage_and_setname(self.article['preview_img'], self.article['_id'])))
+
+class DeleteArticleCard(QFrame):
+       def __init__(self, article):
+              super(DeleteArticleCard, self).__init__()
+              loadUi("./views/articledel_card.ui", self)
+              self.article = article
+              self.title.setText(self.article['title'])
+              self.description.setText(self.article['description'])
+              self.image.setPixmap(QtGui.QPixmap(getimage_and_setname(self.article['preview_img'], self.article['_id'])))
+              self.confirm_button.accepted.connect(self.delete_article)
+              self.confirm_button.rejected.connect(self.close)
+       def delete_article(self):
+              db.delete_article(self.article['_id'])
+              self.close()
+
 
 class ArticleManager(QDialog):
        def open_AddArticle(self):
               self.add_article_window = AddArticleWindow()
               self.add_article_window.show()
+       
+       def open_DeleteArticle(self):
+              self.delete_article_window = DeleteArticleWindow()
+              self.delete_article_window.show()
 
        def __init__(self):
               super(ArticleManager, self).__init__()
               loadUi("./views/article_management.ui", self)
               self.add_articles_button.clicked.connect(self.open_AddArticle)
-
+              self.delete_articles_button.clicked.connect(self.open_DeleteArticle)
+              state = json.loads(open("./cache/state.json", 'r').read())
+              self.articles_author = db.get_articles_by_author_id(int(state.get("id")))
+              if self.articles_list.layout() != None:
+                     layout = self.articles_list.layout()
+              else:
+                     layout = QVBoxLayout(self.articles_list)
+              for article in self.articles_author:
+                     layout.addWidget(AricleCardManager(article))
+              
+              self.articles_display.show()
 
 if __name__ == "__main__":
        ## StackWidget

@@ -146,7 +146,7 @@ class Newspapers:
             article_obj = self.__convert_to_Article(article)
             article_objs.append(article_obj)
         return article_objs
-
+    
     def get_articles_sort_by_views(self, limit: int) -> list[Article]:
         article_objs: list[Article] = []
         articles = db.get_articles_sort_views(limit)
