@@ -584,7 +584,7 @@ class DeleteArticleCard(QFrame):
 
 class ArticleManager(QDialog):
        def open_AddArticle(self):
-              self.add_article_window = AddArticleWindow()
+              self.add_article_window = AddArticleWindow(news.add_article)
               self.add_article_window.show()
        
        def open_DeleteArticle(self):

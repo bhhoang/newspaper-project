@@ -6,13 +6,13 @@ import os,sys
 import datetime
 import json
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from controller.newspaper import Newspapers
+# from controller.newspaper import Newspapers
 
-news = Newspapers()
+# news = Newspapers()
 class MainWindow(QDialog):
 
-    def __init__(self, *args, **kwargs):
-        super(MainWindow, self).__init__(*args, **kwargs)
+    def __init__(self, add_article_callback):
+        super(MainWindow, self).__init__()
         loadUi(os.path.abspath("./views/add_articles.ui"), self)
         self.show()
         if not os.path.exists("./cache/state.json"):
@@ -31,7 +31,7 @@ class MainWindow(QDialog):
         self.addAction(paste_action)
 
         #Buttons
-        self.confirm_button.accepted.connect(self.accept)
+        self.confirm_button.accepted.connect(lambda: self.accept(add_article_callback))
         self.confirm_button.rejected.connect(self.reject)
 
     def handle_clipboard_change(self):
@@ -44,7 +44,7 @@ class MainWindow(QDialog):
             cursor = self.text_edit.textCursor()
             cursor.insertImage(image)
 
-    def accept(self) -> None:
+    def accept(self, add_article_callback) -> None:
         if not os.path.exists("./cache/state.json"):
             QMessageBox.warning(self, "Error", "Please login first!")
             return
@@ -58,8 +58,8 @@ class MainWindow(QDialog):
             QMessageBox.warning(self, "Error", "Please enter content!")
             return
         state = json.load(open("./cache/state.json", "r"))
-        news.login(state["username"], state["password"])
-        news.add_article(date=str(datetime.datetime.today().strftime('%m-%d-%Y')), title=self.title_edit.toPlainText(), overview=self.description_edit.toPlainText(), content=self.content_edit.toHtml(), category=self.category_edit.currentText(), preview_img=self.image_link.toPlainText())
+        # news.login(state["username"], state["password"])
+        add_article_callback(date=str(datetime.datetime.today().strftime('%m-%d-%Y')), title=self.title_edit.toPlainText(), overview=self.description_edit.toPlainText(), content=self.content_edit.toHtml(), category=self.category_edit.currentText(), preview_img=self.image_link.toPlainText())
         QMessageBox.information(self, "Success", "Article added successfully!")
     def reject(self) -> None:
         self.close()
