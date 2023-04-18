@@ -157,10 +157,10 @@ class Database:
         self.authors_collection.update_one({'_id': author_id}, {'$set': {'email': email}})
 
     def set_gender(self, author_id: int, gender: str):
-        self.authors_collection.update_one({'id': author_id}, {'$set': {'gender': gender}})
+        self.authors_collection.update_one({'_id': author_id}, {'$set': {'gender': gender}})
 
     def set_dob(self, author_id: int, dob: str):
-        self.authors_collection.update_one({'id': author_id}, {'$set': {'dob': dob}})
+        self.authors_collection.update_one({'_id': author_id}, {'$set': {'dob': dob}})
 
     def set_bio(self, author_id: int, bio: str):
         self.authors_collection.update_one({'_id': author_id}, {'$set': {'bio': bio}})
