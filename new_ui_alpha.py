@@ -251,6 +251,7 @@ class MainWindow(QMainWindow):
               elif action.text() == "Register":
                      self.open_RegisterWindow()
               elif action.text() == "Exit":
+                     shutil.rmtree("./cache/articles")
                      sys.exit()
               elif action.text() == "Logout":
                      os.remove("./cache/state.json")
@@ -612,7 +613,7 @@ if __name__ == "__main__":
        app = QtWidgets.QApplication(sys.argv)
        window = MainWindow()
        try: 
-           sys.exit(app.exec(), shutil.rmtree("./cache/articles/"))
+           sys.exit(app.exec(), shutil.rmtree("./cache/articles"))
        except TypeError:
            print("Exited")
        except FileNotFoundError:
