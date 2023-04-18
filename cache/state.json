@@ -1,11 +1,12 @@
 {
     "username": "admin",
     "password": "admin",
-    "expires": 1681748520.476371,
+    "expires": 1681779587.2254384,
     "name": "Admin",
     "email": "Admin@abc.xyz",
     "id": 12,
-    "expertise": "",
-    "bio": "",
-    "dob": ""
+    "expertise": "Politics",
+    "bio": "A good life is good",
+    "dob": "12/11/2003",
+    "gender": "Male"
 }

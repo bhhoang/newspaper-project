@@ -2,11 +2,12 @@ from pymongo import MongoClient
 from .article import Article
 from .author import Author
 import configparser
-import os
+import os,sys
 
 config = configparser.ConfigParser()
 config.read(os.path.join(os.path.dirname(__file__), '../base.conf'))
 DATABASE = config['DEFAULT']['host']
+
 
 class Database:
     def __init__(self):

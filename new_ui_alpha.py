@@ -1,7 +1,6 @@
-from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QDialog, QFrame, QVBoxLayout
+from PyQt6.QtWidgets import QMainWindow, QDialog, QFrame, QVBoxLayout
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.uic import loadUi
-from PyQt6.QtCore import pyqtSignal, QThread
 import sys,os
 from  controller.newspaper import Newspapers
 from model.dbquery import Database
@@ -9,6 +8,7 @@ from selectolax.parser import HTMLParser
 import requests, shutil
 import ctypes
 import json
+from utils.get_preview_image import getimage_and_setname
 
 myappid = u'group3.piratenews.maingui.1.0.0'
 # u is for unicode
@@ -80,6 +80,8 @@ class MainWindow(QMainWindow):
               self.functional_button.menu().setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
               self.functional_button.menu().triggered.connect(self.button_menu_action)
        def __init__(self):
+              if not os.path.exists("./cache"):
+                     os.mkdir("./cache")
               super(MainWindow, self).__init__()
               loadUi("./views/main/interface.ui", self)
               self.setWindowIcon(QtGui.QIcon("./views/assets/icons/logo.png"))
@@ -123,8 +125,8 @@ class MainWindow(QMainWindow):
               recents = news.get_recent_articles()
               self.hot_news_title.setText(hot_news.get_title())
               self.hot_news_description.setText(hot_news.get_overview())
-              self.hot_news_image.setPixmap(QtGui.QPixmap(hot_news.get_preview_img()))
-              if (hot_news.get_preview_img() == ''):
+              self.hot_news_image.setPixmap(QtGui.QPixmap(getimage_and_setname(hot_news.get_preview_img())))
+              if (getimage_and_setname(hot_news.get_preview_img()) == ""):
                      self.hot_news_image.setPixmap(QtGui.QPixmap(not_available_image))
               self.hot_news_image.setScaledContents(True)           
               self.hot_news_image.mousePressEvent = lambda event: self.open_article(hot_news)
@@ -145,8 +147,8 @@ class MainWindow(QMainWindow):
               self.recent_1_title.setText(recents[0].get_title())
               self.recent_news_1.setToolTip(recents[0].get_title())
               self.recent_1_description.setText(recents[0].get_overview())
-              self.recent_1_image.setPixmap(QtGui.QPixmap(recents[0].get_preview_img()))
-              if (recents[0].get_images() == None or recents[0].get_images() == []):
+              self.recent_1_image.setPixmap(QtGui.QPixmap(getimage_and_setname(recents[0].get_preview_img())))
+              if (getimage_and_setname(recents[0].get_preview_img()) == ""):
                      self.recent_1_image.setPixmap(QtGui.QPixmap(not_available_image))
               self.recent_1_image.setScaledContents(True)
               self.recent_1_image.setStyleSheet("border: 1px solid #000000; border-radius: 5px;")
@@ -163,8 +165,8 @@ class MainWindow(QMainWindow):
               self.recent_2_title.setText(recents[1].get_title())
               self.recent_news_2.setToolTip(recents[1].get_title())
               self.recent_2_description.setText(recents[1].get_overview())
-              self.recent_2_image.setPixmap(QtGui.QPixmap(recents[1].get_preview_img()))
-              if (recents[1].get_images() == None or recents[1].get_images() == []):
+              self.recent_2_image.setPixmap(QtGui.QPixmap(getimage_and_setname(recents[1].get_preview_img())))
+              if (getimage_and_setname(recents[1].get_preview_img()) == ""):
                      self.recent_2_image.setPixmap(QtGui.QPixmap(not_available_image))
               self.recent_2_image.setScaledContents(True)
               self.recent_2_image.setStyleSheet("border: 1px solid #000000; border-radius: 5px;")
@@ -181,8 +183,8 @@ class MainWindow(QMainWindow):
               self.old_1_title.setText(recents[2].get_title())
               self.old_1.setToolTip(recents[2].get_title())
               self.old_1_description.setText(recents[2].get_overview())
-              self.old_1_image.setPixmap(QtGui.QPixmap(recents[2].get_preview_img()))
-              if (recents[2].get_images() == None or recents[2].get_images() == []):
+              self.old_1_image.setPixmap(QtGui.QPixmap(getimage_and_setname(recents[2].get_preview_img())))
+              if (getimage_and_setname(recents[2].get_preview_img()) == ""):
                      self.old_1_image.setPixmap(QtGui.QPixmap(not_available_image))
               self.old_1_image.setScaledContents(True)
 
@@ -192,8 +194,8 @@ class MainWindow(QMainWindow):
               self.old_2_title.setText(recents[3].get_title())
               self.old_2.setToolTip(recents[3].get_title())
               self.old_2_description.setText(recents[3].get_overview())
-              self.old_2_image.setPixmap(QtGui.QPixmap(recents[3].get_preview_img()))
-              if (recents[3].get_images() == None or recents[3].get_images() == []):
+              self.old_2_image.setPixmap(QtGui.QPixmap(getimage_and_setname(recents[3].get_preview_img())))
+              if (getimage_and_setname(recents[3].get_preview_img()) == ""):
                      self.old_2_image.setPixmap(QtGui.QPixmap(not_available_image))
 
               self.old_3.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
@@ -202,8 +204,8 @@ class MainWindow(QMainWindow):
               self.old_3_title.setText(recents[4].get_title())
               self.old_3.setToolTip(recents[4].get_title())
               self.old_3_description.setText(recents[4].get_overview())
-              self.old_3_image.setPixmap(QtGui.QPixmap(recents[4].get_preview_img()))
-              if (recents[4].get_images() == None or recents[4].get_images() == []):
+              self.old_3_image.setPixmap(QtGui.QPixmap(getimage_and_setname(recents[4].get_preview_img())))
+              if (getimage_and_setname(recents[4].get_preview_img()) == ""):
                      self.old_3_image.setPixmap(QtGui.QPixmap(not_available_image))
 
               self.old_4.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
@@ -211,8 +213,8 @@ class MainWindow(QMainWindow):
               self.old_4.mousePressEvent = lambda event: self.open_article(recents[5])
               self.old_4_title.setText(recents[5].get_title())
               self.old_4.setToolTip(recents[5].get_title())
-              self.old_4_image.setPixmap(QtGui.QPixmap(recents[5].get_preview_img()))
-              if (recents[5].get_images() == None or recents[5].get_images() == []):
+              self.old_4_image.setPixmap(QtGui.QPixmap(getimage_and_setname(recents[5].get_preview_img())))
+              if (getimage_and_setname(recents[5].get_preview_img()) == ""):
                      self.old_4_image.setPixmap(QtGui.QPixmap(not_available_image))
 
               ## Categories part
@@ -331,8 +333,8 @@ class ArticleCard(QFrame):
               self.article = article
               self.article_title.setText(article['title'])
               self.article_description.setText(article['description'])
-              self.article_image.setPixmap(QtGui.QPixmap(article.get('preview_img')))
-              if article.get('preview_img') == '':
+              self.article_image.setPixmap(QtGui.QPixmap(getimage_and_setname(self.article['preview_img'], self.article['_id'])))
+              if getimage_and_setname(self.article['preview_img'], self.article['_id']) == '':
                      self.article_image.setPixmap(QtGui.QPixmap(not_available_image))
               self.article_image.setScaledContents(True)
               self.article_image.setStyleSheet("border: 1px solid #000000; border-radius: 5px;")
@@ -423,7 +425,8 @@ class LoginWindow(QDialog):
                             "id": author_obj.get_id(),
                             "expertise": author_obj.get_expertise(),
                             "bio": author_obj.get_bio(),
-                            "dob": author_obj.get_dob()
+                            "dob": author_obj.get_dob(),
+                            "gender": author_obj.get_gender()
                      }
                      if not os.path.exists("./cache/state.json"):
                             with open("./cache/state.json", 'w') as f:
@@ -461,6 +464,7 @@ class ProfileWindow(QDialog):
               super(ProfileWindow, self).__init__()
               loadUi("./views/profile.ui", self)
               self.show()
+              self.stackedWidget.setCurrentWidget(self.profile_page)
               self.state = json.loads(open("./cache/state.json", 'r').read())
               self.name_display.setText(self.state.get("name"))
               self.email_display.setText(self.state.get("email"))
@@ -468,6 +472,11 @@ class ProfileWindow(QDialog):
               if self.state.get("expertise") == []:
                      self.expertise_display.setText("Not set")
               self.bio_display.setText(self.state.get("bio", "Not set"))
+              dob_list = self.state.get("dob").split("/")
+              self.day_display.setText(dob_list[0])
+              self.month_display.setText(dob_list[1])
+              self.year_display.setText(dob_list[2])
+              self.expertise_display.setText(self.state.get("expertise"))
 
 if __name__ == "__main__":
        ## StackWidget

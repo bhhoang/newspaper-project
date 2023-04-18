@@ -27,7 +27,7 @@ class Newspapers:
         bio = author_info['bio']
         expertise = author_info['expertise']
         publication_history = author_info['publication_history']
-        author = Author(username=username,password=password,real_name=name,ID=ID,email=email,gender=gender,dob=dob,bio=bio,expertise=expertise,publication_history=publication_history)
+        author = Author(username, password, name, ID, email, gender, dob, bio, expertise, publication_history)
         return author
 
     @staticmethod
@@ -62,9 +62,11 @@ class Newspapers:
         db.add_author_to_db(author)
         return True
 
-    def login(self, username: str, password: str) -> bool:
+    def login(self, username: str, password: str) -> Author | bool:
         """
-        :return: True if login is successful, False otherwise
+        :param username: Username of the author
+        :param password: Password of the author
+        :return: False if account doesn't exist or password is incorrect, Author object otherwise
         """
         author_info = db.authors_collection.find_one({'username': username})
         # Account doesnt exists
@@ -163,7 +165,7 @@ class Newspapers:
 
     # TODO: Add method to increase views of an article
     # Actions when logged in (Includes actions when not logged in)
-    def add_article(self, date: str, category: str, title: str, overview: str, content: str) -> None:
+    def add_article(self, date: str, category: str, title: str, overview: str, content: str, preview_img:str="") -> None:
         """
         :raise Exception: if the author is not logged in
         :raise ValueError: if the category is invalid
@@ -176,9 +178,9 @@ class Newspapers:
 
         author_id = self.__current_author.get_id()
         article_id = db.count_all_articles() + 1
-        article = Article(date, category, title, overview, author_id, content, article_id)
+        article = Article(date, category, title, overview, author_id, content, article_id, preview_img )
         self.__current_author.add_article(article.get_id())
-        db.update_pub_history(author_id, article_id)
+        db.update_publish_history(author_id, article_id)
         db.add_articles_to_db(article)
 
     def set_email(self, email: str) -> None:

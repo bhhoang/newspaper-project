@@ -25,7 +25,7 @@ background-color: qlineargradient(spread:pad, x1:0.497537, y1:1, x2:0.468443, y2
 }</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <item alignment="Qt::AlignTop">
+   <item>
     <widget class="QFrame" name="banner_frame">
      <property name="styleSheet">
       <string notr="true">QFrame{
@@ -148,7 +148,7 @@ background-color: rgba(0, 0, 0, 0)
      </property>
     </widget>
    </item>
-   <item alignment="Qt::AlignLeft">
+   <item>
     <widget class="QComboBox" name="category_edit">
      <item>
       <property name="text">
@@ -190,6 +190,28 @@ background-color: rgba(0, 0, 0, 0)
        <string>Science and Technology</string>
       </property>
      </item>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPlainTextEdit" name="image_link">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>27</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>27</height>
+      </size>
+     </property>
+     <property name="documentTitle">
+      <string>sddd</string>
+     </property>
+     <property name="placeholderText">
+      <string>Input preview image link here (Optional)</string>
+     </property>
     </widget>
    </item>
    <item>
