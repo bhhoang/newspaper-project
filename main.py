@@ -134,7 +134,7 @@ class MainWindow(QMainWindow):
               self.hot_news_title.setText(hot_news.get_title())
               self.hot_news_description.setText(hot_news.get_overview())
               self.hot_news_image.setPixmap(QtGui.QPixmap(getimage_and_setname(hot_news.get_preview_img())))
-              if (getimage_and_setname(hot_news.get_preview_img()) == ""):
+              if (getimage_and_setname(hot_news.get_preview_img(),hot_news.get_id()) == ""):
                      self.hot_news_image.setPixmap(QtGui.QPixmap(not_available_image))
               self.hot_news_image.setScaledContents(True)           
               self.hot_news_image.mousePressEvent = lambda event: self.open_article(hot_news)
@@ -155,8 +155,8 @@ class MainWindow(QMainWindow):
               self.recent_1_title.setText(recents[0].get_title())
               self.recent_news_1.setToolTip(recents[0].get_title())
               self.recent_1_description.setText(recents[0].get_overview())
-              self.recent_1_image.setPixmap(QtGui.QPixmap(getimage_and_setname(recents[0].get_preview_img())))
-              if (getimage_and_setname(recents[0].get_preview_img()) == ""):
+              self.recent_1_image.setPixmap(QtGui.QPixmap(getimage_and_setname(recents[0].get_preview_img(), recents[0].get_id())))
+              if (getimage_and_setname(recents[0].get_preview_img(), recents[0].get_id()) == ""):
                      self.recent_1_image.setPixmap(QtGui.QPixmap(not_available_image))
               self.recent_1_image.setScaledContents(True)
               self.recent_1_image.setStyleSheet("border: 1px solid #000000; border-radius: 5px;")
@@ -173,8 +173,8 @@ class MainWindow(QMainWindow):
               self.recent_2_title.setText(recents[1].get_title())
               self.recent_news_2.setToolTip(recents[1].get_title())
               self.recent_2_description.setText(recents[1].get_overview())
-              self.recent_2_image.setPixmap(QtGui.QPixmap(getimage_and_setname(recents[1].get_preview_img())))
-              if (getimage_and_setname(recents[1].get_preview_img()) == ""):
+              self.recent_2_image.setPixmap(QtGui.QPixmap(getimage_and_setname(recents[1].get_preview_img(), recents[1].get_id())))
+              if (getimage_and_setname(recents[1].get_preview_img(), recents[1].get_id()) == ""):
                      self.recent_2_image.setPixmap(QtGui.QPixmap(not_available_image))
               self.recent_2_image.setScaledContents(True)
               self.recent_2_image.setStyleSheet("border: 1px solid #000000; border-radius: 5px;")
@@ -191,8 +191,8 @@ class MainWindow(QMainWindow):
               self.old_1_title.setText(recents[2].get_title())
               self.old_1.setToolTip(recents[2].get_title())
               self.old_1_description.setText(recents[2].get_overview())
-              self.old_1_image.setPixmap(QtGui.QPixmap(getimage_and_setname(recents[2].get_preview_img())))
-              if (getimage_and_setname(recents[2].get_preview_img()) == ""):
+              self.old_1_image.setPixmap(QtGui.QPixmap(getimage_and_setname(recents[2].get_preview_img(),recents[2].get_id())))
+              if (getimage_and_setname(recents[2].get_preview_img(), recents[2].get_id()) == ""):
                      self.old_1_image.setPixmap(QtGui.QPixmap(not_available_image))
               self.old_1_image.setScaledContents(True)
 
@@ -202,7 +202,7 @@ class MainWindow(QMainWindow):
               self.old_2_title.setText(recents[3].get_title())
               self.old_2.setToolTip(recents[3].get_title())
               self.old_2_description.setText(recents[3].get_overview())
-              self.old_2_image.setPixmap(QtGui.QPixmap(getimage_and_setname(recents[3].get_preview_img())))
+              self.old_2_image.setPixmap(QtGui.QPixmap(getimage_and_setname(recents[3].get_preview_img(),recents[3].get_id())))
               if (getimage_and_setname(recents[3].get_preview_img()) == ""):
                      self.old_2_image.setPixmap(QtGui.QPixmap(not_available_image))
 
@@ -212,7 +212,7 @@ class MainWindow(QMainWindow):
               self.old_3_title.setText(recents[4].get_title())
               self.old_3.setToolTip(recents[4].get_title())
               self.old_3_description.setText(recents[4].get_overview())
-              self.old_3_image.setPixmap(QtGui.QPixmap(getimage_and_setname(recents[4].get_preview_img())))
+              self.old_3_image.setPixmap(QtGui.QPixmap(getimage_and_setname(recents[4].get_preview_img(),recents[4].get_id())))
               if (getimage_and_setname(recents[4].get_preview_img()) == ""):
                      self.old_3_image.setPixmap(QtGui.QPixmap(not_available_image))
 
@@ -221,7 +221,7 @@ class MainWindow(QMainWindow):
               self.old_4.mousePressEvent = lambda event: self.open_article(recents[5])
               self.old_4_title.setText(recents[5].get_title())
               self.old_4.setToolTip(recents[5].get_title())
-              self.old_4_image.setPixmap(QtGui.QPixmap(getimage_and_setname(recents[5].get_preview_img())))
+              self.old_4_image.setPixmap(QtGui.QPixmap(getimage_and_setname(recents[5].get_preview_img(),recents[5].get_id())))
               if (getimage_and_setname(recents[5].get_preview_img()) == ""):
                      self.old_4_image.setPixmap(QtGui.QPixmap(not_available_image))
 
