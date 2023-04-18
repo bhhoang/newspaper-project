@@ -849,25 +849,47 @@ QPlainTextEdit{
            </widget>
           </item>
           <item>
-           <widget class="QPlainTextEdit" name="expertise_edit">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>23</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>27</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-            <property name="backgroundVisible">
-             <bool>false</bool>
-            </property>
+           <widget class="QComboBox" name="expertise_edit">
+            <item>
+             <property name="text">
+              <string>Economy</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Sport</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Politics</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Entertainment</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Traffic</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Medical</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Science and Technology</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Travel</string>
+             </property>
+            </item>
            </widget>
           </item>
           <item>
