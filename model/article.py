@@ -2,7 +2,7 @@ import re
 
 
 class Article:
-    def __init__(self, date: str, category: str, title: str, overview: str, author_id: int, content: str, ID: int,
+    def __init__(self, date: str, category: str, title: str, overview: str, author_id: int, content: str, ID: int, preview_img: str,
                  views: int = 0):
         self.__date = date
         self.__category = category
@@ -13,17 +13,19 @@ class Article:
         self.__content = content
         self.__id = ID
         self.__images: list[str] = self.__extract_images(content)
+        self.__preview_img = preview_img
 
     # Getters
     def get_id(self) -> int: return self.__id
     def get_date(self) -> str: return self.__date
-    def get_categories(self) -> str: return self.__category
+    def get_category(self) -> str: return self.__category
     def get_views(self) -> int: return self.__views
     def get_title(self) -> str: return self.__title
     def get_overview(self) -> str: return self.__overview
     def get_author(self) -> int: return self.__author
     def get_content(self) -> str: return self.__content
     def get_images(self) -> list[str]: return self.__images
+    def get_preview_img(self) -> str: return self.__preview_img
 
     # Setters
     def set_date(self, date: str): self.__date = date
@@ -33,6 +35,7 @@ class Article:
     def set_overview(self, overview: str): self.__overview = overview
     def set_author(self, author_id: str): self.__author = author_id
     def set_content(self, content: str): self.__content = content
+    def set_preview_img(self, preview_img: str): self.__preview_img = preview_img
 
     # Extract images path from content
     @staticmethod

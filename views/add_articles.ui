@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>add_articles_window</class>
+ <widget class="QDialog" name="add_articles_window">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>480</width>
+    <height>640</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>4</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Add articles</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QDialog{
+background-color: qlineargradient(spread:pad, x1:0.497537, y1:1, x2:0.468443, y2:0.301, stop:0 rgba(209, 243, 252, 255), stop:1 rgba(255, 255, 255, 255))
+}</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QFrame" name="banner_frame">
+     <property name="styleSheet">
+      <string notr="true">QFrame{
+border-style: outset;
+border-radius: 20px;
+border-color: rgb(0, 240, 255);
+border-width: 0.5px;
+padding: 1px;
+background-color: rgba(102, 255, 255, 50)
+}
+QLabel{
+border: none;
+background-color: rgba(0, 0, 0, 0)
+}
+QPushButton{
+border: none;
+background-color: rgba(0, 0, 0, 0)
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item alignment="Qt::AlignLeft">
+       <widget class="QLabel" name="add_articles_title">
+        <property name="styleSheet">
+         <string notr="true">font: 30pt &quot;.AppleSystemUIFont&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Add Articles</string>
+        </property>
+       </widget>
+      </item>
+      <item alignment="Qt::AlignRight">
+       <widget class="QPushButton" name="add_articles_logo">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>assets/icons/add_article_logo.png</normaloff>assets/icons/add_article_logo.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>64</width>
+          <height>64</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="title_label">
+     <property name="text">
+      <string>Title:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPlainTextEdit" name="title_edit">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>27</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>27</height>
+      </size>
+     </property>
+     <property name="documentTitle">
+      <string>sddd</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="description_label">
+     <property name="text">
+      <string>Description:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPlainTextEdit" name="description_edit">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>100</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>110</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="content_label">
+     <property name="text">
+      <string>Contents:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QTextEdit" name="content_edit"/>
+   </item>
+   <item>
+    <widget class="QLabel" name="category_label">
+     <property name="text">
+      <string>Category:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QComboBox" name="category_edit">
+     <item>
+      <property name="text">
+       <string>Economy</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Politics</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Traffic</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Medical</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Sport</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Travel</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Entertain</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Science and Technology</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPlainTextEdit" name="image_link">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>27</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>27</height>
+      </size>
+     </property>
+     <property name="documentTitle">
+      <string>sddd</string>
+     </property>
+     <property name="placeholderText">
+      <string>Input preview image link here (Optional)</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="confirm_button">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,52 @@
+{
+  "Authors": [
+    {
+      "_id": 1,
+      "username": "jane_doe",
+      "password": "123456",
+      "name": "Jane Doe",
+      "email": "jane.doe@example.com",
+      "bio": "Jane Doe is a freelance writer and editor based in New York. She has written for various publications, including The New Yorker, The Atlantic, and The Guardian. She specializes in topics such as culture, politics, and social issues.",
+      "expertise": "Politics",
+      "publication_history": [
+        7,
+        8
+      ],
+      "gender": "Female",
+      "dob": "01-15-1985"
+    },
+    {
+      "_id": 2,
+      "username": "john_smith",
+      "password": "abcdef",
+      "name": "John Smith",
+      "email": "john.smith@example.com",
+      "bio": "John Smith is a software engineer and blogger from San Francisco. He has worked for several tech companies, including Google, Facebook, and Twitter. He writes about web development, machine learning, and artificial intelligence.",
+      "expertise": "Technology",
+      "publication_history": [
+        1,
+        3,
+        4,
+        11
+      ],
+      "gender": "Male",
+      "dob": "06-12-1987"
+    },
+    {
+      "_id": 3,
+      "username": "bob_lee",
+      "password": "zxcvbn",
+      "name": "Bob Lee",
+      "email": "bob.lee@example.com",
+      "bio": "Bob Lee is a sports journalist and commentator based in Los Angeles. He has covered various sports events, including the Olympics, the World Cup, and the NBA. He is passionate about sports analysis, statistics, and history.",
+      "expertise": "Sports",
+      "publication_history": [
+        2,
+        5,
+        6
+      ],
+      "gender": "Male",
+      "dob": "09-23-1989"
+    }
+  ]
+}

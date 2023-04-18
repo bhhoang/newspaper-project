@@ -1,0 +1,113 @@
+{"Articles":[{
+  "_id": 1,
+  "date": "01-03-2023",
+  "category": "Science and Technology",
+  "viewed": 42,
+  "title": "How to use MongoDB with Node.js",
+  "description": "MongoDB is a NoSQL database that stores data in JSON-like documents. Node.js is a JavaScript runtime for server-side code. Mongoose is an ODM library for MongoDB and Node.js. This tutorial teaches how to use them to create a blog application, covering setup, schemas, models, CRUD operations, and error handling.",
+  "author": 2,
+  "content": "MongoDB is a popular NoSQL ![image](mongodb.png) database that stores data in JSON-like documents. Node.js is a JavaScript runtime that allows you to run JavaScript code on the server side. Mongoose is an object data modeling (ODM) library that provides a schema-based solution to model your application data and perform CRUD operations on MongoDB collections. In this tutorial, we will learn how to use MongoDB with Node.js and Mongoose by creating a simple blog application. We will cover the following topics: - Setting up MongoDB and Node.js - Creating a Mongoose schema and model - Connecting to MongoDB using Mongoose - Performing CRUD operations on MongoDB documents - Handling errors and validations",
+  "preview_img": "views\\assets\\mongodb.png"
+},{
+  "_id": 2,
+  "date": "02-03-2023",
+  "category": "Sport",
+  "viewed": 12,
+  "title": "How to improve your basketball skills",
+  "description": "A guide on how to practice and master the fundamentals of basketball.",
+  "author": 3,
+  "content": "Basketball is a game that requires a combination of physical and mental skills. You need to be able to dribble, pass, shoot, rebound, defend, and move without the ball.![](basketball.jpg) To improve your basketball skills, you need to practice regularly and focus on the following aspects: - Ball handling: This is the ability to control the ball with your hands and fingers. You should practice dribbling with both hands, changing directions and speeds, and using different moves to beat your defender. You can also use cones, chairs, or other obstacles to create drills that challenge your ball handling skills. - Passing: This is the ability to deliver the ball to your teammates in a way that they can catch and use it. You should practice passing with both hands, using different types of passes (chest, bounce, overhead, etc.), and aiming for the target. You can also practice passing with a partner or a wall, or play games that require passing such as 3-on-3 or 5-on-5. - Shooting: This is the ability to score points by throwing the ball through the hoop. You should practice shooting from different distances and angles, using proper form and technique. You should also practice shooting under pressure, such as with a defender or a timer. You can also practice shooting with a partner or a coach, or play games that require shooting such as HORSE or Around the World. - Rebounding: This is the ability to get the ball after a missed shot by yourself or your opponent. You should practice rebounding by boxing out your opponent, jumping high and fast, and securing the ball with both hands. You should also practice rebounding in different situations, such as offensive or defensive rebounds, long or short rebounds, or tip-ins or put-backs. You can also practice rebounding with a partner or a team, or play games that require rebounding such as 21 or King of the Court. - Defense: This is the ability to prevent your opponent from scoring points by guarding them closely and disrupting their shots. You should practice defense by staying in front of your opponent, keeping your hands up and active, and moving your feet quickly and laterally. You should also practice defense in different situations, such as on-ball or off-ball defense, man-to-man or zone defense, or help defense or rotation defense. You can also practice defense with a partner or a team, or play games that require defense such as 1-on-1 or 2-on-2.",
+  "preview_img": "views\\assets\\basketball.jpg"
+},{
+  "_id": 3,
+  "date": "04-03-2023",
+  "category": "Science and Technology",
+  "viewed": 18,
+  "title": "How to use loops in Java",
+  "description": "Loops are statements in Java that repeat a block of code until a condition is met. There are three types of loops in Java: for loop, while loop, and do-while loop. These loops are useful for performing repetitive tasks and traversing data structures. The provided example demonstrates how to use a for loop to print the elements of an array.",
+  "author": 2,
+  "content": "Loops are statements that repeat a block of code until a condition is met. Loops are useful for performing repetitive tasks and traversing data structures ![loop](javaloop.jpg). In Java, there are three types of loops: - For loop: A loop that executes a block of code for a specified number of times or over an iterable object. Syntax: for (initialization; condition; update) { // code } - While loop: A loop that executes a block of code while a condition is true. Syntax: while (condition) { // code } - Do-while loop: A loop that executes a block of code at least once and then repeats while a condition is true. Syntax: do { // code } while (condition); For example, here is a for loop that prints the elements of an array: int[] arr = {1, 2, 3, 4, 5}; for (int i = 0; i < arr.length; i++) { System.out.println(arr[i]); }",
+  "preview_img": "views\\assets\\javaloop.jpg"
+},{
+  "_id": 4,
+  "date": "03-03-2023",
+  "category": "Science and Technology",
+  "viewed": 25,
+  "title": "How to use recursion in Python",
+  "description": "Recursion is a problem-solving technique that involves breaking a problem down into smaller subproblems and solving them recursively. In Python, recursion can be implemented by defining a function that calls itself within its body. The provided example demonstrates how to write a recursive function in Python to calculate the factorial of a number.",
+  "author": 2,
+  "content": "Recursion is a technique of solving a problem by breaking it down into smaller subproblems and calling the same function on each subproblem until a base case is reached.![](pyrecu.png) A recursive function in Python is a function that calls itself within its body. To write a recursive function in Python, you need to follow these steps: - Define the base case that terminates the recursion. - Define the recursive case that calls the function again with a smaller or simpler input. - Return the result of the base case or the recursive case. For example, here is a recursive function that calculates the factorial of a number: def factorial(n): # base case if n == 0 or n == 1: return 1 # recursive case else: return n * factorial(n-1)",
+  "preview_img": "views\\assets\\pyrecu.png"
+},{
+  "_id": 5,
+  "date": "27-03-2023",
+  "category": "Sport",
+  "viewed": 15,
+  "title": "How to improve your soccer skills",
+  "description": "A guide on how to practice and master the fundamentals of soccer.",
+  "author": 3,
+  "content": "Soccer is a game that requires a combination of physical and technical skills. You need to be able to dribble, pass, shoot, tackle, and move without the ball.![](soccer.jpg)) To improve your soccer skills, you need to practice regularly and focus on the following aspects: - Dribbling: This is the ability to control the ball with your feet and beat your opponent. You should practice dribbling with both feet, changing directions and speeds, and using different moves to create space. You can also use cones, poles, or other obstacles to create drills that challenge your dribbling skills. - Passing: This is the ability to deliver the ball to your teammates in a way that they can use it. You should practice passing with both feet, using different types of passes (short, long, ground, air, etc.), and aiming for accuracy and timing. You can also practice passing with a partner or a wall, or play games that require passing such as 3-on-3 or 5-on-5. - Shooting: This is the ability to score goals by kicking the ball into the net. You should practice shooting from different distances and angles, using proper form and technique. You should also practice shooting under pressure, such as with a defender or a goalkeeper. You can also practice shooting with a partner or a coach, or play games that require shooting such as Penalty Shootout or Crossbar Challenge. - Tackling: This is the ability to stop your opponent from advancing with the ball by taking it away from them. You should practice tackling by staying in front of your opponent, keeping your eyes on the ball, and timing your challenge. You should also practice tackling in different situations, such as sliding or standing tackles, one-on-one or group tackles, or offensive or defensive tackles. You can also practice tackling with a partner or a team, or play games that require tackling such as 1-on-1 or 2-on-2.",
+  "preview_img": "views\\assets\\soccer.jpg"
+},{
+  "_id": 6,
+  "date": "01-03-2023",
+  "category": "Sport",
+  "viewed": 17,
+  "title": "How to improve your golf skills",
+  "description": "A guide on how to practice and master the fundamentals of golf.",
+  "author": 3,
+  "content": "![](golf.jpg)Golf is a game that requires a combination of physical and mental skills. You need to be able to swing, putt, chip, and drive the ball. To improve your golf skills, you need to practice regularly and focus on the following aspects: - Swing: This is the motion of your body and club that generates the force to hit the ball. You should practice your swing by using proper grip, stance, posture, alignment, and balance. You should also practice your swing with different clubs, distances, and trajectories. You can also use a mirror, a video camera, or a coach to check your swing and correct any flaws. - Putt: This is the stroke that rolls the ball into the hole on the green. You should practice your putt by using proper grip, stance, posture, alignment, and tempo. You should also practice your putt with different distances, slopes, and speeds. You can also use a ruler, a coin, or a hole to aim your putt and measure your accuracy. - Chip: This is the stroke that lifts the ball over a short distance and lands it on the green. You should practice your chip by using proper grip, stance, posture, alignment, and loft. You should also practice your chip with different clubs, distances, and heights. You can also use a towel, a bucket, or a flag to target your chip and control your distance. - Drive: This is the stroke that launches the ball as far as possible from the tee. You should practice your drive by using proper grip, stance, posture, alignment, and power. You should also practice your drive with different clubs, angles, and shapes. You can also use a tee, a marker, or a fairway to aim your drive and optimize your trajectory.",
+  "preview_img": "views\\assets\\golf.jpg"
+},{
+  "_id": 7,
+  "date": "09-03-2023",
+  "category": "Politics",
+  "viewed": 32,
+  "title": "How to vote in the upcoming election",
+  "description": "Voting is a fundamental right and responsibility of every citizen. To vote in an election, you need to register to vote before the deadline, find your polling place and voting options, and cast your ballot by following the instructions. You can check your registration status, polling place, and ballot status online.",
+  "author": 1,
+  "content": "![img](vote.jpg)Voting is a right and a responsibility of every citizen. To vote in the upcoming election, you need to follow these steps: - Register to vote: You need to register to vote before the deadline, which varies by state. You can check your registration status and register online at https://www.usa.gov/register-to-vote. - Find your polling place: You need to find out where and when you can vote in person or by mail. You can check your polling place and voting options at https://www.usa.gov/election-office. - Cast your ballot: You need to bring a valid ID and follow the instructions on how to fill out and submit your ballot. You can also check the status of your ballot at https://www.usa.gov/confirm-voter-registration.",
+  "preview_img": "views\\assets\\vote.jpg"
+},{
+  "_id": 8,
+  "date": "03-03-2023",
+  "category": "Politics",
+  "viewed": 28,
+  "title": "How to get involved in local politics",
+  "description": "A guide on how to participate and make a difference in your community's political issues.",
+  "author": 1,
+  "content": "![](localpoli.png)Local politics affect your everyday life, from schools and roads to taxes and services. To get involved in local politics, you need to follow these steps: - Learn about your local government: ![image](Screenshot 14.png) You need to know who your elected officials are, what they do, and how they make decisions. You can find out more about your local government at https://www.usa.gov/local-governments. - Attend public meetings: You need to attend public meetings where you can hear from your officials, voice your opinions, and ask questions. You can find out when and where public meetings are held at https://www.usa.gov/elected-officials. - Join or start a group: You need to join or start a group that shares your interests, values, and goals. You can find or create a group at https://www.usa.gov/volunteer.",
+  "preview_img": "views\\assets\\localpoli.png"
+},{
+  "_id": 9,
+  "date": "30-03-2023",
+  "category": "Science and Technology",
+  "viewed": 100,
+  "title": "New discovery in the field of quantum computing",
+  "description": "A team of researchers has made a breakthrough in quantum computing technology.",
+  "author": 2,
+  "content": "![](quantcomp.jpg)A team of researchers from the University of California has made a significant breakthrough in the field of quantum computing. The team has developed a new type of quantum bit, or qubit, that is much more stable and less prone to errors than previous designs. This new qubit design could pave the way for more powerful and reliable quantum computers in the future. The researchers published their findings in the journal Nature. Quantum computers have the potential to solve problems that are currently beyond the reach of classical computers. However, building a practical quantum computer has proven to be a difficult challenge due to the fragile nature of qubits. The new qubit design developed by the team at the University of California could help overcome this challenge and bring us one step closer to realizing the full potential of quantum computing.",
+  "preview_img": "views\\assets\\quantcomp.jpg"
+},{
+  "_id": 10,
+  "date": "20-03-2023",
+  "category": "Science and Technology",
+  "viewed": 2456,
+  "title": "New Study Shows Promise for Gene Therapy",
+  "description": "A recent study published in the journal Science has shown promising results for gene therapy as a potential treatment for genetic disorders. The study, which was conducted by researchers at the University of California, Berkeley, used a novel approach to deliver therapeutic genes to cells in a mouse model of a rare genetic disease called hereditary tyrosinemia type 1 (HT1). The researchers found that the gene therapy was able to correct the metabolic defect associated with the disease, and that the treated mice had improved survival rates compared to untreated mice.",
+  "author": 2,
+  "content": "![](gene.jpg)Hereditary tyrosinemia type 1 (HT1) is a rare genetic disorder that affects the body's ability to break down the amino acid tyrosine. People with HT1 are at risk of developing liver failure and liver cancer, and the disease is currently managed through a combination of diet and medication. However, these treatments are not always effective, and there is currently no cure for HT1.\n\nGene therapy is a promising approach to treating genetic disorders like HT1. The idea behind gene therapy is to introduce a functional copy of a gene that is defective in a patient's cells, in order to correct the underlying genetic defect. However, delivering genes to cells in a safe and effective way has proven to be a challenge.\n\nIn the current study, the researchers used a type of virus called adeno-associated virus (AAV) to deliver the therapeutic genes to cells in the mice. AAVs are considered to be safe for gene therapy because they do not cause disease in humans and are not known to integrate into the genome, which could cause unintended mutations. The researchers engineered the AAVs to specifically target liver cells, since the liver is the primary site of tyrosine metabolism in the body.\n\nThe results of the study are promising, but there are still many challenges to overcome before gene therapy can be used as a routine treatment for genetic disorders like HT1. One of the biggest challenges is delivering the therapeutic genes to the right cells in the body, and ensuring that they are expressed at the right levels over time. Nevertheless, the current study provides a proof of concept that gene therapy can be effective in treating genetic disorders, and it is likely that we will see more research in this area in the coming years.",
+  "preview_img": "views\\assets\\gene.jpg"
+},
+{
+  "_id": 11,
+  "date": "04-16-23",
+  "category": "Travel",
+  "viewed": 23424,
+  "title": "How to plan a perfect trip to Japan",
+  "description": "Japan is a fascinating country with a rich culture, history, and nature. Here are some tips on how to plan a perfect trip to Japan.",
+  "author": 2,
+  "content": "<html><body><p>Japan is a popular destination for travelers who want to experience a different culture, enjoy delicious food, and see beautiful scenery. Whether you are interested in ancient temples, modern cities, or natural wonders, Japan has something for everyone. Here are some tips on how to plan a perfect trip to Japan.</p><h3>1. Choose the best time to visit</h3><p>Japan has four distinct seasons, each with its own charm and attractions. Spring (March to May) is the best time to see the cherry blossoms, which are a symbol of Japan and a stunning sight. Summer (June to August) is hot and humid, but also the season of festivals, fireworks, and outdoor activities. Autumn (September to November) is the best time to enjoy the colorful foliage, especially in the mountains and parks. Winter (December to February) is cold and snowy, but also the best time to visit ski resorts, hot springs, and see the snow monkeys.</p><h3>2. Decide where to go</h3><p>Japan is divided into eight regions, each with its own culture, cuisine, and attractions. Some of the most popular regions are:</p><ul><li>Kanto: The region that includes Tokyo, the capital and largest city of Japan. Tokyo is a metropolis that offers everything from modern skyscrapers, shopping malls, and entertainment districts to historic temples, gardens, and museums.</li><li>Kansai: The region that includes Kyoto, Osaka, Nara, and Kobe. Kyoto is the former imperial capital and the cultural heart of Japan, with over a thousand temples and shrines. Osaka is the second largest city and a food lover's paradise. Nara is the first permanent capital and home to many ancient monuments and deer. Kobe is a port city famous for its beef and sake.</li><li>Hokkaido: The northernmost island and the coldest region of Japan. Hokkaido is known for its natural beauty, wildlife, and seafood. It is also a popular destination for skiing, snowboarding, and hiking.</li><li>Okinawa: The southernmost island chain and the warmest region of Japan. Okinawa is famous for its tropical beaches, coral reefs, and unique culture. It is also a popular destination for diving, snorkeling, and surfing.</li></ul><h3>3. Book your transportation</h3><p>Japan has an excellent public transportation system that consists of trains, buses, subways, and ferries. The most convenient and economical way to travel around Japan is by train, especially by bullet train (shinkansen), which can reach speeds of up to 320 km/h (200 mph). You can buy individual tickets or purchase a Japan Rail Pass (JR Pass), which allows unlimited use of JR trains for a certain period of time. You can also rent a car if you want more flexibility and freedom, but be aware that driving in Japan can be challenging due to traffic rules, tollsand parking fees. You can also fly to Japan from many international airports, and take domestic flights to travel between regions.</p><h3>4. Book your accommodation</h3><p>Japan offers a wide range of accommodation options, from luxury hotels and resorts to budget hostels and guesthouses. You can also experience traditional Japanese lodging, such as ryokan (inn), minshuku (bed and breakfast), or shukubo (temple lodging). You can book your accommodation online or through a travel agent. You can also use services like Airbnb or Couchsurfing to find alternative or cheaper options.</p><h3>5. Plan your itinerary</h3><p>Japan has so much to offer that it can be hard to decide what to see and do. You can plan your itinerary based on your interests, budget, and time. You can also use online resources, guidebooks, or travel agencies to get ideas and recommendations. Some of the most popular attractions in Japan are:</p><ul><li>Tokyo Skytree: The tallest tower in Japan and the second tallest in the world. It offers a panoramic view of the city and a variety of shops and restaurants.</li><li>Mount Fuji: The highest and most iconic mountain in Japan. It is a UNESCO World Heritage Site and a sacred symbol of Japan. It can be seen from various places, such as Tokyo, Hakone, or Lake Kawaguchi.</li><li>Kinkaku-ji: The Golden Pavilion, one of the most famous temples in Kyoto. It is a stunning sight with its gold-leaf-covered exterior and its reflection on the pond.</li><li>Hiroshima Peace Memorial Park: The park that commemorates the victims of the atomic bombing of Hiroshima in 1945. It includes the Atomic Bomb Dome, the Peace Memorial Museum, and the Children's Peace Monument.</li><li>Fushimi Inari Taisha: The head shrine of Inari, the god of rice and prosperity. It is famous for its thousands of vermilion torii gates that form a tunnel-like path up the hill.</li></ul><img src='https://res-2.cloudinary.com/jnto/image/upload/w_2064,h_1300,c_fill,f_auto,fl_lossy,q_auto/v1648523563/kyoto/20201026_fushimi_inari_taisha_shrine_25' alt='Fushimi Inari Taisha' width='600' height='400'><p>I hope this helps you plan a perfect trip to Japan. If you have any questions or need more information, feel free to ask me. 😊</p></body></html>",
+  "preview_img": "views\\assets\\japan.png"
+}
+]}
