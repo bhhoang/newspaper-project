@@ -428,7 +428,7 @@ class LoginWindow(QDialog):
                      #Create state.json
                      state = {
                             "username": self.username_input.text(),
-                            "password": self.password_input.text(),
+                            # "password": self.password_input.text(),
                             "expires": time.time() + 3600,
                             "name": author_obj.get_name(),
                             "email": author_obj.get_email(),
@@ -499,7 +499,7 @@ class ProfileWindow(QDialog):
               self.day_edit.setValue(int(dob_list[0]))
               self.month_edit.setValue(int(dob_list[1]))
               self.year_edit.setValue(int(dob_list[2]))
-              self.expertise_edit.setPlainText(self.state.get("expertise"))
+              self.expertise_edit.setCurrentText(self.state.get("expertise"))
               self.bio_edit.setPlainText(self.state.get("bio"))
               self.show()
               self.confirm_buttons.accepted.connect(self.submit)
@@ -515,7 +515,7 @@ class ProfileWindow(QDialog):
               dob_year = self.year_edit.value()
               dob = str(dob_day) + "/" + str(dob_month) + "/" + str(dob_year)
 
-              expertise = self.expertise_edit.toPlainText()
+              expertise = self.expertise_edit.currentText()
               bio = self.bio_edit.toPlainText()
               
               # print({
@@ -534,7 +534,7 @@ class ProfileWindow(QDialog):
               # Update state.json
               state = {
                      "username": self.state.get("username"),
-                     "password": self.state.get("password"),
+                     # "password": self.state.get("password"),
                      "expires": self.state.get("expires"),
                      "name": name,
                      "email": email,
