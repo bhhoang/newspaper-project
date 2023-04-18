@@ -46,13 +46,21 @@ class MainWindow(QDialog):
         if not os.path.exists("./cache/state.json"):
             QMessageBox.warning(self, "Error", "Please login first!")
             return
+        if self.title_edit.toPlainText() == "":
+            QMessageBox.warning(self, "Error", "Please enter a title!")
+            return
+        if self.description_edit.toPlainText() == "":
+            QMessageBox.warning(self, "Error", "Please enter a description!")
+            return
+        if self.content_edit.toPlainText() == "":
+            QMessageBox.warning(self, "Error", "Please enter content!")
+            return
         state = json.load(open("./cache/state.json", "r"))
         news.login(state["username"], state["password"])
         news.add_article(date=str(datetime.datetime.today().strftime('%m-%d-%Y')), title=self.title_edit.toPlainText(), overview=self.description_edit.toPlainText(), content=self.content_edit.toHtml(), category=self.category_edit.currentText(), preview_img=self.image_link.toPlainText())
         QMessageBox.information(self, "Success", "Article added successfully!")
-    
     def reject(self) -> None:
-        sys.exit()
+        self.close()
     
 if __name__ == '__main__':
 
