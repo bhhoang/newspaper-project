@@ -20,9 +20,11 @@ class MainWindow(QDialog):
             return self.close()
         
         self.setWindowTitle("Pirate News - Add Article")
-        #Paste image from clipboard
-        self.clipboard = QApplication.clipboard()
-        self.clipboard.dataChanged.connect(self.handle_clipboard_change)
+        ## If not focus on the text edit, the paste action will not work
+        if self.content_edit.hasFocus():
+            #Paste image from clipboard
+            self.clipboard = QApplication.clipboard()
+            self.clipboard.dataChanged.connect(self.handle_clipboard_change)
 
         paste_action = QAction("Paste", self)
         paste_action.triggered.connect(self.paste_image)

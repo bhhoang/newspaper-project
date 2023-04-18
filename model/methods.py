@@ -24,4 +24,4 @@ def compare_strings(string1:str, string2:str)->bool:
     return string1 == string2
 
 def check_category(category:str)->bool:
-    return category in ['Economy', 'Politics', 'Traffic', 'Medical', 'Sport', 'Travel', 'Entertain', 'Science & Technology']
+    return category in ['Economy', 'Politics', 'Traffic', 'Medical', 'Sport', 'Travel', 'Entertain', 'Science and Technology']

@@ -52,7 +52,9 @@ class DeleteArticle(QDialog):
             if self.articles_list.layout().itemAt(i).widget().choosing_checkbox.isChecked():
                 chosed = True
                 db = Database()
-                db._delete_article(self.articles_author[i]['_id'])
+                state = json.loads(open("./cache/state.json", 'r').read())
+                db._delete_article(self.articles_list.layout().itemAt(i).widget().article)
+                db.remove_article_from_author(state.get("id"),self.articles_list.layout().itemAt(i).widget().article[id])
                 self.articles_list.layout().itemAt(i).widget().deleteLater()
                 QMessageBox.information(self, "Success", "Article deleted successfully!")
                 return

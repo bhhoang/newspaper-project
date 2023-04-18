@@ -59,6 +59,7 @@
         <property name="font">
          <font>
           <pointsize>20</pointsize>
+          <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
@@ -83,7 +84,7 @@
         </property>
         <property name="styleSheet">
          <string notr="true">*{
-	background-color: white
+	background-color: transparent
 }</string>
         </property>
         <property name="text">
