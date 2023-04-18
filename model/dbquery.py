@@ -150,8 +150,17 @@ class Database:
         # Update the author's publication history
         self.authors_collection.update_one({'_id': author_id}, {'$set': {'publication_history': history_array}})
 
+    def set_name(self, author_id: int, name: str):
+        self.authors_collection.update_one({'_id': author_id}, {'$set': {'name': name}})
+
     def set_email(self, author_id: int, email: str):
         self.authors_collection.update_one({'_id': author_id}, {'$set': {'email': email}})
+
+    def set_gender(self, author_id: int, gender: str):
+        self.authors_collection.update_one({'id': author_id}, {'$set': {'gender': gender}})
+
+    def set_dob(self, author_id: int, dob: str):
+        self.authors_collection.update_one({'id': author_id}, {'$set': {'dob': dob}})
 
     def set_bio(self, author_id: int, bio: str):
         self.authors_collection.update_one({'_id': author_id}, {'$set': {'bio': bio}})
