@@ -18,14 +18,24 @@
     - This is the project to implement Newspaper Management System
     - We use mongodb to store a collections of news
 2. Workflows
+    - On start app, create cache folder
+    - Using requests to install preview image for main page
     - User click on newspaper:
         - Show the newspaper
-        - User click back then return the previous page
+        - User click logo or category then switch page
     - User click on login:
         - Login to become an author
-        - Author click on add news:
-            - Show add news editor GUI
-            - Click submit then add news to database
+        - Save state to cache
+        - Author click on Articles
+            - Show Articles Management Window
+                - Click on Add Article
+                    - Show Add Article Window
+                        - Fill in the form
+                        - Click on Add
+                            - Close Add Article Window
+                            - Update to the database
+                        - Click on Cancel
+                            - Close Add Article Window
         - Author logout
     - User exit app
 
