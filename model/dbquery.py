@@ -18,7 +18,7 @@ class Database:
         self.authors_collection = self.__database['authors']
 
     def count_all_authors(self) -> int:
-        return self.articles_collection.count_documents({})
+        return self.author_collection.count_documents({})
 
     def count_all_articles(self) -> int:
         return self.articles_collection.count_documents({})
