@@ -230,7 +230,7 @@ class MainWindow(QMainWindow):
               self.Entertain.clicked.connect(lambda: self.open_category("Entertainment"))
               self.Traffic.clicked.connect(lambda: self.open_category("Traffic"))
               self.Medical.clicked.connect(lambda: self.open_category("Medical"))
-              self.SciTech.clicked.connect(lambda: self.open_category("Science & Technology"))    
+              self.SciTech.clicked.connect(lambda: self.open_category("Science and Technology"))    
               self.Travel.clicked.connect(lambda: self.open_category("Travel"))
 
               self.Economy.setToolTip("Economy")
@@ -239,7 +239,7 @@ class MainWindow(QMainWindow):
               self.Entertain.setToolTip("Entertainment")
               self.Traffic.setToolTip("Traffic")
               self.Medical.setToolTip("Medical")
-              self.SciTech.setToolTip("Science & Technology")
+              self.SciTech.setToolTip("Science and Technology")
               self.Travel.setToolTip("Travel")
 
               self.show()
