@@ -150,4 +150,5 @@ deactivate
 
 ### 04/19/2023
 - Xoá icon trong base.conf
-- Sửa readme.md, thêm changelog
+- Sửa requirements.txt (bị thiếu pymongo)
+- Sửa README.md, thêm changelog
