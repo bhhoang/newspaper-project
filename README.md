@@ -1,14 +1,23 @@
 # newspaper-project
 
-## Table of content
 
 ![image](https://i.pinimg.com/736x/d3/ce/4e/d3ce4e9df5f6d02e51b4e6f25c021720--icon-design-newspaper.jpg)
 
+<p align="center">
+<img src="https://img.shields.io/github/repo-size/bhhoang/newspaper-project.svg?style=flat-square&label=project-size">
+<img src="https://img.shields.io/github/commit-activity/m/bhhoang/newspaper-project.svg?label=commit&style=flat-square">
+<img src="https://img.shields.io/github/license/bhhoang/newspaper-project">
+</p>
+
+<!--TABLE OF CONTENTS -->
 <details open="open">
-    <summary="Table of Contents"></summary>
+    <summary>Table of Contents</summary>
         <ol>
-            <li><a href="#Introduction">Introduction</a></li>
-            <li><a href="#Member List">Group Member</a></li>
+            <li><a href="#i---introduction">Introduction</a></li>
+            <li><a href="#ii---member-list">Group Member</a></li>
+            <li><a href="#iii---features">Features</a></li>
+            <li><a href="#iv---how-to-run">How to run</a></li>
+            <li><a href="#v---changelogs">Changelogs</a></li>
         </ol>
 </details>
 
@@ -53,9 +62,10 @@
 
 3. Requirements
     - Python
-    - MongoD
+    - MongoDB (Atlas or local)
     - PyMongo 
     - PyQt6 
+
 ## II - Member List
 |Name|Student ID|Department|Contribute over 20|
 |:-:|:-:|:-:|:-:|
@@ -152,3 +162,4 @@ deactivate
 - Xoá icon trong base.conf
 - Sửa requirements.txt (bị thiếu pymongo)
 - Sửa README.md, thêm changelog
+- Sửa LICENSE từ Unlicense sang MIT
