@@ -1,4 +1,4 @@
-# newspaper-project
+# Project 17 - Group 3 - Newspaper Information Management System
 
 
 ![image](https://i.pinimg.com/736x/d3/ce/4e/d3ce4e9df5f6d02e51b4e6f25c021720--icon-design-newspaper.jpg)
