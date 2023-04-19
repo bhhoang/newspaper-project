@@ -235,7 +235,7 @@ class MainWindow(QMainWindow):
               self.Economy.clicked.connect(lambda: self.open_category("Economy"))
               self.Sport.clicked.connect(lambda: self.open_category("Sport"))
               self.Politics.clicked.connect(lambda: self.open_category("Politics"))
-              self.Entertain.clicked.connect(lambda: self.open_category("Entertainment"))
+              self.Entertain.clicked.connect(lambda: self.open_category("Entertain"))
               self.Traffic.clicked.connect(lambda: self.open_category("Traffic"))
               self.Medical.clicked.connect(lambda: self.open_category("Medical"))
               self.SciTech.clicked.connect(lambda: self.open_category("Science and Technology"))    
