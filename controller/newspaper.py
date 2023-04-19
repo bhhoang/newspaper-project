@@ -83,6 +83,10 @@ class Newspapers:
         self.__current_author = None
 
     # Actions when not logged in
+    def set_current_author(self, author_json: dict):
+        author_obj = self.__convert_to_Author(author_json)
+        self.__current_author = author_obj
+
     @staticmethod
     def get_all_categories() -> list[str]:
         return db.get_all_categories()

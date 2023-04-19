@@ -49,6 +49,11 @@ class MainWindow(QMainWindow):
                      self.redraw_logged_out_home()
                      os.remove("./cache/state.json")
                      return
+              
+              # Set current author in controller
+              author_json = db.get_author_by_id(state.get("id"))
+              news.set_current_author(author_json)
+
               self.username_label.setText("Hello, " + state.get("username"))
               self.username_label.setStyleSheet("border-bottom: 1px solid #000000;")
               self.menu = QtWidgets.QMenu()
@@ -94,6 +99,7 @@ class MainWindow(QMainWindow):
               loadUi("./views/main/interface.ui", self)
               self.setWindowIcon(QtGui.QIcon("./views/assets/icons/logo.png"))
               if os.path.exists("./cache/state.json"):
+
                      self.redraw_logged_in_home()
               else:
                      self.redraw_logged_out_home()
