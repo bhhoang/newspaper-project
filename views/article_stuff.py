@@ -48,7 +48,7 @@ class ArticleManager(QDialog):
               self.add_articles_button.clicked.connect(lambda: self.open_AddArticle(news))
               self.delete_articles_button.clicked.connect(self.open_DeleteArticle)
               state = json.loads(open("./cache/state.json", 'r').read())
-              self.articles_author = db.get_articles_by_author_id(int(state.get("id")))
+              self.articles_author = db.get_articles_by_author_id(state.get("id"))
               if self.articles_list.layout() != None:
                      layout = self.articles_list.layout()
               else:

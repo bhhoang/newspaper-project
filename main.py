@@ -545,7 +545,7 @@ class ArticleCard(QFrame):
                 images.append(image.attributes.get("src"))
         local_images = list()
         article_id = str(self.article["_id"])
-        db.add_views(int(article_id))
+        db.add_views(article_id)
         self.article["viewed"] += 1
         ## Download to local cache
         iterate = 0

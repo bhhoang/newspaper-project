@@ -36,7 +36,7 @@ class DeleteArticle(QDialog):
         self.confirm_button.accepted.connect(self.submit)
         self.confirm_button.rejected.connect(self.reject)
         self.state = json.loads(open("./cache/state.json", 'r').read())
-        self.articles_author = db.get_articles_by_author_id(int(self.state.get("id")))
+        self.articles_author = db.get_articles_by_author_id(self.state.get("id"))
         if self.articles_list.layout() != None:
             layout = self.articles_list.layout()
         else:
@@ -54,7 +54,7 @@ class DeleteArticle(QDialog):
                 db = Database()
                 state = json.loads(open("./cache/state.json", 'r').read())
                 db._delete_article(self.articles_list.layout().itemAt(i).widget().article)
-                db.remove_article_from_author(state.get("id"),int(self.articles_list.layout().itemAt(i).widget().article["_id"]))
+                db.remove_article_from_author(state.get("id"),self.articles_list.layout().itemAt(i).widget().article["_id"])
                 self.articles_list.layout().itemAt(i).widget().deleteLater()
                 QMessageBox.information(self, "Success", "Article deleted successfully!")
                 return
