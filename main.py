@@ -293,14 +293,14 @@ class MainWindow(QMainWindow):
             self.old_4_image.setPixmap(QtGui.QPixmap(not_available_image))
 
               ## Categories part
-              self.Economy.clicked.connect(lambda: self.open_category("Economy"))
-              self.Sport.clicked.connect(lambda: self.open_category("Sport"))
-              self.Politics.clicked.connect(lambda: self.open_category("Politics"))
-              self.Entertain.clicked.connect(lambda: self.open_category("Entertain"))
-              self.Traffic.clicked.connect(lambda: self.open_category("Traffic"))
-              self.Medical.clicked.connect(lambda: self.open_category("Medical"))
-              self.SciTech.clicked.connect(lambda: self.open_category("Science and Technology"))    
-              self.Travel.clicked.connect(lambda: self.open_category("Travel"))
+            self.Economy.clicked.connect(lambda: self.open_category("Economy"))
+            self.Sport.clicked.connect(lambda: self.open_category("Sport"))
+            self.Politics.clicked.connect(lambda: self.open_category("Politics"))
+            self.Entertain.clicked.connect(lambda: self.open_category("Entertain"))
+            self.Traffic.clicked.connect(lambda: self.open_category("Traffic"))
+            self.Medical.clicked.connect(lambda: self.open_category("Medical"))
+            self.SciTech.clicked.connect(lambda: self.open_category("Science and Technology"))    
+            self.Travel.clicked.connect(lambda: self.open_category("Travel"))
 
         self.Economy.setToolTip("Economy")
         self.Sport.setToolTip("Sport")
