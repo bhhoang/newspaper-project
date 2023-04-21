@@ -163,3 +163,7 @@ deactivate
 - Sửa requirements.txt (bị thiếu pymongo)
 - Sửa README.md, thêm changelog
 - Sửa LICENSE từ Unlicense sang MIT
+
+### 04/21/2023
+- Chuyển sang dùng uuidv4 cho article và author
+- Fix bug khi mở entertain category (Trong code ghi nhầm thành Entertainment)
