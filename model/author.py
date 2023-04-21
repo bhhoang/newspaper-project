@@ -10,10 +10,10 @@ class Author:
         self.__email = email
         self.__bio = bio
         self.__expertise = expertise
-        self.__publication_history: list[int] = publication_history
+        self.__publication_history: list[str] = publication_history
 
     # Getters
-    def get_id(self) -> int: return self.__id
+    def get_id(self) -> str: return self.__id
     def get_username(self) -> str: return self.__username
     def get_password(self) -> str: return self.__password   # Return the hashed password for comparison
     def get_name(self) -> str: return self.__name
@@ -22,7 +22,7 @@ class Author:
     def get_email(self) -> str: return self.__email
     def get_bio(self) -> str: return self.__bio
     def get_expertise(self) -> str: return self.__expertise
-    def get_publication_history(self) -> list[int]: return self.__publication_history
+    def get_publication_history(self) -> list[str]: return self.__publication_history
 
     # Setters
     def set_password(self, password): self.__password = password    # Incase change password
@@ -33,7 +33,7 @@ class Author:
     def set_bio(self, bio): self.__bio = bio
     def set_expertise(self, expertise): self.__expertise = expertise
 
-    def add_article(self, article_id: int):
+    def add_article(self, article_id: str):
         """
         Add an article to the publication history of the author
         :param article_id: ID of the article

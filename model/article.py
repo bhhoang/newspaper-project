@@ -2,7 +2,7 @@ import re
 
 
 class Article:
-    def __init__(self, date: str, category: str, title: str, overview: str, author_id: int, content: str, ID: int, preview_img: str,
+    def __init__(self, date: str, category: str, title: str, overview: str, author_id: int, content: str, ID: str, preview_img: str,
                  views: int = 0):
         self.__date = date
         self.__category = category
@@ -16,7 +16,7 @@ class Article:
         self.__preview_img = preview_img
 
     # Getters
-    def get_id(self) -> int: return self.__id
+    def get_id(self) -> str: return self.__id
     def get_date(self) -> str: return self.__date
     def get_category(self) -> str: return self.__category
     def get_views(self) -> int: return self.__views

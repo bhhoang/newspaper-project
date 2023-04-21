@@ -137,7 +137,7 @@ class Database:
             articles.append(article)
         return articles
 
-    def get_articles_by_author_id(self, author_id: int):
+    def get_articles_by_author_id(self, author_id: str):
         articles = []
         result = self.articles_collection.find({"author": author_id})
         for article in result:
@@ -151,7 +151,7 @@ class Database:
     def get_author_by_id(self, ID: int):
         return self.authors_collection.find_one({"_id": ID})
 
-    def update_publish_history(self, author_id: int, article_id: int):
+    def update_publish_history(self, author_id: str, article_id: str):
         # Get the author's publication history
         history = self.authors_collection.find_one(
             {"_id": author_id}, {"_id": 0, "publication_history": 1}
@@ -164,7 +164,7 @@ class Database:
             {"_id": author_id}, {"$set": {"publication_history": history_array}}
         )
 
-    def remove_article_from_author(self, author_id: int, article_id: int):
+    def remove_article_from_author(self, author_id: str, article_id: str):
         history = self.authors_collection.find_one({"_id": author_id})
         history_array = history["publication_history"]
         history_array.remove(article_id)
@@ -172,26 +172,26 @@ class Database:
             {"_id": author_id}, {"$set": {"publication_history": history_array}}
         )
 
-    def set_name(self, author_id: int, name: str):
+    def set_name(self, author_id: str, name: str):
         self.authors_collection.update_one({"_id": author_id}, {"$set": {"name": name}})
 
-    def set_email(self, author_id: int, email: str):
+    def set_email(self, author_id: str, email: str):
         self.authors_collection.update_one(
             {"_id": author_id}, {"$set": {"email": email}}
         )
 
-    def set_gender(self, author_id: int, gender: str):
+    def set_gender(self, author_id: str, gender: str):
         self.authors_collection.update_one(
             {"_id": author_id}, {"$set": {"gender": gender}}
         )
 
-    def set_dob(self, author_id: int, dob: str):
+    def set_dob(self, author_id: str, dob: str):
         self.authors_collection.update_one({"_id": author_id}, {"$set": {"dob": dob}})
 
-    def set_bio(self, author_id: int, bio: str):
+    def set_bio(self, author_id: str, bio: str):
         self.authors_collection.update_one({"_id": author_id}, {"$set": {"bio": bio}})
 
-    def set_expertise(self, author_id: int, expertise: str):
+    def set_expertise(self, author_id: str, expertise: str):
         self.authors_collection.update_one(
             {"_id": author_id}, {"$set": {"expertise": expertise}}
         )

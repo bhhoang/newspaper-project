@@ -2,6 +2,7 @@ from model.dbquery import Database
 from model.author import Author
 from model.article import Article
 from model.methods import *
+from uuid import uuid4
 
 db = Database()
 
@@ -57,7 +58,7 @@ class Newspapers:
         check = db._check_exist_email(email)
         if check:
             return False
-        author_id = db.count_all_authors() + 1
+        author_id = str(uuid4())
         author = Author(username, hashed_password, real_name, author_id, email)
         db.add_author_to_db(author)
         return True
@@ -181,7 +182,7 @@ class Newspapers:
             raise ValueError("Invalid category")
 
         author_id = self.__current_author.get_id()
-        article_id = db.count_all_articles() + 1
+        article_id = str(uuid4())
         article = Article(date, category, title, overview, author_id, content, article_id, preview_img )
         self.__current_author.add_article(article.get_id())
         db.update_publish_history(author_id, article_id)
