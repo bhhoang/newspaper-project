@@ -1,0 +1,52 @@
+{
+  "Authors": [
+    {
+      "_id": "c65f66ca-088f-46bd-b23c-5595e1ce1232",
+      "username": "jane_doe",
+      "password": "123456",
+      "name": "Jane Doe",
+      "email": "jane.doe@example.com",
+      "bio": "Jane Doe is a freelance writer and editor based in New York. She has written for various publications, including The New Yorker, The Atlantic, and The Guardian. She specializes in topics such as culture, politics, and social issues.",
+      "expertise": "Politics",
+      "publication_history": [
+        "59cb6046-206f-4a02-b19c-e7b2d8b61e57",
+        "983e51a9-f7cb-4f5f-ac6f-d991e5b9a9e5"
+      ],
+      "gender": "Female",
+      "dob": "01-15-1985"
+    },
+    {
+      "_id": 2,
+      "username": "john_smith",
+      "password": "abcdef",
+      "name": "John Smith",
+      "email": "john.smith@example.com",
+      "bio": "John Smith is a software engineer and blogger from San Francisco. He has worked for several tech companies, including Google, Facebook, and Twitter. He writes about web development, machine learning, and artificial intelligence.",
+      "expertise": "Technology",
+      "publication_history": [
+        "f95d4d1d-a72d-4340-84f8-8990fb5d88cd",
+        "19285ee1-2d35-4442-b347-c33994013076",
+        "3c447c26-2caa-4fcb-a082-8fa6cac3016d",
+        "d47a8174-0d2c-468e-b378-ef28a19e0f2c"
+      ],
+      "gender": "Male",
+      "dob": "06-12-1987"
+    },
+    {
+      "_id": 3,
+      "username": "bob_lee",
+      "password": "zxcvbn",
+      "name": "Bob Lee",
+      "email": "bob.lee@example.com",
+      "bio": "Bob Lee is a sports journalist and commentator based in Los Angeles. He has covered various sports events, including the Olympics, the World Cup, and the NBA. He is passionate about sports analysis, statistics, and history.",
+      "expertise": "Sports",
+      "publication_history": [
+        "ca70794f-7b3a-4c74-8616-fe6b31a86e98",
+        "a08c03de-47e3-4044-9612-ed5cab6bd1d6",
+        "12340062-c4e9-4444-9de6-aca7baa7c1a0"
+      ],
+      "gender": "Male",
+      "dob": "09-23-1989"
+    }
+  ]
+}
