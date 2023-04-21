@@ -167,3 +167,5 @@ deactivate
 ### 04/21/2023
 - Chuyển sang dùng uuidv4 cho article và author
 - Fix bug khi mở entertain category (Trong code ghi nhầm thành Entertainment)
+### 04/22/2023
+- Các cửa sổ của articles sau khi thêm hoặc xóa giờ sẽ đồng bộ với nhau
