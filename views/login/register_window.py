@@ -1,6 +1,7 @@
-from PyQt6.QtWidgets import QDialog
 from PyQt6 import QtCore
+from PyQt6.QtWidgets import QDialog
 from PyQt6.uic import loadUi
+
 from controller.newspaper import Newspapers
 
 news = Newspapers()

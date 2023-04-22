@@ -1,8 +1,9 @@
-from model.dbquery import Database
-from model.author import Author
-from model.article import Article
-from model.methods import *
 from uuid import uuid4
+
+from model.article import Article
+from model.author import Author
+from model.dbquery import Database
+from model.methods import *
 
 db = Database()
 

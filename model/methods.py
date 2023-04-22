@@ -1,6 +1,7 @@
 import re
+
 import bcrypt
-from model.dbquery import Database
+
 
 def limit_word(text:str, limit:int)->str:
     return ' '.join(text.split())[:limit]

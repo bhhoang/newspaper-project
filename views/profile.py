@@ -1,6 +1,8 @@
+import json
+
 from PyQt6.QtWidgets import QDialog
 from PyQt6.uic import loadUi
-import json
+
 from controller.newspaper import Newspapers
 
 news = Newspapers()

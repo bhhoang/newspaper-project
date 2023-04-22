@@ -1,11 +1,15 @@
-from PyQt6.QtWidgets import QDialog, QFrame, QVBoxLayout
+import json
+
 from PyQt6 import QtGui
+from PyQt6.QtWidgets import QDialog, QFrame, QVBoxLayout
 from PyQt6.uic import loadUi
+
+from controller.newspaper import Newspapers
+from utils.get_preview_image import getimage_and_setname
 from views.add_articles import MainWindow as AddArticleWindow
 from views.delete_articles import DeleteArticle as DeleteArticleWindow
 from utils.get_preview_image import getimage_and_setname
 from controller.newspaper import Newspapers
-from model.dbquery import Database
 import json
 
 news = Newspapers()
