@@ -1,9 +1,12 @@
+import os
+import shutil
+
 import requests
-import os,shutil,sys
 
-## This function is used to get the preview image of an article and save it to the ../cache/articles/article_{article_id}/preview_image.jpg
 
-def getimage_and_setname(image_url:str, article_id:int = 0) -> str:
+# This function is used to get the preview image of an article and save it to the ../cache/articles/article_{article_id}/preview_image.jpg
+
+def getimage_and_setname(image_url: str, article_id: str) -> str:
     if image_url == "":
         return ""
     if not os.path.exists('./cache/articles'):

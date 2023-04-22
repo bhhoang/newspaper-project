@@ -1,8 +1,10 @@
+import configparser
+import os
+
 from pymongo import MongoClient
+
 from .article import Article
 from .author import Author
-import configparser
-import os, sys
 
 config = configparser.ConfigParser()
 config.read(os.path.join(os.path.dirname(__file__), "../base.conf"))
@@ -22,7 +24,7 @@ class Database:
     def count_all_articles(self) -> int:
         return self.articles_collection.count_documents({})
 
-    def add_views(self, article_id: int):
+    def add_views(self, article_id: str):
         self.articles_collection.update_one(
             {"_id": article_id}, {"$inc": {"viewed": 1}}
         )
