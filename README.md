@@ -169,3 +169,6 @@ deactivate
 - Fix bug khi mở entertain category (Trong code ghi nhầm thành Entertainment)
 ### 04/22/2023
 - Các cửa sổ của articles sau khi thêm hoặc xóa giờ sẽ đồng bộ với nhau
+- Giờ chỉ có thể mở một window cho mỗi chức năng
+- SingleTon cho Database class
+- Xử lí encoding với unicode khi mở để đọc báo
