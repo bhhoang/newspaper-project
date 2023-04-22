@@ -8,6 +8,11 @@ db = Database()
 
 
 class Newspapers:
+    def __new__(cls):
+        if not hasattr(cls, 'instance'):
+            cls.instance = super().__new__(cls)
+        return cls.instance
+
     def __init__(self):
         self.__hot_articles: list[Article] = []
         self.__recent_articles: list[Article] = []
