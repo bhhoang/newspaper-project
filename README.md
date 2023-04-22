@@ -122,15 +122,23 @@ virtualenv venv
 ```bash
 pip install -r requirements.txt
 ```
-5. Run app
+5. Init database with init data:
+```bash
+python ./model/Data.py
+```
+6. Run app
 ```bash
 python main.py
 ```
-6. Deactivate virtual environment
+7. Deactivate virtual environment
+- On Windows:
+```bash
+venv\Scripts\deactivate
+```
+- On Linux/Mac:
 ```bash
 deactivate
 ```
-
 ## V - Changelogs
 
 ### 04/16/2023 
