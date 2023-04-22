@@ -150,7 +150,7 @@ class Database:
         author = self.authors_collection.find_one({"name": name})
         return author
 
-    def get_author_by_id(self, ID: int):
+    def get_author_by_id(self, ID: str):
         return self.authors_collection.find_one({"_id": ID})
 
     def update_publish_history(self, author_id: str, article_id: str):
