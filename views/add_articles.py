@@ -33,8 +33,8 @@ class MainWindow(QDialog):
         self.addAction(paste_action)
 
         # Buttons
-        self.confirm_button.accepted.connect(self.accept)
-        self.confirm_button.rejected.connect(self.reject)
+        self.confirm_button.accepted.connect(self.accept_event)
+        self.confirm_button.rejected.connect(self.reject_event)
 
     def handle_clipboard_change(self):
         if self.clipboard.mimeData().hasImage():
@@ -46,7 +46,7 @@ class MainWindow(QDialog):
             cursor = self.text_edit.textCursor()
             cursor.insertImage(image)
 
-    def accept(self) -> None:
+    def accept_event(self) -> None:
         if not os.path.exists("./cache/state.json"):
             QMessageBox.warning(self, "Error", "Please login first!")
             return
@@ -71,5 +71,5 @@ class MainWindow(QDialog):
         self.category_edit.setCurrentIndex(0)
         self.image_link.setPlainText("")
 
-    def reject(self) -> None:
+    def reject_event(self) -> None:
         self.close()
