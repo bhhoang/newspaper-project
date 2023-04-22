@@ -1,9 +1,10 @@
-from PyQt6.QtWidgets import QApplication, QDialog, QMessageBox, QVBoxLayout, QFrame
-from PyQt6.uic import loadUi
-import sys
-from model.dbquery import Database
-from PyQt6 import QtGui
 import json
+
+from PyQt6 import QtGui
+from PyQt6.QtWidgets import QDialog, QMessageBox, QVBoxLayout, QFrame
+from PyQt6.uic import loadUi
+
+from model.dbquery import Database
 from utils.get_preview_image import getimage_and_setname
 
 db = Database()
