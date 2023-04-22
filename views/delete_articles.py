@@ -7,6 +7,7 @@ from model.dbquery import Database
 from PyQt6 import QtGui
 import json
 from utils.get_preview_image import getimage_and_setname
+from utils.singleton import singleton
 
 db = Database()
 
@@ -36,7 +37,7 @@ class DeleteArticle(QDialog):
         self.confirm_button.accepted.connect(self.submit)
         self.confirm_button.rejected.connect(self.reject)
         self.state = json.loads(open("./cache/state.json", 'r').read())
-        self.articles_author = db.get_articles_by_author_id(int(self.state.get("id")))
+        self.articles_author = db.get_articles_by_author_id(self.state.get("id"))
         if self.articles_list.layout() != None:
             layout = self.articles_list.layout()
         else:
@@ -51,16 +52,29 @@ class DeleteArticle(QDialog):
         for i in reversed(range(self.articles_list.layout().count())):
             if self.articles_list.layout().itemAt(i).widget().choosing_checkbox.isChecked():
                 chosed = True
-                db = Database()
                 state = json.loads(open("./cache/state.json", 'r').read())
                 db._delete_article(self.articles_list.layout().itemAt(i).widget().article)
-                db.remove_article_from_author(state.get("id"),int(self.articles_list.layout().itemAt(i).widget().article["_id"]))
+                db.remove_article_from_author(state.get("id"),self.articles_list.layout().itemAt(i).widget().article["_id"])
                 self.articles_list.layout().itemAt(i).widget().deleteLater()
-                QMessageBox.information(self, "Success", "Article deleted successfully!")
-                return
-        if not chosed:
+        if chosed == True:    
+            QMessageBox.information(self, "Success", "Article deleted successfully!")
+            return
+        else:
             QMessageBox.warning(self, "Error", "Please select atleast an article to delete!")
             return
+    
+    def update_views(self):
+        self.articles_author = db.get_articles_by_author_id(self.state.get("id"))
+        if self.articles_list.layout() != None:
+            layout = self.articles_list.layout()
+        else:
+            layout = QVBoxLayout(self.articles_list)
+        for i in reversed(range(self.articles_list.layout().count())):
+            self.articles_list.layout().itemAt(i).widget().deleteLater()
+        for article in self.articles_author:
+            article_card = DeleteArticleCard(article)
+            layout.addWidget(article_card)
+        self.articles_list.show()
 
     def reject(self):
         self.close()

@@ -35,25 +35,40 @@ class DeleteArticleCard(QFrame):
 
 class ArticleManager(QDialog):
        def open_AddArticle(self, news):
-              self.add_article_window = AddArticleWindow(news.add_article)
               self.add_article_window.show()
-       
+              self.add_article_window.confirm_button.accepted.connect(lambda: self.update_articles())
+              self.add_article_window.confirm_button.rejected.connect(self.add_article_window.close)
        def open_DeleteArticle(self):
-              self.delete_article_window = DeleteArticleWindow()
               self.delete_article_window.show()
+              self.delete_article_window.confirm_button.accepted.connect(lambda: self.update_articles())
+              self.delete_article_window.confirm_button.rejected.connect(self.delete_article_window.close)
 
        def __init__(self, news, db):
               super(ArticleManager, self).__init__()
               loadUi("./views/article_management.ui", self)
+              self.db = db
+              self.add_article_window = AddArticleWindow(news.add_article)
+              self.delete_article_window = DeleteArticleWindow()
               self.add_articles_button.clicked.connect(lambda: self.open_AddArticle(news))
               self.delete_articles_button.clicked.connect(self.open_DeleteArticle)
-              state = json.loads(open("./cache/state.json", 'r').read())
-              self.articles_author = db.get_articles_by_author_id(int(state.get("id")))
+              self.state = json.loads(open("./cache/state.json", 'r').read())
+              self.articles_author = db.get_articles_by_author_id(self.state.get("id"))
               if self.articles_list.layout() != None:
                      layout = self.articles_list.layout()
               else:
                      layout = QVBoxLayout(self.articles_list)
               for article in self.articles_author:
                      layout.addWidget(AricleCardManager(article))
-              
               self.articles_display.show()
+       def update_articles(self):
+              self.articles_author = self.db.get_articles_by_author_id(self.state.get("id"))
+              if self.articles_list.layout() != None:
+                     layout = self.articles_list.layout()
+              else:
+                     layout = QVBoxLayout(self.articles_list)
+              for i in reversed(range(layout.count())): 
+                     layout.itemAt(i).widget().deleteLater()
+              for article in self.articles_author:
+                     layout.addWidget(AricleCardManager(article))
+              self.articles_display.show()
+              self.delete_article_window.update_views()
