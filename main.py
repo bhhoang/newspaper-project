@@ -25,21 +25,34 @@ not_available_image = "./views/assets/Resource/No_Image_Available.jpg"
 
 
 class MainWindow(QMainWindow):
+    def __new__(cls):
+        if not hasattr(cls, "instance"):
+            cls.instance = super(MainWindow, cls).__new__(cls)
+        return cls.instance
+    
     def open_ArticleManager(self):
-        self.articleManager = ArticleManager(db=db)
+        if self.articleManager is None:
+            self.articleManager = ArticleManager()
         self.articleManager.show()
+        self.articleManager.activateWindow()
 
     def open_EditProfileWindow(self):
-        self.editProfileWindow = ProfileWindow()
+        if self.editProfileWindow is None:
+            self.editProfileWindow = ProfileWindow()
         self.editProfileWindow.show()
+        self.editProfileWindow.activateWindow()
 
     def open_LoginWindow(self):
-        self.loginWindow = LoginWindow()
+        if self.loginWindow is None:
+            self.loginWindow = LoginWindow()
         self.loginWindow.show()
+        self.loginWindow.activateWindow()
 
     def open_RegisterWindow(self):
-        self.registerWindow = RegisterWindow()
+        if self.registerWindow is None:
+            self.registerWindow = RegisterWindow()
         self.registerWindow.show()
+        self.registerWindow.activateWindow()
 
     def go_home(self):
         self.stackedWidget.setCurrentWidget(self.main_page)
@@ -109,6 +122,10 @@ class MainWindow(QMainWindow):
         self.functional_button.menu().triggered.connect(self.button_menu_action)
 
     def __init__(self):
+        self.loginWindow = None
+        self.registerWindow = None
+        self.articleManager = None
+        self.editProfileWindow = None
         if not os.path.exists("./cache"):
             os.mkdir("./cache")
         super(MainWindow, self).__init__()
@@ -331,7 +348,6 @@ class MainWindow(QMainWindow):
                 self.open_ArticleManager()
 
     def open_category(self, category: str) -> None:
-        print("Opening category: " + category)
         self.stackedWidget.setCurrentWidget(self.category_page)
         self.setWindowTitle("Pirates News - " + category)
         self.list_articles_by_category = db.get_article_by_category(category)
@@ -385,7 +401,13 @@ class MainWindow(QMainWindow):
                         "./cache/articles/article_" + article_id + "/images"
                 ):
                     os.makedirs("./cache/articles/article_" + article_id + "/images/")
-                res = requests.get(image)
+                if image.find("http") == -1:
+                    shutil.copyfile(
+                        image.replace("file:///", ""),
+                        f'./cache/articles/article_{article_id}/images/{iterate}.jpg',
+                    )
+                else:
+                    res = requests.get(image)
                 with open(
                         "./cache/articles/article_"
                         + article_id
@@ -424,11 +446,11 @@ class MainWindow(QMainWindow):
                 img_replace = local_images[i]
                 html_content = html_content.replace(img_source, img_replace)
             with open(
-                    "./cache/articles/article_" + article_id + "/content.html", "w"
+                    "./cache/articles/article_" + article_id + "/content.html", "w", encoding="utf-8"
             ) as f:
                 f.write(html_content)
         article.set_content(
-            open("./cache/articles/article_" + article_id + "/content.html", "r").read()
+            open("./cache/articles/article_" + article_id + "/content.html", "r", encoding="utf-8").read()
         )
         # Align image to center
         article.set_content(
@@ -540,8 +562,14 @@ class ArticleCard(QFrame):
                 continue
             if not os.path.exists("./cache/articles/article_" + article_id + "/images"):
                 os.makedirs("./cache/articles/article_" + article_id + "/images/")
-            res = requests.get(image)
-            with open(
+            if image.find("http") == -1:
+                shutil.copyfile(
+                    image.replace("file:///", ""),
+                    f'./cache/articles/article_{article_id}/images/{iterate}.jpg'
+                )
+            else:
+                res = requests.get(image)
+                with open(
                     # "./cache/articles/article_"
                     # + article_id
                     # + "/images/"
@@ -549,8 +577,8 @@ class ArticleCard(QFrame):
                     # + ".jpg",
                     f"./cache/articles/article_{article_id}/images/{iterate}.jpg",
                     "wb",
-            ) as f:
-                f.write(res.content)
+                ) as f:
+                    f.write(res.content)
             local_images.append(
                 # "./cache/articles/article_"
                 # + article_id
@@ -573,11 +601,11 @@ class ArticleCard(QFrame):
                 img_replace = local_images[i]
                 html_content = html_content.replace(img_source, img_replace)
             with open(
-                    "./cache/articles/article_" + article_id + "/content.html", "w"
+                    "./cache/articles/article_" + article_id + "/content.html", "w" , encoding="utf-8"
             ) as f:
                 f.write(html_content)
         self.article["content"] = open(
-            "./cache/articles/article_" + article_id + "/content.html", "r"
+            "./cache/articles/article_" + article_id + "/content.html", "r" , encoding="utf-8"
         ).read()
         # Align image to center
         self.article["content"] = self.article["content"].replace(

@@ -5,10 +5,11 @@ from views.add_articles import MainWindow as AddArticleWindow
 from views.delete_articles import DeleteArticle as DeleteArticleWindow
 from utils.get_preview_image import getimage_and_setname
 from controller.newspaper import Newspapers
+from model.dbquery import Database
 import json
 
 news = Newspapers()
-
+db = Database()
 class ArticleCardManager(QFrame):
     def __init__(self, article):
         super(ArticleCardManager, self).__init__()
@@ -38,17 +39,24 @@ class DeleteArticleCard(QFrame):
 
 
 class ArticleManager(QDialog):
+    def __new__(cls):
+        if not hasattr(cls, "instance"):
+            cls.instance = super(ArticleManager, cls).__new__(cls)
+        else:
+            cls.instance.update_articles()
+        return cls.instance
+    
     def open_AddArticle(self):
         self.add_article_window.show()
         self.add_article_window.confirm_button.accepted.connect(self.update_articles)
-        self.add_article_window.confirm_button.rejected.connect(self.add_article_window.close)
+        self.add_article_window.confirm_button.rejected.connect(self.add_article_window.hide)
 
     def open_DeleteArticle(self):
         self.delete_article_window.show()
         self.delete_article_window.confirm_button.accepted.connect(self.update_articles)
-        self.delete_article_window.confirm_button.rejected.connect(self.delete_article_window.close)
+        self.delete_article_window.confirm_button.rejected.connect(self.delete_article_window.hide)
 
-    def __init__(self, db):
+    def __init__(self):
         super(ArticleManager, self).__init__()
         loadUi("./views/article_management.ui", self)
         self.db = db

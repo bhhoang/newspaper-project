@@ -14,6 +14,11 @@ add_article_callback = news.add_article
 
 
 class MainWindow(QDialog):
+    def __new__(cls):
+        if not hasattr(cls, "instance"):
+            cls.instance = super(MainWindow, cls).__new__(cls)
+        return cls.instance
+    
     def __init__(self):
         super(MainWindow, self).__init__()
         loadUi(os.path.abspath("./views/add_articles.ui"), self)

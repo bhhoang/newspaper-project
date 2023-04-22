@@ -10,6 +10,7 @@ class RegisterWindow(QDialog):
     def __init__(self):
         super(RegisterWindow, self).__init__()
         loadUi("./views/login/register.ui", self)
+        self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
         self.show()
         self.submit_button.clicked.connect(self.submit)
 

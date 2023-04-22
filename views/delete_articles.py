@@ -29,6 +29,12 @@ class DeleteArticleCard(QFrame):
 
 
 class DeleteArticle(QDialog):
+    
+    def __new__(cls):
+        if not hasattr(cls, "instance"):
+            cls.instance = super(DeleteArticle, cls).__new__(cls)
+        return cls.instance
+    
     def __init__(self):
         super(DeleteArticle, self).__init__()
         loadUi('./views/delete_articles.ui', self)
