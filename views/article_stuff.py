@@ -11,6 +11,7 @@ from views.delete_articles import DeleteArticle as DeleteArticleWindow
 from utils.get_preview_image import getimage_and_setname
 from controller.newspaper import Newspapers
 import json
+from model.dbquery import Database
 
 news = Newspapers()
 db = Database()
