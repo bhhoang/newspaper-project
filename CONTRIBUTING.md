@@ -40,7 +40,7 @@ Scan through our [existing issues](https://github.com/github/docs/issues) to fin
 
 Click **Make a contribution** at the bottom of any docs page to make small changes such as a typo, sentence fix, or a broken link. This takes you to the `.md` file where you can make your changes and [create a pull request](#pull-request) for a review.
 
- <img src="/contributing/images/contribution_cta.png" />
+ <img src="https://github.com/github/docs/blob/main/contributing/images/contribution_cta.png?raw=true" />
 
 #### Make changes in a codespace
 
