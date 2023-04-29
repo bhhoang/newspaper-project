@@ -3,57 +3,82 @@ from uuid import uuid4
 from model.article import Article
 from model.author import Author
 from model.dbquery import Database
-from model.methods import *
+from model.methods import check_password, hash_password
 
 db = Database()
 
 
 class Newspapers:
     def __new__(cls):
-        if not hasattr(cls, 'instance'):
+        if not hasattr(cls, "instance"):
             cls.instance = super().__new__(cls)
         return cls.instance
 
     def __init__(self):
         self.__hot_articles: list[Article] = []
         self.__recent_articles: list[Article] = []
-        self.__hot_articles.append(self.__convert_to_Article(db.get_articles_sort_views(1)[0]))
+        self.__hot_articles.append(
+            self.__convert_to_Article(db.get_articles_sort_views(1)[0])
+        )
         for article in db.get_articles_sort_date(6):
             self.__recent_articles.append(self.__convert_to_Article(article))
-        self.__current_author: Author | None = None     # Default to None when not logged in
+        self.__current_author: Author | None = (
+            None  # Default to None when not logged in
+        )
 
     @staticmethod
     def __convert_to_Author(author_info) -> Author:
-        username = author_info['username']
-        password = author_info['password']
-        ID = author_info['_id']
-        name = author_info['name']
-        gender = author_info['gender']
-        dob = author_info['dob']
-        email = author_info['email']
-        bio = author_info['bio']
-        expertise = author_info['expertise']
-        publication_history = author_info['publication_history']
-        author = Author(username, password, name, ID, email, gender, dob, bio, expertise, publication_history)
+        username = author_info["username"]
+        password = author_info["password"]
+        ID = author_info["_id"]
+        name = author_info["name"]
+        gender = author_info["gender"]
+        dob = author_info["dob"]
+        email = author_info["email"]
+        bio = author_info["bio"]
+        expertise = author_info["expertise"]
+        publication_history = author_info["publication_history"]
+        author = Author(
+            username,
+            password,
+            name,
+            ID,
+            email,
+            gender,
+            dob,
+            bio,
+            expertise,
+            publication_history,
+        )
         return author
 
     @staticmethod
     def __convert_to_Article(article_info) -> Article:
-        date = article_info['date']
-        category = article_info['category']
-        viewed = article_info['viewed']
-        title = article_info['title']
-        description = article_info['description']
-        author_id = article_info['author']
-        content = article_info['content']
-        ID = article_info['_id']
-        preview_img = article_info['preview_img']
-        article = Article(date, category, title, description, author_id, content, ID, preview_img, viewed)
+        date = article_info["date"]
+        category = article_info["category"]
+        viewed = article_info["viewed"]
+        title = article_info["title"]
+        description = article_info["description"]
+        author_id = article_info["author"]
+        content = article_info["content"]
+        ID = article_info["_id"]
+        preview_img = article_info["preview_img"]
+        article = Article(
+            date,
+            category,
+            title,
+            description,
+            author_id,
+            content,
+            ID,
+            preview_img,
+            viewed,
+        )
         return article
 
     # Signup, Login and Logout
     @staticmethod
-    def create_author(username: str, password: str, real_name: str, email:str) -> bool:
+    def create_author(username: str, password: str, real_name: str, email: str) -> bool:
         """
         :return: False if username is already taken, True otherwise
         """
@@ -75,12 +100,12 @@ class Newspapers:
         :param password: Password of the author
         :return: False if account doesn't exist or password is incorrect, Author object otherwise
         """
-        author_info = db.authors_collection.find_one({'username': username})
+        author_info = db.authors_collection.find_one({"username": username})
         # Account doesnt exists
         if author_info is None:
             return False
         # Check password
-        if check_password(password, author_info['password']):
+        if check_password(password, author_info["password"]):
             author_obj = self.__convert_to_Author(author_info)
             self.__current_author = author_obj
             return author_obj
@@ -97,11 +122,10 @@ class Newspapers:
     @staticmethod
     def get_all_categories() -> list[str]:
         return db.get_all_categories()
-    
-    
+
     def get_hot_articles(self) -> list[Article]:
         return self.__hot_articles
-    
+
     def get_recent_articles(self) -> list[Article]:
         return self.__recent_articles
 
@@ -116,12 +140,16 @@ class Newspapers:
         """
         :return: List of Article objs or None if there are no articles with the title containing text
         """
-        articles = db.get_article_by_title(text)    # List of articles that its title containing text
+        articles = db.get_article_by_title(
+            text
+        )  # List of articles that its title containing text
         if len(articles) == 0:
             return None
         article_objs: list[Article] = []
         for article in articles:
-            article_obj = self.__convert_to_Article(article)    # Convert to Article object
+            article_obj = self.__convert_to_Article(
+                article
+            )  # Convert to Article object
             article_objs.append(article_obj)
         return article_objs
 
@@ -146,10 +174,10 @@ class Newspapers:
         :raise ValueError: If author is not found
         """
         article_objs: list[Article] = []
-        author = db.get_author_by_name(author_name)     # Check if author exists
+        author = db.get_author_by_name(author_name)  # Check if author exists
         if author is None:
             raise ValueError("Author not found")
-        article_ids = author['publication_history']
+        article_ids = author["publication_history"]
         if len(article_ids) == 0:
             return None
         for ID in article_ids:
@@ -157,7 +185,7 @@ class Newspapers:
             article_obj = self.__convert_to_Article(article)
             article_objs.append(article_obj)
         return article_objs
-    
+
     def get_articles_sort_by_views(self, limit: int) -> list[Article]:
         article_objs: list[Article] = []
         articles = db.get_articles_sort_views(limit)
@@ -165,7 +193,7 @@ class Newspapers:
             article_obj = self.__convert_to_Article(article)
             article_objs.append(article_obj)
         return article_objs
-    
+
     def get_articles_sort_by_date(self, limit: int) -> list[Article]:
         article_objs: list[Article] = []
         articles = db.get_articles_sort_date(limit)
@@ -176,7 +204,15 @@ class Newspapers:
 
     # TODO: Add method to increase views of an article
     # Actions when logged in (Includes actions when not logged in)
-    def add_article(self, date: str, category: str, title: str, overview: str, content: str, preview_img:str="") -> None:
+    def add_article(
+        self,
+        date: str,
+        category: str,
+        title: str,
+        overview: str,
+        content: str,
+        preview_img: str = "",
+    ) -> None:
         """
         :raise Exception: if the author is not logged in
         :raise ValueError: if the category is invalid
@@ -189,7 +225,9 @@ class Newspapers:
 
         author_id = self.__current_author.get_id()
         article_id = str(uuid4())
-        article = Article(date, category, title, overview, author_id, content, article_id, preview_img )
+        article = Article(
+            date, category, title, overview, author_id, content, article_id, preview_img
+        )
         self.__current_author.add_article(article.get_id())
         db.update_publish_history(author_id, article_id)
         db.add_articles_to_db(article)
@@ -211,7 +249,9 @@ class Newspapers:
         if self.__current_author is None:
             raise Exception("User is not logged in")
         if not validate_email(email):
-            raise ValueError("Invalid email. The email must be in the format of abc@def.xyz")
+            raise ValueError(
+                "Invalid email. The email must be in the format of abc@def.xyz"
+            )
         self.__current_author.set_email(email)
         db.set_email(self.__current_author.get_id(), email)
 

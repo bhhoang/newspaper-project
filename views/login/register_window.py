@@ -16,7 +16,12 @@ class RegisterWindow(QDialog):
         self.submit_button.clicked.connect(self.submit)
 
     def submit(self):
-        if (self.name_input.text()).strip() == "" or self.password_input.text() == "" or self.username_input.text() == "" or self.email_input.text() == "":
+        if (
+            (self.name_input.text()).strip() == ""
+            or self.password_input.text() == ""
+            or self.username_input.text() == ""
+            or self.email_input.text() == ""
+        ):
             self.status_label.setStyleSheet("color: #ff0000;")
             self.status_label.setText("All fields are required")
         else:

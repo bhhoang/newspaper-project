@@ -1,7 +1,7 @@
 import json
 
 from PyQt6 import QtGui
-from PyQt6.QtWidgets import QDialog, QMessageBox, QVBoxLayout, QFrame
+from PyQt6.QtWidgets import QDialog, QFrame, QMessageBox, QVBoxLayout
 from PyQt6.uic import loadUi
 
 from model.dbquery import Database
@@ -15,7 +15,9 @@ class DeleteConfirm(QMessageBox):
         super(DeleteConfirm, self).__init__()
         self.setWindowTitle("Confirmation")
         self.setText("Are you sure you want to delete the selected articles?")
-        self.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+        self.setStandardButtons(
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
         self.setDefaultButton(QMessageBox.StandardButton.No)
 
 
@@ -24,26 +26,29 @@ class DeleteArticleCard(QFrame):
         super(DeleteArticleCard, self).__init__()
         loadUi("./views/articledel_card.ui", self)
         self.article = article
-        self.title.setText(self.article['title'])
-        self.description.setText(self.article['description'])
-        self.image.setPixmap(QtGui.QPixmap(getimage_and_setname(self.article['preview_img'], self.article['_id'])))
+        self.title.setText(self.article["title"])
+        self.description.setText(self.article["description"])
+        self.image.setPixmap(
+            QtGui.QPixmap(
+                getimage_and_setname(self.article["preview_img"], self.article["_id"])
+            )
+        )
 
 
 class DeleteArticle(QDialog):
-    
     def __new__(cls):
         if not hasattr(cls, "instance"):
             cls.instance = super(DeleteArticle, cls).__new__(cls)
         return cls.instance
-    
+
     def __init__(self):
         super(DeleteArticle, self).__init__()
-        loadUi('./views/delete_articles.ui', self)
+        loadUi("./views/delete_articles.ui", self)
 
         # Connect signals and slots
         self.confirm_button.accepted.connect(self.submit)
         self.confirm_button.rejected.connect(self.reject)
-        self.state = json.loads(open("./cache/state.json", 'r').read())
+        self.state = json.loads(open("./cache/state.json", "r").read())
         self.articles_author = db.get_articles_by_author_id(self.state.get("id"))
         if self.articles_list.layout() != None:
             layout = self.articles_list.layout()
@@ -57,18 +62,29 @@ class DeleteArticle(QDialog):
     def submit(self):
         chosen = False
         for i in reversed(range(self.articles_list.layout().count())):
-            if self.articles_list.layout().itemAt(i).widget().choosing_checkbox.isChecked():
+            if (
+                self.articles_list.layout()
+                .itemAt(i)
+                .widget()
+                .choosing_checkbox.isChecked()
+            ):
                 chosen = True
-                state = json.loads(open("./cache/state.json", 'r').read())
-                db._delete_article(self.articles_list.layout().itemAt(i).widget().article)
-                db.remove_article_from_author(state.get("id"),
-                                              self.articles_list.layout().itemAt(i).widget().article["_id"])
+                state = json.loads(open("./cache/state.json", "r").read())
+                db._delete_article(
+                    self.articles_list.layout().itemAt(i).widget().article
+                )
+                db.remove_article_from_author(
+                    state.get("id"),
+                    self.articles_list.layout().itemAt(i).widget().article["_id"],
+                )
                 self.articles_list.layout().itemAt(i).widget().deleteLater()
         if chosen:
             QMessageBox.information(self, "Success", "Article deleted successfully!")
             return
         else:
-            QMessageBox.warning(self, "Error", "Please select atleast an article to delete!")
+            QMessageBox.warning(
+                self, "Error", "Please select atleast an article to delete!"
+            )
             return
 
     def update_views(self):

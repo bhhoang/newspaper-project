@@ -7,13 +7,14 @@ from controller.newspaper import Newspapers
 
 news = Newspapers()
 
+
 class ProfileWindow(QDialog):
     def __init__(self):
         super(ProfileWindow, self).__init__()
         loadUi("./views/profile.ui", self)
         self.show()
         self.stackedWidget.setCurrentWidget(self.profile_page)
-        self.state = json.loads(open("./cache/state.json", 'r').read())
+        self.state = json.loads(open("./cache/state.json", "r").read())
         self.name_display.setText(self.state.get("name"))
         self.email_display.setText(self.state.get("email"))
         self.gender_display.setText(self.state.get("gender", "Not set"))
@@ -82,7 +83,7 @@ class ProfileWindow(QDialog):
             "expertise": expertise,
             "bio": bio,
         }
-        with open("./cache/state.json", 'w') as f:
+        with open("./cache/state.json", "w") as f:
             f.write(json.dumps(state))
 
         # Update on DB and controller's current_author

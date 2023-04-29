@@ -3,12 +3,12 @@ import os
 import sys
 
 from PyQt6.QtGui import QAction
-from PyQt6.QtWidgets import QDialog, QApplication, QMessageBox
+from PyQt6.QtWidgets import QApplication, QDialog, QMessageBox
 from PyQt6.uic import loadUi
 
 from controller.newspaper import Newspapers
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 news = Newspapers()
 add_article_callback = news.add_article
 
@@ -18,7 +18,7 @@ class MainWindow(QDialog):
         if not hasattr(cls, "instance"):
             cls.instance = super(MainWindow, cls).__new__(cls)
         return cls.instance
-    
+
     def __init__(self):
         super(MainWindow, self).__init__()
         loadUi(os.path.abspath("./views/add_articles.ui"), self)
@@ -65,10 +65,14 @@ class MainWindow(QDialog):
             QMessageBox.warning(self, "Error", "Please enter content!")
             return
 
-        add_article_callback(date=str(datetime.datetime.today().strftime('%m-%d-%Y')),
-                             title=self.title_edit.toPlainText(), overview=self.description_edit.toPlainText(),
-                             content=self.content_edit.toHtml(), category=self.category_edit.currentText(),
-                             preview_img=self.image_link.toPlainText())
+        add_article_callback(
+            date=str(datetime.datetime.today().strftime("%m-%d-%Y")),
+            title=self.title_edit.toPlainText(),
+            overview=self.description_edit.toPlainText(),
+            content=self.content_edit.toHtml(),
+            category=self.category_edit.currentText(),
+            preview_img=self.image_link.toPlainText(),
+        )
         QMessageBox.information(self, "Success", "Article added successfully!")
         self.title_edit.setPlainText("")
         self.description_edit.setPlainText("")

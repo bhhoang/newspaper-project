@@ -1,10 +1,10 @@
 import ctypes
 import os
+import shutil
 import sys
 import time
 
 import requests
-import shutil
 from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
 from selectolax.parser import HTMLParser
@@ -29,7 +29,7 @@ class MainWindow(QMainWindow):
         if not hasattr(cls, "instance"):
             cls.instance = super(MainWindow, cls).__new__(cls)
         return cls.instance
-    
+
     def open_ArticleManager(self):
         if self.articleManager is None:
             self.articleManager = ArticleManager()
@@ -178,7 +178,9 @@ class MainWindow(QMainWindow):
         self.hot_news_title.setText(hot_news.get_title())
         self.hot_news_description.setText(hot_news.get_overview())
         self.hot_news_image.setPixmap(
-            QtGui.QPixmap(getimage_and_setname(hot_news.get_preview_img(), hot_news.get_id()))
+            QtGui.QPixmap(
+                getimage_and_setname(hot_news.get_preview_img(), hot_news.get_id())
+            )
         )
         if getimage_and_setname(hot_news.get_preview_img(), hot_news.get_id()) == "":
             self.hot_news_image.setPixmap(QtGui.QPixmap(not_available_image))
@@ -209,8 +211,8 @@ class MainWindow(QMainWindow):
             )
         )
         if (
-                getimage_and_setname(recents[0].get_preview_img(), recents[0].get_id())
-                == ""
+            getimage_and_setname(recents[0].get_preview_img(), recents[0].get_id())
+            == ""
         ):
             self.recent_1_image.setPixmap(QtGui.QPixmap(not_available_image))
         self.recent_1_image.setScaledContents(True)
@@ -235,8 +237,8 @@ class MainWindow(QMainWindow):
             )
         )
         if (
-                getimage_and_setname(recents[1].get_preview_img(), recents[1].get_id())
-                == ""
+            getimage_and_setname(recents[1].get_preview_img(), recents[1].get_id())
+            == ""
         ):
             self.recent_2_image.setPixmap(QtGui.QPixmap(not_available_image))
         self.recent_2_image.setScaledContents(True)
@@ -262,8 +264,8 @@ class MainWindow(QMainWindow):
             )
         )
         if (
-                getimage_and_setname(recents[2].get_preview_img(), recents[2].get_id())
-                == ""
+            getimage_and_setname(recents[2].get_preview_img(), recents[2].get_id())
+            == ""
         ):
             self.old_1_image.setPixmap(QtGui.QPixmap(not_available_image))
         self.old_1_image.setScaledContents(True)
@@ -279,7 +281,10 @@ class MainWindow(QMainWindow):
                 getimage_and_setname(recents[3].get_preview_img(), recents[3].get_id())
             )
         )
-        if getimage_and_setname(recents[3].get_preview_img(), recents[3].get_id()) == "":
+        if (
+            getimage_and_setname(recents[3].get_preview_img(), recents[3].get_id())
+            == ""
+        ):
             self.old_2_image.setPixmap(QtGui.QPixmap(not_available_image))
 
         self.old_3.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
@@ -293,7 +298,10 @@ class MainWindow(QMainWindow):
                 getimage_and_setname(recents[4].get_preview_img(), recents[4].get_id())
             )
         )
-        if getimage_and_setname(recents[4].get_preview_img(), recents[4].get_id()) == "":
+        if (
+            getimage_and_setname(recents[4].get_preview_img(), recents[4].get_id())
+            == ""
+        ):
             self.old_3_image.setPixmap(QtGui.QPixmap(not_available_image))
 
         self.old_4.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
@@ -306,7 +314,10 @@ class MainWindow(QMainWindow):
                 getimage_and_setname(recents[5].get_preview_img(), recents[5].get_id())
             )
         )
-        if getimage_and_setname(recents[5].get_preview_img(), recents[5].get_id()) == "":
+        if (
+            getimage_and_setname(recents[5].get_preview_img(), recents[5].get_id())
+            == ""
+        ):
             self.old_4_image.setPixmap(QtGui.QPixmap(not_available_image))
 
         # Categories part
@@ -316,7 +327,9 @@ class MainWindow(QMainWindow):
         self.Entertain.clicked.connect(lambda: self.open_category("Entertain"))
         self.Traffic.clicked.connect(lambda: self.open_category("Traffic"))
         self.Medical.clicked.connect(lambda: self.open_category("Medical"))
-        self.SciTech.clicked.connect(lambda: self.open_category("Science and Technology"))
+        self.SciTech.clicked.connect(
+            lambda: self.open_category("Science and Technology")
+        )
         self.Travel.clicked.connect(lambda: self.open_category("Travel"))
 
         self.Economy.setToolTip("Economy")
@@ -391,30 +404,30 @@ class MainWindow(QMainWindow):
         iterate = 0
         for image in images:
             if not os.path.exists(
-                    "./cache/articles/article_"
-                    + article_id
-                    + "/images/"
-                    + str(iterate)
-                    + ".jpg"
+                "./cache/articles/article_"
+                + article_id
+                + "/images/"
+                + str(iterate)
+                + ".jpg"
             ):
                 if not os.path.exists(
-                        "./cache/articles/article_" + article_id + "/images"
+                    "./cache/articles/article_" + article_id + "/images"
                 ):
                     os.makedirs("./cache/articles/article_" + article_id + "/images/")
                 if image.find("http") == -1:
                     shutil.copyfile(
                         image.replace("file:///", ""),
-                        f'./cache/articles/article_{article_id}/images/{iterate}.jpg',
+                        f"./cache/articles/article_{article_id}/images/{iterate}.jpg",
                     )
                 else:
                     res = requests.get(image)
                 with open(
-                        "./cache/articles/article_"
-                        + article_id
-                        + "/images/"
-                        + str(iterate)
-                        + ".jpg",
-                        "wb",
+                    "./cache/articles/article_"
+                    + article_id
+                    + "/images/"
+                    + str(iterate)
+                    + ".jpg",
+                    "wb",
                 ) as f:
                     f.write(res.content)
                 local_images.append(
@@ -437,7 +450,7 @@ class MainWindow(QMainWindow):
         # Replace img src with each of local images
         html_content = str(html_content.html)
         if not os.path.exists(
-                "./cache/articles/article_" + article_id + "/content.html"
+            "./cache/articles/article_" + article_id + "/content.html"
         ):
             if not os.path.exists("./cache/articles/article_" + article_id + "/"):
                 os.makedirs("./cache/articles/article_" + article_id + "/")
@@ -446,11 +459,17 @@ class MainWindow(QMainWindow):
                 img_replace = local_images[i]
                 html_content = html_content.replace(img_source, img_replace)
             with open(
-                    "./cache/articles/article_" + article_id + "/content.html", "w", encoding="utf-8"
+                "./cache/articles/article_" + article_id + "/content.html",
+                "w",
+                encoding="utf-8",
             ) as f:
                 f.write(html_content)
         article.set_content(
-            open("./cache/articles/article_" + article_id + "/content.html", "r", encoding="utf-8").read()
+            open(
+                "./cache/articles/article_" + article_id + "/content.html",
+                "r",
+                encoding="utf-8",
+            ).read()
         )
         # Align image to center
         article.set_content(
@@ -557,7 +576,7 @@ class ArticleCard(QFrame):
         iterate = 0
         for image in images:
             if os.path.exists(
-                    f"./cache/articles/article_{article_id}/images/{iterate}.jpg"
+                f"./cache/articles/article_{article_id}/images/{iterate}.jpg"
             ):
                 continue
             if not os.path.exists("./cache/articles/article_" + article_id + "/images"):
@@ -565,7 +584,7 @@ class ArticleCard(QFrame):
             if image.find("http") == -1:
                 shutil.copyfile(
                     image.replace("file:///", ""),
-                    f'./cache/articles/article_{article_id}/images/{iterate}.jpg'
+                    f"./cache/articles/article_{article_id}/images/{iterate}.jpg",
                 )
             else:
                 res = requests.get(image)
@@ -592,7 +611,7 @@ class ArticleCard(QFrame):
         # Replace img src with each of local images
         html_content = str(html_content.html)
         if not os.path.exists(
-                "./cache/articles/article_" + article_id + "/content.html"
+            "./cache/articles/article_" + article_id + "/content.html"
         ):
             if not os.path.exists("./cache/articles/article_" + article_id + "/"):
                 os.makedirs("./cache/articles/article_" + article_id + "/")
@@ -601,11 +620,15 @@ class ArticleCard(QFrame):
                 img_replace = local_images[i]
                 html_content = html_content.replace(img_source, img_replace)
             with open(
-                    "./cache/articles/article_" + article_id + "/content.html", "w" , encoding="utf-8"
+                "./cache/articles/article_" + article_id + "/content.html",
+                "w",
+                encoding="utf-8",
             ) as f:
                 f.write(html_content)
         self.article["content"] = open(
-            "./cache/articles/article_" + article_id + "/content.html", "r" , encoding="utf-8"
+            "./cache/articles/article_" + article_id + "/content.html",
+            "r",
+            encoding="utf-8",
         ).read()
         # Align image to center
         self.article["content"] = self.article["content"].replace(
