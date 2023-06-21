@@ -1,5 +1,5 @@
 PyQt6==6.5.0
 bcrypt==4.0.1
 selectolax==0.3.12
-pymongo==4.3.3
+pymongo==4.4.0
 requests==2.29.0
